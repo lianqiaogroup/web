@@ -1,0 +1,18 @@
+Changes with 4.37.0-hotfix                                         20 July 2018
+
+    *) BLN订单导出时,优化师ID错误,不是order.aid, 是product.ad_member_id
+
+Changes with 4.36.0                                                07 July 2018
+
+    *) BLN单品站订单不推送至ERP, 单独发送订单至邮件。
+
+        1. 发送今天之前的所有订单(百灵鸟单品站已经上线几天, 没有发货)
+            命令 php console SendAllOrderToBLN
+
+        2. 发送今天的所有订单, 用于持续测试
+            命令 php console SendTestOrderToBLN
+            测试 http://www.建站后台域名.com/tests/SendTestOrderToBLN.php
+
+        3. 发送前一天的所有订单, 每天早上北京九点执行
+            定时任务 php console SendOrderToBLN
+

@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/shopadmin.sublime-project
+/config/config.php
+/log
+/admin/node_modules/
+/admin/develop/
+!Cuckoo.png
+/admin/themeBuilder/node_modules/
+/upload/
+shopAdmin.sublime-workspace
+/admin/index.php
+/admin/build/js/*.js
+node_modules/.npminstall.done
+node_modules/.package_versions.json
