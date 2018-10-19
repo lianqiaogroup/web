@@ -1,0 +1,47 @@
+@mainColor: #1f9fff;
+
+
+#page_theme_diy {
+    background-color: #f1f1f1;
+    padding: 20px;
+    position: relative;
+    box-sizing: border-box;
+
+    .page_theme_diy_title {
+        height: 50px;
+        line-height: 50px;
+    } 
+
+    // 预览层    
+    @import 'render';
+    @import './theme/style5/index.less';
+    
+    @import './theme/style57/index.less';
+
+    #style22 {
+        @import './theme/style22/index.less';
+    }
+
+    #style27 {
+        @import './theme/style27/index.less';
+    }
+
+    #style32 {
+        @import './theme/style32/index.less';
+        background:url(../images/bg.jpg) no-repeat center;
+        background-size:cover;
+        height:100%;
+        background-attachment:fixed;
+        background-color:#3D000F;
+    }
+
+    #style64 {
+        @import './theme/style64/index.less';
+    }
+    
+
+    // 右侧编辑区域
+    @import 'aside';
+
+
+}

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Bootstrap core CSS -->
+    <link href="http://shopadmin.stosz.com/bootstrap/css/bootstrap.css?v=1.2" rel="stylesheet">
+    <!--external css-->
+    <link href="http://shopadmin.stosz.com/font/font-awesome.css?v=1.14" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="template/assets/css/zabuto_calendar.css">
+    <!--link rel="stylesheet" type="text/css" href="template/assets/js/gritter/css/jquery.gritter.css" /-->
+    <!--link rel="stylesheet" type="text/css" href="template/assets/lineicons/style.css"-->
+
+    <!-- Custom styles for this template -->
+    <link href="template/assets/css/style.css" rel="stylesheet">
+    <link href="template/assets/css/style-responsive.css" rel="stylesheet">
+    <link href="template/plugins/dialog/dist/ui-dialog.css" rel="stylesheet">
+
+    <script src="http://shopadmin.stosz.com/javascript/jquery.js"></script>
+    <script type="text/javascript" src="http://shopadmin.stosz.com/javascript/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="http://shopadmin.stosz.com/bootstrap/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <style type="text/css">
+        .selectAttr {
+            margin-left: 850px;
+            color: #fff;
+            background-color: #3071a9;
+            border-color: #285e8e;
+        }
+
+        .text-center {
+            margin-bottom: -80px;
+        }
+        .form-group{
+            position: relative;
+            height:800px;
+            overflow:auto;
+            margin-bottom:0px;
+        }
+        .form-group .bg{
+            position: absolute;
+            right: 0px;
+            top:0px;
+            width: 25px;
+            height: 37px;
+            background-color: #f2f2f2;
+            z-index: 1;
+        }
+        .scrolltable {
+            position: relative;
+            margin: 0px;
+            width: 100%;
+            max-height: 760px;
+            border:none;
+            z-index: 0;
+        }
+
+        .scrolltable thead {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            display: block;
+            width: 100%;
+            height: 40px;
+            background: #f2f2f2;
+            overflow-y: scroll;
+            z-index: 1;
+        }
+
+        .scrolltable thead tr {
+            display: flex;
+            width: 100%;
+        }
+        
+
+        .scrolltable thead tr th {
+            flex: 1;
+        }
+
+        .scrolltable #AddList {
+            display: block;
+            margin: 40px 0px;
+            max-height: 680px;
+            overflow-y: scroll;
+            border-top: none;
+        }
+
+        .scrolltable #AddList tr {
+            display: flex;
+            width: 100%;
+        }
+
+        .scrolltable #AddList tr td {
+            flex: 1;
+            border-top: none;
+        }
+    </style>
+
+    <div class="form-group">
+            <div class="bg"></div>
+        <table id="sample-table-1" class="table table-striped table-bordered table-hover scrolltable">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" name="checkAll" class="checkAll">全选/全不选</th>
+                    <th>属性组id</th>
+                    <th>属性名称</th>
+                    {#
+                    <th>属性中文名称</th> #}
+                    <th>属性值id</th>
+                    <th>属性值名称</th>
+                    {#
+                    <th>属性值中文名称</th> #}
+                    <th>属性图片</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="searchList">
+
+            </tbody>
+            <tbody id="AddList">
+                {% for a in product_attr %}
+                <tr>
+                    <td>
+                        <input type="checkbox" class="attr_id" name="attr_id[{{a.attr_group_id}}][]" {% if a.checked %}checked="checked" {% endif
+                            %}} alt="{{a.attr_group_id}}" value="{{a.product_attr_id}}">
+                    </td>
+                    <td class="attr_group_id_{{a.attr_group_id}}">{{a.attr_group_id}}</td>
+                    <td class="attr_group_name_{{a.attr_group_id}}">{{a.attr_group_title}}</td>
+                    <td class="attr_id_{{a.product_attr_id}}">{{a.product_attr_id}}</td>
+                    <td class="attr_value_name">{{a.name}}</td>
+                    <td>
+                        <img src="{{ a.thumb }}" width="40" height="40">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- <div class="text-center">
+        {{ product_attr.pageHtml|raw }}
+    </div> -->
+        <div>
+            <button class="btn btn-default selectAttr" type="button" tid="{{v.product_id}}" img="{{ v.thumb }}">确定选择</button>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            window.parent.$('#content\\:_selectGoodsAttr_' + window.parent.attr_dial + ' iframe').attr('scrolling', 'yes');
+            var attr_dial = parent.dialog.get(window), _data = attr_dial.data;
+            //插入
+            $(document.body).on("click", 'button.selectAttr', function () {
+                var _all_group_key = [];
+                //var _all_group_value = [];
+                var _all_group_value_names = [];
+                var _group_key = [];
+                var _group_value = [];
+                var _group_value_names = [];
+                var es = $('.attr_id');
+                var all_l = es.length;
+                var _l = 0;
+                var s = '';
+                var s_name = '';
+                if (es) {
+                    var value_name = '';
+                    for (var i = 0; i <= es.length - 1; i++) {
+                        var index = $.inArray(es[i].alt, _all_group_key);
+                        if (index == -1) {
+                            _all_group_key.push(es[i].alt);
+                        }
+                        if ('undefined' == _all_group_value_names[es[i].alt] || !_all_group_value_names[es[i].alt]) {
+                            _all_group_value_names[es[i].alt] = [];
+                        }
+                        value_name = $($(es[i]).parent().parent().find('.attr_value_name')[0]).html();
+                        _all_group_value_names[es[i].alt].push(value_name);
+                        if (es[i].checked) {
+                            var _index = $.inArray(es[i].alt, _group_key);
+                            if (_index == -1) {
+                                _group_key.push(es[i].alt);
+                            }
+                            index = _group_key.length - 1;
+                            if ('undefined' == _group_value[es[i].alt] || !_group_value[es[i].alt]) {
+                                _group_value[es[i].alt] = [];
+                                _group_value_names[es[i].alt] = [];
+                            }
+                            _group_value[es[i].alt].push(es[i].value);
+                            _group_value_names[es[i].alt].push(value_name);
+                            _l += 1;
+                        }
+                    }
+                    if (_all_group_key.toString() != _group_key.toString()) {
+                        alert('每个属性组至少选择一个属性值');
+                        return false;
+                    }
+                    //全选或全不选，直接用空字符串，与之前的逻辑一致
+                    if ((all_l == _l) || !_group_value) {
+                        s = '';
+                        s_name = '全部';
+                        // for (var i in _all_group_value_names) {
+                        //     s_name += $($('.attr_group_name_'+i)[0]).html()+":"+_all_group_value_names[i]+";";
+                        // }
+                    } else if (_group_value) {
+                        var h = 'hover';
+                        s = '{';
+                        for (var i in _group_value) {
+                            s = s + '"' + i + '":[' + _group_value[i] + '],';
+                            s_name += $($('.attr_group_name_' + i)[0]).html() + ":" + _group_value_names[i] + ";";
+                        }
+                        s = s.slice(0, -1);
+                        s = s + '}';
+                    }
+                }
+                _arr = [];
+                _arr['hoverall'] = h;
+                _arr['attr_str'] = s;
+                _arr['attr_str_name'] = s_name;
+                window.parent.setGoodsOneAttr(_arr, _data);
+            });
+            // setTimeout(function(){
+            //     $('#cl-wrapper').css('overflow','auto').css('display','block');
+            //     $('#pcont').css('display','block').css('margin-left','12px');
+            // },500);
+        });
+
+        $('.checkAll').click(function () {
+            var b = this.checked;
+            if (b) {
+                $('.attr_id').attr('checked', 'checked');
+            } else {
+                $('.attr_id').removeAttr('checked');
+            }
+        });
+
+    </script>
+</body>
+
+</html>

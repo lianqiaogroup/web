@@ -1,0 +1,49 @@
+@import './config';
+
+.module_countdown {
+    border-top:1px dashed #dcdcdc;
+    padding:8px 0;
+    overflow:hidden;
+    .flag1 {
+        display: inline-block;
+        float:left;
+        color: @mainColor;
+        margin-left:2px;
+        padding:2px 4px;
+        font-size:14px;
+        &:before{
+            content: " ";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right:5px;
+            background-image: url('../images/t.png');
+            background-repeat: no-repeat;
+            background-size:100%;
+        }
+    }
+    .timeWrap {
+        float:right;
+        color: #666;
+        margin-right:4px;
+        font-size: 16px;
+        #h,#m,#s,#ms {
+            display:inline-block;
+            height:17px;
+            line-height:17px;
+            color:#FFF;
+            background:#000;
+            padding:0 2px;
+            font-size:16px;
+            text-align:center;
+            border-radius:2px;
+            margin: 0 2px;
+        }
+        #ms {
+            background:#F00;
+        }
+        .colon {
+            font-size:16px;
+        }
+    }
+}

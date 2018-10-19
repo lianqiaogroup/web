@@ -1,0 +1,173 @@
+// 侧边栏
+aside {
+    width: 385px;
+    font-size:12px;
+    padding-top: 66px;
+    position: fixed;
+    left: 700px;
+    top: 0px;
+
+    .module_boxer {
+        margin-bottom:20px;
+        position:relative;
+        border-radius: 7px;
+        border: solid 1px #ddd;
+        background-color: #fff;
+        overflow: hidden;
+
+        .module_title{
+            height: 50px;
+            line-height: 50px;
+            font-size:14px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            i.iconfont {
+                margin-right: 10px;
+                color: #20a1ff;
+            }
+        }
+        >form{
+            padding:0 20px;
+            padding-bottom: 10px;
+            >span{
+                color:#999;
+            }
+            input[type='reset']{
+                float:right;
+                color:blue;
+                text-decoration:underline;
+                font-size:12px;
+                background:none;
+                border:none;
+                outline:none;
+            }
+        }
+        &:last-child{
+            margin:0;
+        }
+
+        // 按钮组
+        .button_layer {
+            button {
+                font-size: 12px;
+                border-radius: 5px;
+                width: 80px;
+            }
+            .btn-primary {
+                background-color: #20a1ff;
+                border-color: #20a1ff;
+            }
+            .btn-danger {
+
+            }
+        }
+
+    }
+    input{
+        margin-bottom:10px;
+    }
+
+    #module_service {
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+
+    .module_color {
+        .color_block {
+            margin-bottom: 10px;
+            > span {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                margin-right: 10px;
+                text-align: center;
+                border-radius: 5px;
+                box-sizing: border-box;
+                opacity: .7;
+                vertical-align: middle;
+            }
+            > span.el-icon-check {
+                color: #fff;
+            }
+            > span:hover {
+                opacity: 1;
+            }
+        }
+    }
+    // 选择模块
+    #chooseModule {
+        display: block;
+        .module_title {
+            margin-bottom: 10px;
+        }
+        ul {
+            padding: 0 10px;
+            padding-bottom: 20px;
+            font-size: 0px;
+            text-align: left;
+            li {
+                font-size: 12px;
+                display: inline-block;
+                margin: 0 12px;
+                margin-bottom: 10px;
+                text-align: center;
+                > span {
+                    width: 95px;
+                    height: 40px;
+                    line-height: 40px;
+                    box-sizing: border-box;
+                    display: block;
+                    background-color: #fff;
+                    border: solid 1px #eeeeee;
+                    border-radius: 0px;
+                    cursor: pointer;
+                }
+                &:hover, &.active {
+                    > span {
+                        background-color: #1f9fff;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    // 图片模块
+    #module_image {
+        .uploader {
+            color: #aaa;
+            margin-bottom:10px;
+            label{
+                width:100px;
+                height:34px;
+                background:url(/template/img/upload.png) no-repeat;
+                background-size:100%;
+                vertical-align:middle;
+                display:inline-block;
+                border: solid 1px #eee;
+                position: relative;
+                overflow: hidden;
+                &:after {
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    bottom: 0px;
+                    right: 0px;
+                    text-align: center;
+                    content: "上传图片";
+                    line-height: 34px;
+                }
+                input[type='file']{
+                    opacity:0;
+                    display: block;
+                    height: 100%;
+                    margin: 0px;
+                }
+            }
+        }
+    }
+}
+

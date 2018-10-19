@@ -1,0 +1,142 @@
+<div class="module_boxer" id="chooseModule" data-display="isShow">
+    <div class="module_title">选择模块</div>
+    <ul>
+        <li data-for="image" @event-click="handleClick('image')">
+            <span><i class="iconfont icon-tupian"></i></span>
+            <label for="">细节图</label>
+        </li>
+        <li data-for="countdown">
+            <span><i class="iconfont icon-daojishi01"></i></span>
+            <label for="">倒计时</label>
+        </li>
+        <li data-for="promotion">
+            <span><i class="iconfont icon-cuxiao"></i></span>
+            <label for="">促销信息</label>
+        </li>
+        <li data-for="service">
+            <span><i class="iconfont icon-shuoming"></i></span>
+            <label for="">服务说明</label>
+        </li>
+        <li data-for="comment">
+            <span><i class="iconfont icon-pinglun"></i></span>
+            <label for="">用户评论</label>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+// 右侧选择模块组件
+window.chooseModule = (function(){
+    // 主组件
+    var self = $('#chooseModule');
+    // bind event
+    self.find('li').on('click', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        var module_name = $(this).attr('data-for');
+        var module_id = 0;
+        var module_sort = 0;
+        local_modules.map(function(module){
+            if( module.module_name == module_name ){
+                module_name = module.module_name
+                module_id = module.module_id
+                module_sort = module.sort
+            }
+        });
+        // 触发
+        State.openModule.module_id = module_id;
+        State.openModule.module_name = module_name;
+        State.openModule.sort = module_sort;
+        State.openModuleTimestamp = new Date().getTime();
+    });
+})();
+
+
+
+var chooseModules = {
+    html: 'chooseModules'
+    , data: {
+        isShow: false
+    }
+    , compute: {
+
+    }
+    , methods: {
+        handleClick: function(param){
+            
+        }
+    }
+}
+runtime(chooseModules);
+
+
+
+
+
+
+
+
+function runtime(module){
+    // clone data
+    module.vender = {};
+    module.vender.data = JSON.parse(JSON.stringify(module.data)); 
+    // listen change data
+    for( key in module.data ){
+        (function(key){
+            Object.defineProperty(module.data, key, {
+                set: function(val){
+                    module.vender.data[key] = val;
+                    _render.call(module,key);
+                }
+                , get: function(){
+                    return module.vender.data[key];
+                }
+            }); 
+        })(key);
+    }
+    // listen events
+    bindEvents.call(module);
+}
+
+function _render(key){
+    var self = this;
+    var panel = $(self.html);
+        panel.children().map(function(index, item){
+            if($(item).attr('data-display')){
+                var key = $(item).attr('data-display');
+                if(  self.data[key] && self.data[key] == true ){
+                    $(item).show();
+                }else{
+                    $(item).hide();
+                }
+            }
+        });
+}
+
+// listen events
+function bindEvents(){
+    var self = this;
+    var panel = $(self.html);
+    panel.find("*").map(function(index, item){
+        if( $(item).attr('@event-click') ){
+            var eventKey = $(item).attr('@event-click');
+            if( eventKey.indexOf("(") > 0 ){
+                var eventName = eventKey.split('(')[0];
+                var eventParam = eventKey.split('(')[1].replace(')','');
+                $(item).on('click', function(){
+                    self.methods[eventName].call(self, eval(eventParam));
+                });
+            }else{
+                if( self.methods[eventKey] ){
+                    $(item).on('click', function(){
+                        self.methods[eventKey].call(self);
+                    });
+                }
+            }
+        } 
+    });
+}
+
+
+
+</script>

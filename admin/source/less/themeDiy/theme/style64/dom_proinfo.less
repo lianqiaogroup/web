@@ -1,0 +1,31 @@
+.product_info{
+	.tt{
+		height:40px;
+		color:#fff;
+		font-size:15px;
+		padding:0 30px;
+		display:-webkit-flex;
+		display:flex;
+		align-items:center;
+		justify-content: space-between;
+		background:-webkit-linear-gradient(left,#f84058,#eb2455);
+		background:linear-gradient(to right,#f84058,#eb2455);
+		position:relative;
+		&:before{
+			content:'';
+			width:28px;
+			height:40px;
+			position:absolute;
+			left:0;
+			background:url(../images/leaf.png) no-repeat;
+			background-size:100%;
+		}
+		.kefu{
+			width:23px;
+			height:40px;
+			background:url(../images/kefu.png) no-repeat 0 center;
+			background-size:100%;
+		}
+
+	}
+}

@@ -1,0 +1,875 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/develop/style/theme_edit.css">
+<link rel="stylesheet" type="text/css" href="/build/style/theme_edit.css">
+<link rel="stylesheet" type="text/css" href="template/assets/theme_edit_iconfont/iconfont.css">
+<script src="template/assets/js/jquery.2.2.3.min.js"></script>
+<script src="template/plugins/swiper/swiper-3.4.0.js"></script>
+<link rel="stylesheet" href="template/plugins/swiper/swiper-3.4.0.min.css">
+<body>
+<input type="hidden" id="product_id" value="{{product_id}}">
+<div class="main_wrap">
+    {# 预览层 #}
+    <section>
+        <div class="content_title">配置模板 <a href="javascript:;" id="handleReset">重置数据</a></div>
+        <div class="main_content">
+            <div class="theme_effect">
+                <div class="dec_title" style="background-color:#fff;line-height: 2.8;padding: 0 14px;font-size: .37333rem;">{{ sales_title }}</div>
+                {% include 'themeDiy/render/banner.twig' %}
+                <setion id="dragLayer1"></setion>
+                <div class="module_faq">通用FAQ</div>
+            </div>
+            <div class="button_group">
+                <button id="handleInDrag">调整排序</button>
+                {# <button id="handlePublish">发布模板</button> #}
+            </div>
+        </div>
+    </section>
+    {# Setting layer #}
+    <aside>
+        {# 选择模块 #}
+        {% include './themeDiy/setting/chooseModule.twig' %}
+        {# 细节图 #}
+        {% include './themeDiy/setting/image.twig' %}
+        {# 倒计时 #}
+        {% include './themeDiy/setting/countdown.twig' %}
+        {# 服务说明 #}
+        {% include './themeDiy/setting/service.twig' %}
+        {# 促销模块 #}
+        {% include './themeDiy/setting/promotion.twig' %}
+        {# 评论模块 #}
+        {% include './themeDiy/setting/comment.twig' %}
+        {# 关联推荐 #}
+        {% include './themeDiy/setting/favorite.twig' %}
+        {# 产品信息 #}
+        {% include './themeDiy/setting/product_info.twig' %}
+    </aside>
+    {# html模版层 #}
+    <div class="template" style="display:none;">
+        <div data-for="product_info">{% include './themeDiy/render/product_info.twig' %}</div>
+        <div data-for="product_content">{% include './themeDiy/render/product_content.twig' %}</div>
+        <div data-for="product_selection">{% include './themeDiy/render/product_selection.twig' %}</div>
+        <div data-for="image">{% include './themeDiy/render/image.twig' %}</div>
+        <div data-for="countdown">{% include './themeDiy/render/countdown.twig' %}</div>
+        <div data-for="promotion">{% include './themeDiy/render/promotion.twig' %}</div>
+        <div data-for="service">{% include './themeDiy/render/service.twig' %}</div>
+        <div data-for="comment">{% include './themeDiy/render/comment.twig' %}</div>
+        <div data-for="favorite">{% include './themeDiy/render/favorite.twig' %}</div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var mySwiper1 = new Swiper('.swiper-container', {
+            autoplay: 3000,
+            loop: false,
+            autoHeight:true,
+            pagination: '.swiper-pagination',
+            paginationType: 'custom',
+            paginationCustomRender: function(swiper, current, total) {
+                var text = "";
+                for (var i = 1; i <= total; i++) {
+                    if (current == i) {
+                        text += "<span class='redicon'></span>";
+                    } else {
+                        text += "<span class='whiteicon'></span>";
+                    }
+                }
+                return text;
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+
+// 存放数据
+window.local_modules = [];
+
+!(function(){
+    var State = {
+        product_id: $('#product_id').val()
+        , openModule: {
+            module_id: ''
+            , module_name: ''
+            , sort: 0
+        }
+        , openModuleTimestamp: new Date().getTime()
+        , modules: {
+            product_info: {
+                showItem: 'comment'
+            }
+            , countdown: {
+                open: 0
+                , class: 'a'
+            }
+            , image: {
+                open: 0
+                , url: ''
+            }
+            , service: {
+                open: 1
+                , list: []
+            }
+            , comment: {
+                open: 1
+                , count: 1
+            }
+            , promotion: {
+                open: 0
+                , list: []
+            }
+        }
+    }
+    Object.defineProperty(State, 'openModuleTimestamp', {
+        set: function(val){
+            State.modules.image["_"+key] = val;
+            showModule({
+                "module_id": State.openModule.module_id
+                , "module_name": State.openModule.module_name
+                , "sort": State.openModule.sort
+            });
+        }
+        , get: function(){
+            return State.modules.image["_"+key];
+        }
+        , 
+    });
+    for( var key in State.modules.image ){
+        (function(key){
+            if( /_/.test(key) == true ){ return false; }
+            Object.defineProperty(State.modules.image, key, {
+                set: function(val){
+                    State.modules.image["_"+key] = val;
+                    render("State.modules.image."+key);
+                }
+                , get: function(){
+                    return State.modules.image["_"+key];
+                }
+            });
+        })(key);
+    }
+    for( var key in State.modules.countdown ){
+        (function(key){
+            if( /_/.test(key) == true ){ return false; }
+            Object.defineProperty(State.modules.countdown, key, {
+                set: function(val){
+                    State.modules.countdown["_"+key] = val;
+                    render("State.modules.countdown."+key);
+                }
+                , get: function(){
+                    return State.modules.countdown["_"+key];
+                }
+            });
+        })(key);
+    }
+    for( var key in State.modules.comment ){
+        (function(key){
+            if( /_/.test(key) == true ){ return false; }
+            Object.defineProperty(State.modules.comment, key, {
+                set: function(val){
+                    State.modules.comment["_"+key] = val;
+                    render("State.modules.comment."+key);
+                }
+                , get: function(){
+                    return State.modules.comment["_"+key];
+                }
+            });
+        })(key);
+    }
+    Object.defineProperty(State.modules.service, 'list', {
+        set: function(val){
+            State.modules.service["_"+key] = val;
+            var dom = $('[c-for="State.modules.service.list"]');
+                dom.children().remove();
+            val.map(function(item){
+                dom.append('<li>'+item+'</li>')
+            });
+            $('[c-bind-data="State.modules.service.list"]').val(val.join('\n'))
+        }
+        , get: function(){
+            return State.modules.service["_"+key];
+        }
+    });
+    Object.defineProperty(State.modules.service, 'open', {
+        set: function(val){
+            State.modules.service["_open"] = val;
+            render("State.modules.service."+open);
+        }
+        , get: function(){
+            return State.modules.service["_open"];
+        }
+    });
+    Object.defineProperty(State.modules.promotion, 'open', {
+        set: function(val){
+            State.modules.promotion['_open'] = val;
+            render("State.modules.promotion.open");
+        }
+        , get: function(){
+            return State.modules.promotion["_open"];
+        }
+    });
+    Object.defineProperty(State.modules.promotion, 'list', {
+        set: function(val){
+            State.modules.promotion['_list'] = val;
+            var dom = $('[c-for="State.modules.promotion.list"]');
+                dom.children().remove();
+            val.map(function(item){
+                dom.append('<li>'+item+'</li>')
+            });
+            $('[c-bind-data="State.modules.promotion.list"]').val(val.join('\n'))
+        }
+        , get: function(){
+            return State.modules.promotion["_list"];
+        }
+    });
+    function render(key){
+        var doms = $('[c-bind-class="'+key+'"]');
+            doms.map(function(index, item){
+                var module_name = $(item).parent().attr('data-for');
+                $(item).attr('class', "module_"+module_name);
+                $(item).addClass('class-'+eval(key));
+            });
+        // data
+        var doms = $('[c-bind-data="'+key+'"]');
+            doms.map(function(index, item){
+                var prop = $(item).attr('c-bind-prop');
+                var domName = $(item)[0].localName;
+                switch(domName){
+                    case "select":
+                        $(item).val(eval(key));
+                        break;
+                    case "textarea":
+                        var datas = eval(key);
+                        $(item).val(datas.join('\n'));
+                        break;
+                    default: 
+                        var type = $(item).attr('type');
+                        if( type == 'radio' ){
+                            if( $(item).val() == eval(key) ){
+                                $(item).prop('checked', true);
+                            }
+                        }else{
+                            $(item).prop(prop, eval(key));
+                        }
+                        break;
+                }
+            });
+        var chtml = $('[c-html="'+key+'"]');
+        chtml.map(function(index,item){
+            console.log($(item));
+            $(item).html(eval(key));
+        })
+    }
+    window.State = State;
+    window.State.render = render;
+})();
+
+
+window.Services = {
+    // 读取接口
+    loadModule: function(param, callback){
+        $.ajax({
+            url: '/theme_edit.php?act=loadModule'
+            , type: 'POST'
+            , data: param
+            , success: function(data){
+                window.Services.posting = false;
+                callback && callback(JSON.parse(data));
+            }
+        });
+    }
+    , saveModule: function(param, callback){
+        $.ajax({
+            url: '/theme_edit.php?act=saveModule'
+            , type: 'POST'
+            , data: param
+            , success: function(data){
+                window.Services.posting = false;
+                callback && callback(JSON.parse(data));
+            }
+        });
+        
+    }
+    , saveSort: function(param, callback){
+        $.ajax({
+            url: '/theme_edit.php?act=saveSort'
+            , type: 'POST'
+            , data: param
+            , aynsc: false
+            , success: function(data){
+                window.Services.posting = false;
+                callback && callback(JSON.parse(data));
+            }
+        });
+    }
+    , reset: function(param, callback){
+        $.ajax({
+            url: '/theme_edit.php?act=reset'
+            , type: 'POST'
+            , data: param
+            , aynsc: false
+            , success: function(data){
+                window.Services.posting = false;
+                callback && callback(JSON.parse(data));
+            }
+        });
+    }
+    , commit: function(api, param, callback){
+        // 检测多次提交
+        if( window.Services.posting == true ){ return false; }
+        window.Services.posting = true;
+        // 
+        if( typeof(param) == "string" ){
+            param = param + "&product_id="+State.product_id;
+        }
+        if( typeof(param) == "object" ){
+            param.product_id = State.product_id;
+        }
+        window.Services[api](param,callback);
+    }
+    , posting: false
+}
+
+// 开始加在
+window.Services.commit('loadModule', {}, function(response){
+    // 是否有数据
+    if( response.modules == null ){
+        // 初始化数据
+        var preSaveData = [];
+            preSaveData[0] = { 'module_name': 'product_info', 'module_id': 1, 'open': 1, 'sort': 1 };
+            preSaveData[1] = { 'module_name': 'product_selection', 'module_id': 2, 'open': 1, 'sort': 2 };
+            preSaveData[2] = { 'module_name': 'service', 'module_id': 3, 'list': "免費送貨\n 質量保證\n 貨到付款 安全無憂\n 7天免費鑒賞期，購物尊享\n 全台湾範圍內配送\n", 'open': 1, 'sort': 3 };
+            preSaveData[3] = { 'module_name': 'comment', 'module_id': 4, 'open': 1, 'sort': 4 };
+            preSaveData[4] = { 'module_name': 'product_content', 'module_id': 5, 'open': 1, 'sort': 5 };
+
+        window.Services.commit('saveModule', preSaveData[0], function(response){
+            if( response.ret == 1){
+                window.Services.commit('saveModule', preSaveData[1], function(response){
+                    if( response.ret == 1){
+                        window.Services.commit('saveModule', preSaveData[2], function(response){
+                            if( response.ret == 1){
+                                window.Services.commit('saveModule', preSaveData[3], function(response){
+                                    if( response.ret == 1){
+                                        window.Services.commit('saveModule', preSaveData[4], function(response){
+                                            if( response.ret == 1){
+                                                window.Services.commit('loadModule', {}, function(response){
+                                                    local_modules = response.modules;
+                                                    mounted();
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        return false;
+    }
+    // 渲染
+    local_modules = response.modules;
+    mounted();
+});
+
+// 初始化渲染
+function mounted(){
+    $('#dragLayer1').children().remove();
+    local_modules.map(function(module, index){
+        if( module.module_name == 'countdown' ){
+            State.modules.countdown.class = module.options.class || 'b'
+        }
+        if( module.module_name == 'image' ){
+            State.modules.image.url = module.options.url || ''
+        }
+        if( module.module_name == 'service' ){
+            var list = [];
+            module.options.list && module.options.list.split("\n").map(function(item){
+                if( $.trim(item) != "" ){
+                    list.push($.trim(item));
+                }
+            });
+            State.modules.service.list = list;
+        }
+        if( module.module_name == 'promotion' ){
+            var list = [];
+            module.options.list && module.options.list.split("\n").map(function(item){
+                if( $.trim(item) != "" ){
+                    list.push($.trim(item));
+                }
+            });
+            State.modules.promotion.list = list;
+        }
+        if( module.module_name == 'product_info' ){
+            State.modules.product_info.showItem = module.options.showItem || 'comment';
+        }
+        if( module.module_name == 'comment' ){
+            State.modules.comment.count = module.options.count || '1'
+        }
+        DragList.append({
+            module_id: module.module_id
+            , module_name: module.module_name
+            , module_label: $('.template [data-for="'+module.module_name+'"]').html()
+            , sort: module.sort
+            , options: module.options
+        });
+    });
+}
+
+
+// 左侧模块列表
+window.DragList = (function DragList(){
+    var self = $('#dragLayer1');
+    var addButton = self.find('.layer.add');
+    /*
+    DragList.append(param)
+        option: {
+            module_name: String
+            module_id: Interge
+            module_label: String
+        }
+    */
+    function append(param){
+        if( !param ) return false;
+        if( param.module_id == '' || param.module_name == '' || param.module_label == '' ) return false;
+        
+        var layerString = '<div class="layer" data-for="|module_name|" data-role="|module_id|" data-sort="|sort|">|module_label|</div>';
+        for(key in param){
+            layerString = layerString.replace("|"+key+"|", param[key]);
+        }
+        var newLayer = $(layerString);
+
+        // 各模块定制化
+        methods[param.module_name] && methods[param.module_name](newLayer, param.options);
+
+        // 触发显示模块
+        newLayer.on('click', function(event) {
+            event.preventDefault();
+            /* Act on the event */
+            var module_name = $(this).attr('data-for');
+            var module_id = $(this).attr('data-role');
+            var module_sort = $(this).attr('data-sort') || $(this).index()+1;
+            // 触发
+            State.openModule.module_name = module_name;
+            State.openModule.module_id = module_id;
+            State.openModule.sort = module_sort;
+            State.openModuleTimestamp = new Date().getTime();
+        });
+
+        // 插入dom
+        var oldDom = self.find('.module_'+param.module_name).parent();
+        if( oldDom.length > 0 ){
+            oldDom.before(newLayer);
+            oldDom.remove();
+        }else{
+            if( param.diretion && param.diretion == 'top' ){
+                self.prepend(newLayer);
+            }else{
+                self.append(newLayer);
+            }
+        }
+        // 是否开启
+        if( param.options ){
+            if( typeof(param.options)=="string" ){
+                var _options = param.options.split("&");
+                    _options.map(function(row){
+                        var key = row.split("=")[0];
+                        var val = row.split("=")[1];
+                        if( key == 'open' && val == 0 ){
+                            newLayer.remove();
+                        }
+                    });
+            }
+            if( typeof(param.options)=="object" ){
+                if( param.options.open && param.options.open == 0 ){
+                    newLayer.remove();
+                }
+            }
+        }
+    }
+    var methods = {
+        image: function(){
+
+        }
+        , countdown: function(){
+
+        }
+        , service: function(){
+
+        }
+        , promotion: function(){
+
+        }
+        , comment: function(){
+
+        }
+        , favorite: function(){
+
+        }
+    }
+    return {
+        append: append
+    }
+})();
+
+
+/*
+显示模块函数
+show Module with module_id and module_name
+*/
+function showModule(param){
+    $('#dragLayer1').removeClass('inDrag');
+    $('#handleInDrag').html('调整排序');
+    // console.log(param);
+    if( !param ) return false;
+    if( State.openModule.module_name == '' ) return false;
+    $('aside .module_boxer').not(":eq(0)").hide();
+    $("#module_"+param.module_name).show();
+    var has = false;
+    var _module_param = {};
+    local_modules.map(function(module){
+        if( module.module_name == param.module_name ){
+            has = true;
+            _module_param = module.options;
+        }
+    });
+    if( has && _module_param ){
+        loadModule_methods[param.module_name] && loadModule_methods[param.module_name](_module_param);
+    }else{
+        
+    }
+}
+var loadModule_methods = {
+    'image': function(param){
+        if( !param ){ param = {}; }
+        State.modules.image.open = param.open;
+        State.modules.image.url = param.url || '';
+    }
+    , 'countdown': function(param){
+        if( !param ){ param = {}; }
+        State.modules.countdown.open = param.open;
+        State.modules.countdown.class = param.class || 'a';
+    }
+    , 'promotion': function(param){
+        if( !param ){ param = {}; }
+        State.modules.promotion.open = param.open;
+    }
+    , 'service': function(param){
+        if( !param ){ param = {}; }
+        State.modules.service.open = param.open;
+    }
+    , 'comment': function(param){
+        if( !param ){ param = {}; }
+        State.modules.comment.open = param.open;
+        State.modules.comment.count = param.count || 1;
+    }
+    , 'favorite': function(){
+        
+    }
+}
+
+/*
+模块保存函数
+*/ 
+$('[data-click="handleModuleSave"]').click(handleModuleSave)
+function handleModuleSave(){
+    var module_name = $(this).parents('.module_boxer').attr('id');
+    // 验证表单
+    if( !formValid(module_name) ) return false;
+    // 提交表单数据
+    var formData = $('#'+module_name+' form').serialize();
+        formData = formData + "&module_name=" + State.openModule.module_name;
+        formData = formData + "&module_id=" + State.openModule.module_id;
+        formData = formData + "&sort=" + State.openModule.sort || 0;
+ 
+    window.Services.commit('saveModule', formData, function(response){
+        if( response.ret == 1){
+            $('aside .module_boxer').not(":eq(0)").hide();
+            alert('保存成功');
+            // 
+            window.Services.commit('loadModule', {}, function(response){
+                local_modules = response.modules;
+                mounted();
+            });
+        }else{
+            alert('保存失败');
+        }
+    });
+}
+function formValid(module_name){
+    var name = module_name.replace('module_','');
+    return formValid_methods[name] && formValid_methods[name](module_name);
+}
+var formValid_methods = {
+    'image': function(id){
+        var self = $('#'+id);
+        var url = self.find('[name="url"]').val();
+        if( url == '' ){
+            alert('请上传图片');
+            return false;
+        }else{
+            return true;
+        }
+    }
+    , 'countdown': function(){
+       return true;
+    }
+    , 'promotion': function(id){
+        var self = $('#'+id);
+        var textarea = self.find('textarea');
+        var rows = textarea.val().split("\n");
+        var _rows = [];
+            rows.map(function(row){
+                if( $.trim(row) != "" ){
+                    _rows.push(row);
+                }
+            });
+        if( _rows.length == 0 ){
+            State.modules.promotion.open = 0;
+            textarea.val('');
+        }else{
+            textarea.val(_rows.join("\n"));
+        }
+        return true;
+    }
+    , 'service': function(id){
+        var self = $('#'+id);
+        var textarea = self.find('textarea');
+        var rows = textarea.val().split("\n");
+        var _rows = [];
+            rows.map(function(row){
+                if( $.trim(row) != "" ){
+                    _rows.push(row);
+                }
+            });
+        if( _rows.length == 0 ){
+            self.find('[name="open"]').val(0);
+            textarea.val('');
+        }else{
+            textarea.val(_rows.join("\n"));
+        }
+        return true;
+    }
+    , 'comment': function(id){
+        var self = $('#'+id);
+        var count = self.find('[name="count"]').val();
+        if( count!='' && isNaN(count)==true && parseint(count) <= 0 ){
+            alert('评论数请填入大于1的正整数');
+            self.find('[name="count"]').focus();
+            return false;
+        }
+        return true;
+    }
+    , 'favorite': function(){
+        return true;
+    }
+    , 'product_info': function(){
+        return true;
+    }
+}
+
+// 保存排序
+$('#handlePublish').click(saveSort);
+
+// 保存排序
+function saveSort(){
+    var sorts = [];
+    $('#dragLayer1 > .layer').map(function(index, item){
+        sorts.push($(item).attr('data-role'));
+    });
+    window.Services.commit('saveSort', { sort: sorts.join(',') }, function(response){
+        if( response.ret == 1 ){
+            alert('保存成功');
+            window.Services.commit('loadModule', {}, function(response){
+                local_modules = response.modules;
+                mounted();
+            })
+        }else{
+            alert(response.msg);
+        }
+    });
+}
+
+// 重置数据
+$('#handleReset').click(handleReset);
+function handleReset(){
+    window.Services.commit('reset', {}, function(response){
+        if( response.ret == 1 ){
+            alert('重置成功');
+            window.location.reload();
+        }else{
+            alert('重置失败');
+            window.location.reload();
+        }
+    });
+}
+
+// 抢购倒计时模块双向数据绑定
+$('select[c-bind-data="State.modules.countdown.class"]').change(function(event) {
+    /* Act on the event */
+    State.modules.countdown.class = $(this).val();
+});
+$('input[c-bind-data="State.modules.countdown.open"]').change(function(event) {
+    /* Act on the event */
+    State.modules.countdown.open = $(this).val();
+});
+
+
+</script>
+<script type="text/javascript">
+// 上传
+    $('#module_image input[type="file"]').change(function(event) {
+        /* Act on the event */
+        var self = $('#module_image');
+        var timestamp = Date.parse(new Date());
+        var inputDOM = $(this)[0];
+        // 通过DOM取文件数据
+        var file = inputDOM.files[0];
+        var formData = new FormData();
+            formData.append('upfile', file, 'image_'+timestamp+'.jpg');
+        $.ajax({
+            url: '/qiniu_um.php?type=home',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                var response = JSON.parse(data);
+                if( response.state == 'SUCCESS' ){
+                    State.modules.image.url = response.url;
+                }else{
+                    alert('上传失败');
+                }
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+var isMouseDown = false;
+var targetDomRole = '';
+var mousePosition = { x: 0, y: 0 };
+var dragParam = {dom: null , rid: null , diretion: 'top'}
+$.fn.extend({
+    inDrag: function(event){
+        var h = $(this).height();
+        var shadow = $('<div class="preAdd"></div>');
+            shadow.height(h);
+        $(this).before(shadow);
+        $(this).addClass('drag');
+    }
+    , outDrag: function(){
+        $('.preAdd').after($(this));
+        $('.preAdd').remove();
+        $(this).removeClass('drag');
+    }
+});
+$(function(){
+
+    $('#handleInDrag').click(function(){
+        if( dragPanel.hasClass('inDrag') ){
+            dragPanel.removeClass('inDrag');
+            $(this).html('调整排序');
+            saveSort();
+        }else{
+            dragPanel.addClass('inDrag');
+            $(this).html('保存排序');
+        }
+    });
+
+
+    var dragPanel = $("#dragLayer1");
+        dragPanel.on('mousedown', '.layer', function(event) {
+            event.preventDefault();
+            /* Act on the event */
+            if( !dragPanel.hasClass('inDrag') ){ return false; }
+            var rid = $(this).attr('data-role');
+            if( rid ){
+                // 
+                dragParam.dom = $(this);
+                dragParam.rid = rid;
+                // dragParam.dom.inDrag(); 
+                // 
+                isMouseDown = true;
+                mousePosition.x = event.clientX;
+                mousePosition.y = event.clientY;
+            }
+        })
+        .on('mousemove', function(event) {
+            event.preventDefault();
+            /* Act on the event */
+
+            if( isMouseDown ){
+                if( !$(dragParam.dom).hasClass('drag') ){ dragParam.dom.inDrag(); }
+
+                // 判断移动的方向
+                dragParam.diretion = event.clientY < mousePosition.y ? 'top' : 'bottom';
+
+                if($(event.target).hasClass('layer')){
+                    var rid = $(event.target).attr('data-role');
+                }else{
+                    var parentDom = $(event.target).parent('.layer');
+                    if( parentDom.length > 0 ){
+                        var rid = parentDom.attr('data-role');
+                    }else{
+                        var parentDom = $(event.target).parentsUntil('.layer').parent('.layer');
+                        var rid = parentDom.attr('data-role');
+                    }
+                }
+
+                if( rid ){
+                    if( rid != dragParam.rid ){
+                        targetDomRole = rid;
+                    }
+                    if( !$(event.target).hasClass('preAdd') ){
+                        if( targetDomRole ){
+                            // 
+                            var oldDom = $('.preAdd');
+                            var h = $(dragParam.dom).height();
+                            var shadow = $('<div class="preAdd"></div>');
+                                shadow.height(h);
+                            var targetDom = $("[data-role="+targetDomRole+"]");
+                            // 移动dom
+                            dragParam.diretion == 'top' ? targetDom.before(shadow) : targetDom.after(shadow);
+                            oldDom.remove();
+                            // 更新坐标
+                            mousePosition.x = event.clientX;
+                            mousePosition.y = event.clientY;
+                        }
+                    }
+                }
+
+            }
+        })
+        .on('mouseup', function(event) {
+            event.preventDefault();
+
+            // check status
+            if( !isMouseDown ) return false;
+
+            // 
+            dragParam.dom.outDrag();
+
+            // clear all set
+            isMouseDown = false;
+            targetDomRole = null;
+            mousePosition = { x: 0, y: 0 };
+            dragParam = {dom: null , rid: null , diretion: 'top'}
+        })
+        .on('mouseleave', function(event) {
+            event.preventDefault();
+            // 
+            $('.preAdd').remove();
+            dragParam.dom && dragParam.dom.removeClass('drag');
+
+            // clear all set
+            isMouseDown = false;
+            targetDomRole = null;
+            mousePosition = { x: 0, y: 0 };
+            dragParam = {dom: null , rid: null , diretion: 'top'}
+        });
+});
+</script>
+</body>
+</html>
+{% endblock %}

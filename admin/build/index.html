@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1440, height=960, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <title>建站系统v3.2.2</title>
+    <script>window.UEDITOR_HOME_URL = '/build/plugins/ue/';</script>
+    <!-- Vue -->
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vue.js"></script>
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vuex.js"></script>
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vue-resource.min.js"></script>
+    <!-- ElementUI core CSS -->
+    <link href="http://shopadmin.stosz.com/build/plugins/element-ui/elementui.css" rel="stylesheet">
+    <script src="http://shopadmin.stosz.com/build/plugins/element-ui/el.js"></script>
+    <script src="http://shopadmin.stosz.com/build/plugins/clipboard/clipboard.min.js"></script>
+    <!-- Stylesheet -->
+    <link href="http://shopadmin.stosz.com/build/style/main.css?v=1531381981169" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <slidemenu></slidemenu>
+    <div id="mainlayer">
+        <router-view></router-view>
+    </div>
+</div>
+<!-- javascript -->
+<input type='hidden' value='http://shopadmin.stosz.com/build' id='appPath'>
+<!-- Plugins Echarts -->
+<script src="http://shopadmin.stosz.com/build/plugins/echarts/echarts_full.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+;(function(){
+    var testServer = ["192.168.105.196:9090", "admintest.stosz.com", "www.shopadmin.com"];
+    var config = {
+        envfast: "production",
+        version: "4.1",
+    }
+    testServer.map(function(item){
+        window.location.href.indexOf(item) > -1 ? config.envfast = 'test' : null;
+    });
+    window.ConfigObject = new Vue({data: config})//make it reactive to components
+    localStorage.version = window.ConfigObject.version
+})();
+</script>
+<script src="http://shopadmin.stosz.com/build/js/main.3a2f93e2f47606e89d6c.js" type="text/javascript"></script>
+<!-- Plugins Ueditor -->
+<script src="build/plugins/ue/ueditor.config.js" async></script>
+<script src="build/plugins/ue/ueditor.all.min.js" async></script>
+<link  href="build/plugins/ue/themes/default/css/ueditor.min.css" rel="stylesheet" type="text/css">
+</body>
+</html> 

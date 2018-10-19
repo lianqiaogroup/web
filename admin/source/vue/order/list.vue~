@@ -1,0 +1,90 @@
+<template>
+    <div id="page-order-list">
+        <div class="header-panel">
+            <div class="control">
+                <el-input
+                    placeholder="输入ERPid/产品/域名"
+                    icon="search"
+                    v-model="keyword"
+                    :on-icon-click="handleSearch">
+                </el-input>
+                <div class="operations">
+                    <el-button>部门转移 <i class='material-icons'>redo</i></el-button>
+                    <el-button icon="plus" type="primary">新增产品</el-button>
+                </div>
+            </div>
+            
+        </div>
+	
+		<div class="container">
+			<el-table
+			    ref="multipleTable"
+			    :data="tableData3"
+			    border
+			    tooltip-effect="dark"
+                      >
+			    <el-table-column type="selection" width="8%"></el-table-column>
+			    <el-table-column label="产品信息" width="24%"><template scope="scope">
+                    <el-row>
+                        <el-col :span="4"><img :src=scope.row.img></el-col>
+                        <el-col :span="18" :offset="2">
+                            <el-row class="scope-name">{{ scope.row.name }}</el-row>
+                            <el-row class="scope-id">ERPid: {{scope.row.id}} </el-row>
+                        </el-col>
+                    </el-row>
+                </template></el-table-column>
+                <el-table-column label="价格/货币" width="6%"><template scope="scope"><el-row><el-col :span="10" class="scope-price">{{ scope.row.price }}</el-col><el-col :span="14" class="scope-unit">{{ scope.row.currencyUnit }}</el-col></el-row></template></el-table-column>
+                <el-table-column label="域名" width="31%"><template scope="scope"><span class="scope-domain">{{ scope.row.domain }}</span></template></el-table-column>
+                <el-table-column label="添加时间" width="8%"><template scope="scope"><span class="scope-time">{{ scope.row.addTime }}</span></template></el-table-column>
+                <el-table-column label="主题模板" width="8%"><template scope="scope">
+                            <el-row class="scope-theme">{{ scope.row.theme }}</el-row>
+                            <el-row class="scope-theme">繁体中文</el-row>
+                </template>
+		</el-table-column>
+			<el-table-column label="操作" width="11%">
+				<template scope="scope">
+					<a class="scope-op" href='javascript:void(0)' @click='handleEdit(scope.row)'>编辑</a> 
+					<a class="scope-op" href='javascript:void(0)' @click='handleDelete(scope.row)'>删除</a>
+				</template>
+			</el-table-column>
+		</el-table>
+
+		</div>
+	</div>
+</template>
+
+<script>
+ 
+
+export default {
+    data() {
+      return { 
+        tableData3: [],
+        multipleSelection: [],
+        keyword: "",
+      }
+    }
+    , created() {
+    	this.get();
+    	console.warn('d');
+    }
+    , methods: {
+    	get() {
+        /*
+    		this.$http.post('/echo', require('../mock/products.json')).then(function(res){
+    			this.tableData3 = res.body;
+    		});
+            */
+    	}
+    	,
+      handleEdit(val) {
+        console.log(val);
+      },handleDelete(val) {
+        console.log(val);
+      },handleSearch(){
+        console.log(this.keyword);
+      }
+    }
+  }
+</script>
+

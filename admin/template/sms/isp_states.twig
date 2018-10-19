@@ -1,0 +1,197 @@
+{% extends 'base.twig' %}
+{% block style %}
+    <style>
+        .table thead tr th {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+        }
+
+        .table tbody tr td {
+            height: 100px;
+            line-height: 2em;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        a.toDomain:hover {
+            color: #ff6600;
+            text-decoration: underline;
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+    <style type="text/css">
+    body{
+            height: 3000px;
+        }
+    </style>
+    <!--main content start-->
+    <section id="main-content">
+        <div style="position: absolute;top: 50px;margin-left: 30px"><a href="sms.php?act=isp_list&page=1">短信提供商列表</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="sms.php?act=isp_state_list&page=1">所有关联列表</a></div>
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="content-panel">
+                        <h4>
+                            <i class="fa fa-directory"></i>服务提供商：{{ispname}} 关联列表
+                            <a class="btn btn-success pull-right" href="sms.php?act=isp_state_edit"> 增加 </a>
+                        </h4>
+                        <section class="filter bg-warning" style="padding: 10px 0;">
+                            <form id="form">
+                                <div class="row">
+                                    <input type="hidden" name="id" value="">
+                                    <div class="col-sm-2">
+                                        <div class="input-group ">
+                                            <span class="input-group-addon" id="basic-addon1">服务提供商</span>
+                                            <input type="text" class="form-control" name="ispname"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">国家地区</span>
+                                            <input type="text" class="form-control" name="nation"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">模版</span>
+                                            <input type="text" class="form-control" name="styles"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">国家区号</span>
+                                            <input type="text" class="form-control" name="ncode"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">前缀</span>
+                                            <input type="text" class="form-control" name="prefix"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    
+                                    <span  class="btn btn-default querys"><i class="fa fa-search"></i> 搜索
+                                    </span>
+                                </div>
+                                
+                            </form>
+                            <script type="text/javascript">
+                                $('.querys').click(function(){
+                                    var u = "sms.php?act=isp_state_list&page=1";
+                                    var ispname = $('input[name=\'ispname\']').val();
+                                    var nation = $('input[name=\'nation\']').val();
+                                    var styles = $('input[name=\'styles\']').val();
+                                    var ncode = $('input[name=\'ncode\']').val();
+                                    var prefix = $('input[name=\'prefix\']').val();
+                                    if(ispname) u+='&ispname='+ispname;
+                                    if(nation) u+='&nation='+nation;
+                                    if(styles) u+='&styles='+styles;
+                                    if(ncode) u+='&ncode='+ncode;
+                                    if(prefix) u+='&prefix='+prefix;
+                                    window.location.href = u;
+                                });
+                                $(function(){
+                                    document.onkeydown = function(e){
+                                        var ev = document.all ? window.event : e;
+                                        if(ev.keyCode==13) {
+                                            $('.querys').click();
+                                        }
+                                    }
+                                });
+                                </script>
+
+                            </form>
+                        </section>
+                        <!--  -->
+                        <section id="unseen">
+                            <table class="table table-bordered ">
+                                <thead>
+                                <tr>
+                                    <th height="60px" width="100px"> id <input type="checkbox" name="checkAll"></th>
+                                    <th>服务提供商</th>
+                                    <th>国家地区</th>
+                                    <th>模版</th>
+                                    <th>国家区号</th>
+                                    <th>前缀</th>
+                                    <th>添加时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for l in list %}
+                                    <tr>
+                                        <td>
+                                            {{l.id}}
+                                        </td>
+                                        <td>
+                                            {{l.ispname}}
+                                        </td>
+                                        <td>
+                                            {{l.title}}
+                                        </td>
+                                        <td>
+                                            {{l.styles}}
+                                        </td>
+                                        <td>
+                                            {{l.ncode}}
+                                        </td>
+                                        <td>
+                                            {{l.prefix}}
+                                        </td>
+                                        <td>
+                                            {{l.add_time|date("Y-m-d:H:i:s")}}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary"
+                                               href="sms.php?id={{ l.id }}&act=isp_state_edit"> <i
+                                                        class="fa fa-edit"> </i> 编辑 </a>
+                                            <button type="button" class="btn btn-danger"
+                                                    onclick="deleteSmsId('{{ l.id }}','{{l.nation}}');"><i
+                                                        class="fa fa-edit"></i> 删除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                {{ pageHtml|raw }}
+                            </div>
+                        </section>
+                    </div><!-- /content-panel -->
+                </div><!-- /col-lg-4 -->
+            </div><!-- /row -->
+        </section>
+    </section>
+    <!-- pnotify resource -->
+    <link href="http://oor3l2fop.bkt.clouddn.com/plugins/pnotify/pnotify.custom.css" rel="stylesheet" type="text/css">
+    <script src="http://oor3l2fop.bkt.clouddn.com/plugins/pnotify/pnotify.custom.min.js"
+            type="text/javascript"></script>
+    <script type="text/javascript">
+    function deleteSmsId(id,nation){
+        if(confirm('确定要删除'+nation+'吗？')){
+            $.post('/sms.php?act=delete_isp_state',{id:id}).success(function(data){
+                var ret = JSON.parse(data);
+                if(ret.ret)
+                {
+                    alert('删除成功');
+                    window.location.reload();
+                }else{
+                    alert('删除失败');
+                    return false;
+                }
+            });
+        }
+    }
+    </script>
+    <!--  -->
+   
+{% endblock %}

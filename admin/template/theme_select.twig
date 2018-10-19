@@ -1,0 +1,229 @@
+<style>
+body{-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
+/* ===================== */
+/* 主题模块大体 */
+/* ===================== */
+#mode_select {position: fixed; right: 0px; top: 0px; bottom: 0px; left: 0px;  z-index: 999; display: none; }
+#mode_select .container {position: relative; left: 0px; top: 0px; right: 0px; bottom: 0px; margin: 0px; margin-left: 400px; width: auto; height: 100%; background-color: #fff; padding: 0px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/* ===================== */
+/* 動效 */
+/* ===================== */
+#mode_select.active {animation: showThemeSelector .5s; animation-fill-mode: forwards; }
+#mode_select.unActive {animation: closeThemeSelector .5s; animation-fill-mode: forwards; }
+@keyframes showThemeSelector {0% { display: none; } 1% {display: block; background-color: rgba(0,0,0,0.1); } 100% {background-color: rgba(0,0,0,0.8); } }
+@keyframes closeThemeSelector {0% {display: block; background-color: rgba(0,0,0,0.8); } 1% {background-color: rgba(0,0,0,0.5); } 100% { display: none; } }
+#mode_select > .container { transform: translateX(100%); transition: all .5s; }
+#mode_select.active > .container { transform: translateX(0%); }
+#mode_select.active #cancel_theme {display: block; }
+
+/* ===================== */
+/* 主题选择 */
+/* ===================== */
+#models {height: 100%; overflow-y: scroll; margin-right: 300px; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+#mode_select .img-responsive{padding: 5px;border: solid 1px #ddd; opacity: .5; }
+#mode_select .img-responsive:hover{ opacity: 1; }
+#mode_select .selected p.theme-title{ color: #ff9900; }
+#mode_select .selected .img-responsive{ padding: 4px;border: solid 2px #ff6600;cursor: pointer; opacity: 1}
+#models > .col-md-3 > label { width: 100%; }
+#models > .col-md-3 > label > img { width: 100%; }
+/* ===================== */
+/* 主题描述文案 */
+/* ===================== */
+#model_info {position: absolute; right: 0px; width: 300px; top: 0px; bottom: 0px; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+#model_info .info_title { padding: 15px 0px; color: #9598a3; border-bottom: solid 1px #ddd; }
+#model_info .info_title span { color: #293044; }
+
+/* ===================== */
+/* 关闭遮罩层 */
+/* ===================== */
+#cancel_theme { position: absolute; left: 0px; top: 0px; width: 400px; bottom: 0px; background: transparent; cursor: pointer; display: none; vertical-align: middle; text-align: center; }
+#cancel_theme label {color: #fff; display: block; position: absolute; top: 50%; left: 50%; margin-left: -150px; text-align: center; width: 300px; cursor: pointer; }
+
+</style>
+<link rel="stylesheet" type="text/css" href="http://shopadmin.stosz.com/bootstrap/bootstrap.min.css?v=1.2">
+<div id="mode_select" data-select="" class="">
+    <div id="cancel_theme"><label for="">点击黑色区域关闭模版选择</label></div>
+    <div class="container">
+        <input type="hidden" id="username" value="{{ admin.username }}">
+        <!--  -->
+        <div class="panel-heading" style="display:none; ">
+            <select id="area">
+                <option value="">地区选择</option>
+            </select>
+            <select id="arealang">
+                <option value="">适用语言</option>
+            </select>
+            <select id="type_goods">
+                <option value="">适用套餐</option>
+                <option value="单产品">单产品</option>
+                <option value="2个套餐">2个套餐</option>
+                <option value="多个套餐">多个套餐</option>
+            </select>
+            <select id="pay_type">
+                <option value="">支付方式</option>
+                <option value="货到付款">货到付款</option>
+                <option value="易极付">易极付</option>
+                <option value="paypal">paypal</option>
+            </select>
+            <select id="use_number">
+                <option value="最新上线">最新上线</option>
+            </select>
+            <button class="btn btn-default" type="submit">查询</button>
+        </div>
+        <!-- theme -->
+        <div id="models"></div>
+        <!-- theme introduce -->
+        <div id="model_info"></div>
+        <input name="theme" type="hidden" value="{% if theme %}{{ theme }}{% else %}{{ themes.0 }}{% endif %}" id="setTheme">
+        <!-- button -->
+        <button id="confirm_theme">選擇模板</button>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+var global_themelist;
+
+// 添加模版
+function addThemeItem(checked){
+    var arr = queryThemelist2();
+        global_themelist = arr;
+
+    $('#models').html('');
+    var _str = '<div class="col-md-3 |checked|"><label><input type="radio" name="theme" value="|theme|" style="position: absolute; opacity: 0"><img src="|thumb|" class="img-responsive"><p class="theme-title"><em>|title|</em><span style="float:right;"><a href="|referto_links|" target="_blank">预览</a></span></p><p class="theme-type"></p></label></div>';
+    arr.map(function(item,index){
+        var itemStr = _str;
+        var itemClass = "";
+        for(key in item){
+            itemStr = itemStr.replace("|"+key+"|", item[key]);
+        }
+        // 判断是否已选中
+        if( checked && checked == item.theme ){ itemClass = "selected"; }else{ itemClass = "";}
+        itemStr = itemStr.replace("|checked|", itemClass);
+        $('#models').append($(itemStr));
+    });
+
+}
+
+// 查询模版信息
+function queryThemeInfo(theme){
+    var param;
+    global_themelist.map(function(row,index){
+        if( row.theme == theme ){
+            param = row;
+        }
+    });
+    var _str = '<div class="info_title"><span>|label|：</span><br>|content|</div>';
+    var labels = {
+        'zone': '适配地区'
+        , 'lang': '适配语种'
+        , 'style': '风格'
+        , 'desc': '模版简介'
+        , 'author': '作者'
+        , 'is_del': '状态'
+    }
+    var allInfo = "";
+    for(key in labels){
+        if( key == 'is_del' && param[key]=='0' ){ param[key]='正常' };
+        if( key == 'is_del' && param[key]=='1' ){ param[key]='已下架' };
+        var itemStr = _str.replace('|label|', labels[key]).replace('|content|', param[key] || "");
+        allInfo = allInfo + itemStr;
+    };
+    $('#model_info').html($(allInfo));
+}
+
+function queryThemelist2(){
+    
+    var areat_id = $.trim($('#id_zone').find('option:selected').val()) || $.trim($('#id_zone').val());
+    var lang_id = $.trim($('#id_lang').find('option:selected').val());
+    var module = $.trim($('#this_theme').val());
+    var theme_department = $('#theme_department').html() || '';
+    var oa_id_department = $('#id_department').val();
+    var product_id = $('[name="product_id"]').val() || '';
+
+    var departmentID = '';
+    if (product_id!='') {
+        departmentID = '0,' + theme_department;
+    } else {
+        departmentID = '0,' + oa_id_department;
+    }
+    var themelist = {};
+    $.ajax({
+        url: '/theme_select.php',
+        type: 'POST',
+        async: false,
+        data: {
+            id_zone:areat_id,
+            lang:lang_id,
+            id_department: departmentID
+        },
+        success: function(data){
+            themelist = JSON.parse(data);
+        }
+    });
+    return themelist;
+}
+
+
+$(function(){
+
+
+    
+    
+
+    
+    $('#mode_select').on('click', '.img-responsive', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        var ff = $(this).parent().parent();
+            ff.addClass('selected');
+        $('#mode_select .col-md-3').not(ff).removeClass('selected');
+        var theme = $(this).parent().find('input').val();
+        $('#setTheme').val(theme);
+        var title = $(this).siblings("p.theme-title").find('em').html();
+        var thumb = $(this).attr('src');
+        window.parent.setTheme(theme, title, thumb);
+        themeSelector.close();
+    })
+    .on('mouseover', '.img-responsive', function(event) {
+        event.preventDefault();
+        var theme = $(this).parent().find('input').val();
+        // 查询模版简介信息
+        queryThemeInfo(theme);
+    });
+
+    // 
+    var themeSelector = (function(){
+        var main = $('#mode_select');
+        function show(){
+            main.show().removeClass('unActive');
+            setTimeout(function(){ main.addClass('active'); }, 50);
+            // 
+            addThemeItem($('#this_theme').val());
+        }
+        function close(){
+            main.removeClass('active').addClass('unActive');
+            setTimeout(function(){ main.hide(); }, 600);
+        }
+        return {
+            show, close
+        }
+    })();
+
+    // open theme selector 
+    $('#theme_layer').click(function(){
+        $('#id_lang').val() ? themeSelector.show() : (function(){
+            alert('请选择语言包');
+            $('#id_lang').focus();
+        })();
+    });
+
+    // close theme selector
+    $('#cancel_theme').click( themeSelector.close );
+
+});
+
+    
+
+</script>

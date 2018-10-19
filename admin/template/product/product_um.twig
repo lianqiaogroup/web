@@ -1,0 +1,1012 @@
+{% extends 'base.twig' %}
+{% block style %}
+    <link href="http://shopadmin.stosz.com/fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/template/plugins/um/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/template/plugins/um/third-party/template.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/template/plugins/um/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/template/plugins/um/umeditor.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/template/plugins/um/lang/zh-cn/zh-cn.js"></script>
+    <script src="http://shopadmin.stosz.com/fileinput/js/fileinput.min.js" type="text/javascript"></script>
+    <script src="/template/plugins/tagsinput/jquery.tagsinput.js" type="text/javascript"></script>
+    <!--简体中文-->
+    <script src="http://shopadmin.stosz.com/fileinput/js/locales/zh.js" type="text/javascript"></script>
+    <style>
+        .photos{position: relative;width: 200px;height: 200px;float: left;}
+        .photos i{position: absolute;top:-5px; right:0;cursor: pointer;}
+        .photos img{width: 200px;height: 200px; padding: 5px}
+        .table{border: 1px solid #ddd}
+        #theme_div{width: 100px;text-align: center;margin-bottom: 10px;}
+        #theme_img{width: 100%;display: block;}
+        .ui-dialog-body {
+            padding: 0px !important;
+        }
+        .kv-file-zoom .kv-file-remove{
+            display:none
+        }
+        .edui-container{z-index: 1003 !important;}
+    </style>
+    <style type="text/css">
+        .tags {
+            display: inline-block;
+            padding: 4px 6px;
+            color: #777;
+            vertical-align: middle;
+            background-color: #FFF;
+            width: 206px;
+        }
+        .tags .tag {
+            display: inline-block;
+            position: relative;
+            font-size: 13px;
+            font-weight: normal;
+            vertical-align: baseline;
+            white-space: nowrap;
+            background-color: #91b8d0;
+            color: #FFF;
+            padding: 3px;
+            margin-right: 3px;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+        }
+        .tags .tag a {
+            color: #FFFFFF;
+        }
+        .tags input[type="text"], .tags input[type="text"]:focus {
+            border: 0;
+            display: inline;
+            outline: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            width: 100%;
+        }
+        .tags .tag .close {
+            font-size: 15px;
+            line-height: 20px;
+            opacity: 1;
+            filter: alpha(opacity=100);
+            color: #FFF;
+            text-shadow: none;
+            float: none;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 18px;
+            text-align: center;
+        }
+        button.close {
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            -webkit-appearance: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb text-info">
+                            {% if  product_id %}
+                                <i class="fa fa-edit"></i>  {{ title }}
+                                {% else %}
+                                 <i class="fa fa-plus"></i> 新增产品
+                                {% endif %}
+                            <button class="text-right btn btn-success pull-right saveAll" onclick="saveAll()" style="position: fixed;right: 0;top:100px;z-index:9"><i class="fa fa-save"></i> 保 存 </button>
+                        </h4>
+                        {% if error %}
+                            
+                            {% for e in error %}
+                              <p class="text-danger bg-warning text-center" style="padding: 5px 0"> ** {{ e.title }} **</p>
+                            {% endfor %}
+                        
+                        {% endif %}
+                        
+                        <form id='form' name="form" class="form-horizontal style-form" method="post" action="product.php?&act=save" >
+                            <input type="hidden" name="product_id" value="{{ product_id }}">
+                            <input type="hidden" name="id_department" value="{{ id_department }}">
+                            <input type="hidden" name="token" value="{{ token }}">
+                            <button type="submit" id="submit" class="hidden"></button>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > ERP域名 <font color="red">(不加 http://) </font></label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control domain" name="domain" value="{{ domain }}" required {% if product_id  %} readonly {% endif %}>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_domain" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 二级目录 </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="identity_tag" value="{{ identity_tag }}" >
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 选择地区 </label>
+                                <div class="col-sm-4 zone">  
+                                     <select id="id_zone" name="id_zone" class="form-control" required>
+                                         <option value=""> 选择地区</option>
+                                         {% for z in id_zones %}
+                                             <option value="{{ z.id_zone }}"  {% if id_zone == z.id_zone %} selected {% endif %}> {{ z.title }}</option>
+                                         {% endfor %}
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 选择语言 </label>
+                                <div class="col-sm-4 zone">
+                                    <select id="id_lang" name="lang" class="form-control" required>
+                                         <option value="TW" {% if lang == 'TW' %} selected {% endif %}> 繁体中文 </option>
+                                         <option value="EN" {% if lang == 'EN' %} selected {% endif %}> 英语 </option>
+                                         <option value="CN" {% if lang == 'CN' %} selected {% endif %}> 简体中文 </option>
+                                         <option value="JP" {% if lang == 'JP' %} selected {% endif %}> 日语 </option>
+                                         <option value="AR" {% if lang == 'AR' %} selected {% endif %}> 阿拉伯语 </option>
+                                         <option value="VNM" {% if lang == 'VNM' %} selected {% endif %}> 越南语 </option>
+                                         <option value="THA" {% if lang == 'THA' %} selected {% endif %}> 泰语 </option>
+                                         <option value="RUB" {% if lang == 'RUB' %} selected {% endif %}> 俄语 </option>
+                                         <option value="IDR" {% if lang == 'IDR' %} selected {% endif %}> 印尼语 </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 优化师 </label>
+                                <div class="col-sm-4 users">
+                                    {% if ad_member_id == -1 %}
+                                        <select name="users" class="form-control">
+                                        </select>
+                                    {% else %}
+                                        <span class="seo_load" style="display: block;text-align:center;width: 100%;cursor:pointer;border: 1px solid #bbb;padding: 5px 10px;"onclick="ajaxSEO()">优化师人员变更</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > ERP产品id </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="erp_number" value="{{ erp_number }}" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_erp_number" class="text-danger"></span>
+                                </div>
+                            </div>                                
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  ERP产品名称  </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="title" value="{{ title }}">
+                                </div>
+                            </div>                                
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  产品外文名称 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="sales_title" value="{{ sales_title }}">
+                                </div>
+                            </div>                         
+    
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > seo标题 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="seo_title" value="{{ seo_title }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > seo描述 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="seo_description" value="{{ seo_description }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 价格 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="price" value="{{ price }}" required>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 原价 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="market_price" value="{{ market_price }}">
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 折扣 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="discount" value="{{ discount }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 标签 </label>
+                                <div class="col-sm-10">
+                                    <input id="tags" name="tags" type="text" class="form-control" value="{{ tags }}" style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <script>
+                                $(function() {
+                                    $('#tags').tagsInput({width:'auto'});
+                                });
+                            </script>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 前台显示模板 </label>
+                                <div class="col-sm-10">
+                                    <!-- <div class="row"> -->
+                                        {% if theme %}
+                                        <div id="theme_div" style="display: block;">
+                                            {% if theme == 'style5+timer' %}
+                                            <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/style5.jpg">
+                                            {% else %}
+                                                {% if theme == 'wnczxzd.com' %}
+                                                    <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/style4.jpg">
+                                                {% else %}
+                                                    <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/{{ theme|raw }}.jpg">
+                                                {% endif %}
+                                            {% endif %}
+                                            <span id="theme_text">{{ theme|raw }}</span>
+                                        </div>
+                                        {% else %}
+                                        <div id="theme_div" style="display: none;">
+                                            <img id="theme_img" src="">
+                                            <span id="theme_text"></span>
+                                        </div>
+                                        {% endif %}
+                                        <button type="button" class="btn btn-primary" id="theme_layer" >选择模板</button>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 支付方式 </label>
+                                <div class="col-sm-10">
+                                    
+                                    <input type="checkbox" value="1" name="payment_online" {% if payment_online == 1 %} checked {% endif %}> 易极付   <br/> <br/>
+                                    <input type="checkbox" value="1" name="payment_paypal" {% if payment_paypal ==1 %} checked {% endif %}> paypal<br/><br/>
+                                    <input type="checkbox" value="1" name="payment_asiabill" {% if payment_asiabill ==1 %} checked {% endif %}> Asiabill <br/> <br/>
+                                    <input type="checkbox" value="1" name="payment_underline" {% if payment_underline ==1 %} checked {% endif %}> 货到付款 <br/> <br/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 销量 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" value="{{ sales }}" name="sales" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 库存 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" value="{{ stock }}" name="stock" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 联系邮箱 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" value="{{ service_email }}" name="service_email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > pop800 id </label>
+                                <div class="col-sm-10">
+                                    <input type="text" value="{{ service_contact_id }}" name="service_contact_id" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > logo </label>
+                                {% if logo %}
+                                    <div class="col-sm-3">
+                                        <img src="{{ logo |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" width="200">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  </label>
+                                <div class="col-sm-10">
+                                    <input  class="file-0a" type="file"  name="upfile"   multiple>
+                                    <input  type="hidden"  name="logoUrl" id="logo" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 缩略图 </label>
+                                {% if thumb %}
+                                <div class="col-sm-3">
+                                        <img src="{{ thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" width="200" height="200">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  </label>
+                                <div class="col-sm-10">
+                                    <input class="file-1a"  type="file"  name="upfile"   multiple>
+                                    <input  type="hidden"  name="thumbsUrl" id="thumbs" value="">
+                                </div>
+                            </div>
+                            
+    
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 图集 </label>
+                              
+                                <div class="col-sm-10">
+                                    {% if photos %}
+                                         {% for p in photos %}
+                                             <div class="photos">
+                                                 <i class="fa fa-minus-circle text-danger fa-2x del_photos" thumb_id="{{ p.thumb_id }}"></i>
+                                                 <img src="{{ p.thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}">
+                                             </div>
+                                         {% endfor %}
+                                    {% endif %}
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  </label>
+                                <div class="col-sm-10 file-photos">
+                                    <input id="file-photos" class="file" type="file"  name="upfile"   multiple>
+                                </div>
+                            </div>
+  
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 属性 </label>
+                                <div class="col-sm-10" id="attr">
+                                  <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            属性组id
+                                        </div>
+                                        <div class="col-sm-1">
+                                            属性组
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                           属性名称
+                                        </div>
+                                        <div class="col-sm-2">
+                                            图片
+                                        </div>
+                                        <div class="col-sm-2">
+                                            更改图片
+                                        </div>
+                                        <div class="col-sm-1">
+                                            erp属性id
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div  id="addAttr" class="text-right btn btn-success pull-right"> 增加一个属性 </div>
+                                          {#  <select class="group-attr form-control" >
+                                                <option value="">增加一个属性</option>
+                                              &#123;&#35;  {% for g in attr_group %}
+                                                    <option value="{{ g.attr_group_id }}"> {{ g.title }} </option>
+                                                {% endfor %}&#35;&#125;
+                                            </select>#}
+                                           
+                                        </div>
+                                     </div>
+                                    </div>
+                               
+                                    {% if attr %}
+                                        {% for a in attr %}
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                {{ a.attr_group_id}}
+                                            </div>
+                                            <div class="col-sm-1">
+                                                {{ a.attr_group_title}}
+                                            </div>
+
+                                            <div class="col-sm-2">
+                                                 {{ a.name }}
+                                            </div>
+                                            <div class="col-sm-2 attr_img_url ">
+                                               {% if a.thumb %}
+                                                   <img src="{{ a.thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" width="60" height="60">
+                                                {% endif%}
+                                               
+                                            </div>
+                                            <div class="col-sm-2" >
+                                                <input type="file" name="upfile" class="attr_thumb"  multiple >
+                                                <input type="hidden" name="attr_thumb_url[]" class="attr_thumb_url" >
+                                            </div>
+                                            <div class="col-sm-1">
+                                                {{ a.number }}
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="hidden" name='attr_group_id[]' value="{{ a.product_attr_id }}">
+                                                <button class="btn  btn-danger btn-xs deleteAttr " product_attr_id ="{{ a.product_attr_id }}" type="button" > 删除 </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                       {% endfor %}
+                                    {% endif%}
+
+                                    <div id="attrArea">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 套餐 </label>
+                                <div class="col-sm-8">
+                                    {% if combo %}
+                                        {% for c in combo %}
+                                            <table class="table table-striped table-advance table-hover">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            {% if c.thumb %} <img src="{{ c.thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" width="40" height="40;"> {% endif %}
+                                                            套餐名称：{{ c.title }} 价格： {{ c.price }} </td>
+                                                        <td colspan="2"><button class="btn btn-danger del_data_combo" type="button" combo_id="{{ c.combo_id }}"> 删除 </button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>产品名称</th>
+                                                        <th>产品外文名称</th>
+                                                        <th> 产品数量 </th>
+                                                        <th> 产品erp id </th>
+                                                        <th> </th>
+                                                     </tr>
+                                                    {% for g in c.goodsList %}
+                                                    <tr>
+                                                        <td>{{ g.title }}</td>
+                                                        <td>{{ g.sale_title }}</td>
+                                                        <td> {{ g.num }} </td>
+                                                        <td data-emptyErpid> {{ g.erp_id }} </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div id="combo"></div>
+                                    <div class="col-sm-2">
+                                        <button class="add_combo btn btn-primary" type="button"> 增加套餐</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > FB通用像素id </label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="fb_px" value="{{ fb_px }}" required>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 51la </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" name="la" required  style="height:100px;"> {% if la  %} {{ la|raw }}{% else %}<script language="javascript" type="text/javascript" src="http://js.users.51.la/19042546.js"></script><noscript><a href="http://www.51.la/?19042546" target="_blank"><img alt="我要啦免费统计" src="http://img.users.51.la/19042546.asp" style="border:none" /></a></noscript> {% endif %}  </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 购买提示 </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" name="tips"  style="height:100px;">{{ tips }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > google追踪代码 </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" name="google_js"  style="height:100px;"> {% if google_js  %} {{ google_js|raw }}{% else %}<script type="text/javascript">
+var google_conversion_id = 860326848;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "EgDxCPig224QwJeemgM";
+var google_remarketing_only = false;
+</script><script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script><noscript><div style="display:inline;"><img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/860326848/?label=EgDxCPig224QwJeemgM&amp;guid=ON&amp;script=0"/></div></noscript>{% endif %}  </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > Google Analytics </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" name="google_analytics_js"  style="height:100px;">{% if google_analytics_js  %}{{ google_analytics_js|raw }}{% endif %} </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > yahoo追踪代码 </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" name="yahoo_js"  style="height:100px;"> {% if yahoo_js  %} {{ yahoo_js|raw }}{% else %}{% endif %}  </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > yahoo追踪代码-触发 </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" name="yahoo_js_trigger"  style="height:100px;"> {% if yahoo_js_trigger  %} {{ yahoo_js_trigger|raw }}{% else %}{% endif %}  </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 内容 </label>
+                                <div class="col-sm-8">
+                                    <textarea id="editor" name="content" style="width:101%;height:500px;">{{ content|raw|replace({"img.stosz.com":"imgcn.stosz.com"})}}</textarea>
+                                </div>
+                            </div>
+                            <input name="theme" type="hidden" id="this_theme" value="{{ theme|raw }}">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+    <script src="template/plugins/dialog/dist/dialog-plus.js"></script>
+    <script type="text/javascript">
+        highlight_subnav('product.php?');
+        // 检测所有套餐是否符合规则，套餐内产品erpid不能为0，否则弹出警告窗，提示需要修改套餐
+        var emptyPos;
+        $('[data-emptyErpid]').each(function(index, elem){
+            var value = $(elem).html();
+            if( emptyPos ){ return false; }
+            if( parseInt(value) === 0 ){
+                emptyPos = $(elem).parents('table').offset().top;
+                $('.dialog-emptyErpid').show();
+                $('.dialog-emptyErpid').find('.dialog-closeBtn').click(function(event) {
+                    $("body").scrollTop(emptyPos-30);
+                    $('.dialog-emptyErpid').hide();
+                    /* Act on the event */
+                });
+                return;
+            }
+        });
+
+        var combo =0;
+
+        var um = UM.getEditor('editor');
+        if($("input[name='product_id']").val() =='')
+        {
+            $("input.domain").focus();
+        }
+
+        $(".add_combo").click(function () {
+            combo++;
+            var html = ' <table class="table table-striped table-advance table-hover"> <tbody> <tr> <td colspan="2">套餐名称：  <input type="text" class="form-control" name="combo['+ combo+'][name]" required>价格： <input type="text" class="form-control" name="combo['+combo+'][price]" required> 套餐图片： <input type="file" class="form-control comboThumb" name="upfile" ><input type="hidden"  name="comboThumbUrl[]" class="comboThumbUrl" ></td> <td><button class="btn btn-danger del_combo" type="button" onclick="del_combo(this)"> 删除 </button></td></tr> <tr><th>产品名称</th><th>产品外文名称</th> <th> 产品数量 </th> <th> 产品erp id </th> <th> <button class="btn btn-primary" type="button" onclick="add_combo_product(this)" combo="'+combo+'"> 增加产品 </button> </th> </tr> <tr><td><input type="text" class="form-control" name="combo['+combo+'][title][]" required> </td><td><input type="text" class="form-control" name="combo['+combo+'][sale_title][]" required> </td> <td> <input type="text" class="form-control" name="combo['+combo+'][num][]" value="1" required> </td> <td> <input type="text" class="form-control" name="combo['+combo+'][erp_id][]" readonly required><input type="hidden" class="form-control" name="combo['+combo+'][product_id][]" readonly required></td> <td><button type="button" class ="btn btn-success selectGoods">选择产品</button>  <button class="btn btn-danger" type="button" onclick="del_combo_product(this)"> 删除 </button></td> </tr> </tbody>  </table>' ;
+           
+            $("#combo").append(html)
+            
+        });
+        function del_combo(obj)
+        {
+            combo--;
+            $(obj).parentsUntil('.table').parent().remove();
+        }
+        function del_combo_product(obj)
+        {
+            $(obj).parentsUntil('tr').parent().remove();
+        }
+        function  add_combo_product(obj) {
+            var   comboId  = $(obj).attr('combo');
+               var html ='<tr><td><input type="text" class="form-control" name="combo['+comboId+'][title][]" required> </td><td><input type="text" class="form-control" name="combo['+comboId+'][sale_title][]" required> </td> <td> <input type="text" class="form-control"  name="combo['+comboId+'][num][]" value="1" required> </td> <td> <input type="text" class="form-control"  name="combo['+comboId+'][erp_id][]" readonly required><input type="hidden" class="form-control" name="combo['+combo+'][product_id][]" readonly required> </td> <td><button type="button" class ="btn btn-success selectGoods">选择产品</button>  <button class="btn btn-danger" type="button" onclick="del_combo_product(this)"> 删除 </button></td> </tr>';
+            $(obj).parents('tr').after(html);
+           
+        }
+        $(".del_data_combo").click(function () {
+            var $this = $(this);
+             if(confirm('是否删除套餐？'))
+             {
+                var url ='product.php?'  ;
+                var combo_id = $(this).attr('combo_id') ;
+                $.post(url,{combo_id:combo_id,act:'deleteCombo'}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret == 1)
+                    {
+                        $this.parentsUntil('.table').parent().remove();
+                    }
+                    else{
+                        alert(ret.msg)
+                    }
+
+                })
+            }
+        }) ;
+        $('.file-0a').fileinput({
+            language: 'zh',
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            showCaption: false,
+            showUpload:false,
+            maxFileCount:1 ,
+            uploadUrl: 'qiniu_um.php?type=logo',
+        }).on("filebatchselected", function(event, files) {
+            $(this).fileinput("upload");
+        }).on("fileuploaded", function(event, data) {
+            $('.kv-file-remove').hide() ; 
+            $('.kv-file-zoom').hide() ; 
+            res = data.response ;
+            if(res.state=="SUCCESS")
+            {
+                $('#logo').val(res.url) ;
+                return true ;
+            }
+            alert('上传失败') ;
+            return false ;
+        }).on('filesuccessremove', function(event, key) { 
+             $('#logo').val('') ;
+        }).on('filecleared', function(event, key) { 
+             $('#logo').val('') ;
+        });
+        
+        $('.file-1a').fileinput({
+            language: 'zh',
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            showCaption: false,
+            showUpload:false,
+            maxFileCount:1 ,
+            uploadUrl: 'qiniu_um.php?type=thumb',
+        }).on("filebatchselected", function(event, files) {
+            $(this).fileinput("upload");
+        }).on("fileuploaded", function(event, data) {
+            $('.kv-file-remove').hide() ; 
+            $('.kv-file-zoom').hide() ; 
+            res = data.response ;
+            if(res.state=="SUCCESS")
+            {
+                $('#thumbs').val(res.url) ;
+                return true ;
+            }
+            alert('上传失败') ;
+            return false ;
+        }).on('filesuccessremove', function(event, key) { 
+             $('#thumbs').val('') ;
+        }).on('filecleared', function(event, key) { 
+             $('#thumbs').val('') ;
+        });
+        
+        $('#file-photos').fileinput({
+            language: 'zh',
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            showCaption: false,
+            showUpload:false,
+            uploadUrl: 'qiniu_um.php?type=photos',
+        }).on("filebatchselected", function(event, files) {
+            $(this).fileinput("upload");
+        }).on("fileuploaded", function(event, data , previewId, index) {
+            $('.kv-file-remove').hide() ; 
+            $('.kv-file-zoom').hide() ; 
+            res = data.response ;
+            if(res.state=="SUCCESS")
+            {
+                var str = '<input  type="hidden"  name="photos[]"  class="photos_img"  value="'+res.url+'">' ;
+                $(".file-photos").append(str);
+                return true ;
+            }
+            alert('上传失败') ;
+            return false ;
+        }).on('filecleared', function(event,  key) { 
+             $('.photos_img').remove() ;
+        });
+        $("#addAttr").click(function(){
+           var html ='<div class="form-group attr_add_group"><div class="row">' ;
+            {% if  product_id %}
+                html+='<div class="col-sm-1"><input  class="form-control" type="text" name="add_attr_group_id[]" ></div>';
+                html+='<div class="col-sm-1"><input class="form-control" type="text" name="attr_title[]" required></div>';
+            {% else %}
+            html+='<div class="col-sm-1"><input class="form-control" type="text"  name="attr_group_id[]" required></div>';
+            html+='<div class="col-sm-1"><input class="form-control" type="text" name="attr_group_title[]"  required></div>';
+            {% endif %}
+            html+='<div class="col-sm-2"><input class="form-control" type="text" name="name[]" required></div>';
+            html+='<div class="col-sm-2 attr_img_url"></div>';
+            html+='<div class="col-sm-2"><input type="file" name="upfile" class="attr_thumb" accept="image/*"  multiple >' ;
+            html+='<input type="hidden" name="attr_thumb_url[]" class="attr_thumb_url" ></div>';
+            html+='<div class="col-sm-1"><input class="form-control" type="text" name="attr_erp_number[]" required></div>';
+            html+='<div class="col-sm-2"><button class="btn  btn-danger btn-xs" onclick="removeAttr(this)"> 取消 </button></div>';
+            html +='</div></div>' ;
+            $("#attr").append(html);
+        })  ;
+        //属性异步上传图片
+        $(document).on('change', '.attr_thumb', function () {
+            var obj = $(this) ;
+            var file = this.files[0];
+            var fd = new FormData();
+            fd.append("upfile", file);
+            $.ajax({
+                url: "qiniu_um.php?type=attr",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: fd,
+                dataType: "json",
+                success: function (d) {
+                    if(d.state == "SUCCESS")
+                    {
+                        var p = obj.parent().parent();
+                        obj.next().val(d.url);
+                        var str = '<img src="'+d.url+'" width="60" height="60">' ;
+                        p.find('.attr_img_url').html(str);
+                        return true;
+                    }
+                    alert('上传失败');
+                }
+            });
+        });
+       //套餐异步上传图片
+        $(document).on('change', '.comboThumb', function () {
+            var obj = $(this) ;
+            var file = this.files[0];
+            var fd = new FormData();
+            fd.append("upfile", file);
+            $.ajax({
+                url: "qiniu_um.php?type=combo",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: fd,
+                dataType: "json",
+                success: function (d) {
+                    if(d.state == "SUCCESS")
+                    {
+                        obj.next().val(d.url);
+                        return true;
+                    }
+                    alert('上传失败');
+                }
+            });
+        });
+         //删除动态添加的属性
+        function removeAttr(obj)
+        {
+            $(obj).parents('.attr_add_group').remove()
+        }
+         //删除已经有的属性
+         $(".deleteAttr").click(function(){
+            var $this = $(this);
+            var url ='product.php?'  ;
+            var product_attr_id = $(this).attr('product_attr_id');
+            if(confirm("确认删除吗？"))
+              {
+                  $.post(url,{product_attr_id:product_attr_id,act:'delete'}).success(function(data){
+                      var ret = JSON.parse(data);
+                      if(ret.ret == 1)
+                      {
+                          
+                          $this.parentsUntil('.form-group').parent().remove();
+                         // $this.parents('.form-group').remove()
+                      }
+                      else{
+                          alert(ret.msg)
+                      }
+                    
+                  })
+              }
+         }) ;
+        
+        //删除图集
+        $('.del_photos').click(function(){
+            var $this = $(this);
+            var url ='product.php?'  ;
+            var thumb_id = $(this).attr('thumb_id');
+            if(confirm("确认删除吗？")) {
+                $.post(url, {thumb_id: thumb_id, act: 'deletePhotos'}).success(function (data) {
+                    var ret = JSON.parse(data);
+                    if (ret.ret == 1) {
+
+                        $this.parent('.photos').remove();
+                      
+                    }
+                    else {
+                        alert(ret.msg)
+                    }
+                })
+            }
+            
+        }) ;
+
+        // 检测域名是否重复
+        $("input.domain").blur(function(){
+            var $this = $(this);
+            var url ='product.php?'  ;
+            var domain = $(this).val();
+            var product_id= $("input[name='product_id']").val();
+            if(product_id !="")
+            {
+                return;
+            }
+            if(domain)
+            {
+                $("#error_domain").html("请稍后,查询中...");
+                
+                $.post(url,{domain:domain,act:'check','product_id':product_id}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret == 0)
+                    {
+                        $this.css('border-color',"#DB7028") ;
+                        $this.focus();
+                        $("#error_domain").html(ret.msg);
+                    }
+                    else{
+                        var callback = ret.data;
+                        var usersData = callback.users;
+                        var id_department = callback.domain['id_department'];
+                        var email =    callback.domain['smtp_user'];
+
+                        var users = '<select name="users" class="form-control">';
+                        for( var u in usersData)
+                        {
+                             users += '<option value="'+u+'"> '+usersData[u]+'</option>'
+                        }
+                        users +='</select>' ;
+                        $(".users").html(users);
+                        $("input[name='id_department']").val(id_department) ;
+                        $("input[name='service_email']").val(email);
+                        $("#error_domain").html('查询成功');
+                    }
+                    
+                })
+            }
+            else{
+                $this.focus();
+                $("#error_domain").html('请先填写域名');
+            }
+        }) ;
+
+        function ajaxSEO() {
+            var domain = $('input.domain').val();
+            var product_id= $("input[name='product_id']").val();
+            var seo_span = $('.seo_load');
+            $(seo_span).text('优化师人员加载中......');
+            if(product_id !="") {
+                var url = 'product.php?';
+                $.ajax({
+                    timeout: 30000, url: url, type: 'POST', data: {domain: domain, act: 'seo'},
+                    success: function (data) {
+                        var ret = JSON.parse(data);
+                        if (ret.ret == 1) {
+                            var usersData = ret.data;
+                            var users = '<select name="users" class="form-control">';
+                            var ad_member_id = {{ ad_member_id }};
+                            for (var u in usersData) {
+                                if (ad_member_id == u) {
+                                    users += '<option value="' + u + '" selected> ' + usersData[u] + '</option>'
+                                } else {
+                                    users += '<option value="' + u + '"> ' + usersData[u] + '</option>'
+                                }
+                            }
+                            users += '</select>';
+                            $(".users").html(users);
+                        } else {
+                            $(seo_span).text('加载失败，点击重新加载');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $(seo_span).text('加载失败，点击重新加载');
+                    },
+                });
+            }
+        }
+
+        $("input[name='erp_number']").blur(function() {
+            var $this = $(this);
+            var url = 'product.php?';
+            var number = $(this).val();
+            var product_id = $("input[name='product_id']").val();
+            if (product_id != "") {
+                return;
+            }
+            if (number) {
+                $("#error_erp_number").html("请稍后,查询中...");
+
+                $.post(url,{number:number,act:'getErpProduct','product_id':product_id}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret)
+                    {
+                        var result = ret.data;
+                        var attr = result. product_attr;
+                        
+                        $("input[name='sales_title']").val(result.title);
+                        $("input[name='title']").val(result.title);                        
+                        $("input[name='seo_title']").val(result.title);
+                        $("input[name='seo_description']").val(result.title);
+                        $("input[name='price']").val(result.price);
+                        $("input[name='market_price']").val(result.price);
+                         var option='';
+                         var html ='';
+                        //属性
+                        for(var i in attr)
+                        {
+                            option  =  attr[i]['option_value'];
+                            for(var j in option)
+                            {
+                              html +='<div class="form-group attr_add_group"><div class="row">' ;
+                              html+='<input type="hidden" name="attr_group_id[]" value='+attr[i].id+'>';
+                              html+='<div class="col-sm-1"><input class="form-control" type="text" value='+attr[i].id+' readonly></div>';
+                              html+='<div class="col-sm-1"><input class="form-control" type="text" name="attr_group_title[]"  value='+attr[i].title+' ></div>';
+
+                              html+='<div class="col-sm-2"><input class="form-control" type="text" name="name[]" required value='+option[j].title+'></div>';
+                              html+='<div class="col-sm-2 attr_img_url"></div>';
+                              html+='<div class="col-sm-2"><input type="file" name="attr_thumb" class="attr_thumb"  multiple >';
+                              html+='<input type="hidden" name="attr_thumb_url[]" class="attr_thumb_url" ></div>';
+                              html+='<div class="col-sm-1"><input class="form-control" type="text" name="attr_erp_number[]" required value='+option[j].id+'></div>';
+                              html+='<div class="col-sm-2"><button class="btn  btn-danger btn-xs" onclick="removeAttr(this)"> 删除 </button></div>';
+                              html +='</div></div>' ;
+
+                                  //test
+                              }
+                        }
+                        $("#attrArea").html(html);
+                        $("#error_erp_number").html("查询成功");
+                    }
+                    else{
+                        $("#error_erp_number").html(ret.msg);
+                    }
+                })
+            }
+        });
+    
+    //选择商品
+    var dial=0;
+    $('#combo').on('click','.selectGoods',function(){
+        var obj=$(this);
+        dial++;
+        var _url= "product.php?act=publicProduct";
+        dialog({
+            id:'_selectGoods_'+dial,
+            title:'选择商品',
+            url:_url,
+            width:1000,
+            height:800,
+            data:obj
+        }).showModal();
+    });
+    function setGoodsOne(_arr,_data){
+        var _number = _arr['_number'];
+        var _id = _arr['_id'];
+        _data.parent().parent().find("input").eq(3).val(_number);
+        _data.parent().parent().find("input").eq(4).val(_id);
+        dialog.get('_selectGoods_'+dial).close();
+    }
+    //主题
+    $('#theme_layer').click(function(){
+        var d = dialog({
+            title: '选择模板',
+            id:"id-demo",
+            url:'theme_select.php',
+            width: 1024,
+            height:600,
+            okValue: '保存',
+            onclose: function () {
+                $('iframe[name="id-demo"').remove();
+            },
+            ok:function(){
+
+            }
+        });
+        d.showModal();
+        $("iframe[name=\"id-demo\"]").attr('scrolling','yes');
+    });
+    function gettheme(val,title){
+        $('#theme_div').show();
+        $('form').find('input[name="theme"]').val(val);
+        $('#theme_text').html(title);
+        if( window.location.hostname==""){}
+        var sourceUrl = "http://shopadmin.stosz.com/image/theme/";
+        var imgsrc = sourceUrl + title +".jpg";
+        $('#theme_img').attr('src',imgsrc);
+    }
+    function saveAll(){
+        if($('input[name="theme"]').val() == ""){
+            alert("请选择主题");
+        }else{
+           $('#submit').click();
+           var len =  $("input[required]").length;
+           var is_empty = 0;
+           for(var i=0;i<len;i++)
+           {
+               if($("input[required]").eq(i).val() == "")
+               {
+                   is_empty =1;
+               }
+           }
+//           if(is_empty==0)
+//           {
+//             $(".saveAll").attr('disabled',true);
+//           }
+        }
+    }
+    </script>
+{% endblock %}

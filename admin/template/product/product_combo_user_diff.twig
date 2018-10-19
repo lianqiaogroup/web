@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Bootstrap core CSS -->
+     <link href="http://shopadmin.stosz.com/bootstrap/css/bootstrap.css?v=1.2" rel="stylesheet">
+     <!--external css-->
+     <link href="http://shopadmin.stosz.com/font/font-awesome.css?v=1.14" rel="stylesheet" />
+     <link rel="stylesheet" type="text/css" href="template/assets/css/zabuto_calendar.css">
+     <!--link rel="stylesheet" type="text/css" href="template/assets/js/gritter/css/jquery.gritter.css" /-->
+     <!--link rel="stylesheet" type="text/css" href="template/assets/lineicons/style.css"-->
+    
+     <!-- Custom styles for this template -->
+     <link href="template/assets/css/style.css" rel="stylesheet">
+     <link href="template/assets/css/style-responsive.css" rel="stylesheet">
+     <link href="template/plugins/dialog/dist/ui-dialog.css"  rel="stylesheet">
+    
+     <script src="http://shopadmin.stosz.com/javascript/jquery.js"></script>
+     <script type="text/javascript" src="http://shopadmin.stosz.com/javascript/jquery-1.8.3.min.js"></script>
+     <script type="text/javascript" src="http://shopadmin.stosz.com/bootstrap/bootstrap.min.js"></script>
+ </head>
+<body>
+<div style="height: 60px;text-align: center;">
+    <span style="display: block;padding-top: 25px;">您的套餐内,出现了不是站点所属人的产品,请确认修改后,再做保存</span>
+</div>
+<div class="form-group" style="height: 480px;overflow: scroll;">
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>套餐名称</th>
+            <th>产品名称</th>
+            <th>所属人名称</th>
+        </tr>
+        </thead>
+        
+        <tbody id="searchList">
+        
+        </tbody>
+        <tbody id="AddList">
+        {% for v in data %}
+            <tr>
+                <td>{{v.title}}</td>
+                <td>{{ v.product_title }}</td>
+                <td>{{ v.name_cn }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;">
+    <button class="btn btn-primary user-ok">知道了</button>
+</div>
+
+<script>
+    $(function () {
+        //插入
+        $(document.body).on("click",'button.user-ok',function(){
+            window.parent.submitComboProductUser();
+        });
+    });
+
+</script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,447 @@
+html,body,h1{
+    margin:0;padding:0;
+}
+body{
+    font-size:12px;
+}
+select{
+    height: 22px;
+    width:173px;
+    margin-bottom:10px;
+}
+.form-control{
+    display:inline-block !important;
+}
+
+@mainColor: #1f9fff;
+
+
+.main_wrap {
+    background-color: #f1f1f1;
+    padding:20px 50px;
+    display:-webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display:flex;
+    margin-left:250px;
+    section{
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;  
+        -webkit-flex: 1;
+        -ms-flex: 1
+        flex: 1;
+        // border:1px solid #797979;
+        border-radius: 5px;
+        margin-right:20px;
+    }
+}
+
+.main_wrap > section {
+    min-width: 1000px;
+    .content_title{
+        height:50px;
+        line-height:50px;
+        font-size:14px;
+        padding-left:1em;
+        margin-bottom:16px;
+    }
+    .main_content {
+
+    }
+}
+
+
+
+.main_wrap section .theme_effect{
+    width:375px;
+    background-color: #f9f9f9;
+    padding-bottom: 80px;
+    
+    // banner
+    .module_banner {
+        text-align: center;
+        img {
+            display: block;
+        }
+    }
+    // 细节图模块
+    .module_image {
+        img {
+            display: block;
+            height: 63px;
+            width: 100%;
+            background-color: #ddd;
+        }
+    }
+    // 倒计时
+    @import './themeDiy/oldVersion/countdown.less';
+    // 产品信息
+    @import './themeDiy/oldVersion/product_info.less';
+    // 服务
+    @import './themeDiy/oldVersion/service.less';
+    // 促销
+    @import './themeDiy/oldVersion/promotion.less';
+
+    // 规格选择
+    .module_product_selection {
+        height: 40px;
+        line-height: 40px;
+        padding:0 10px;
+        text-align: left;
+        &:after{
+            content:'';
+            float:right;
+            width:8px;
+            height:8px;
+            margin-top: 16px;
+            border-bottom:2px solid #797979;
+            border-right:2px solid #797979;
+            -ms-transform:rotate(-45deg);
+            -moz-transform:rotate(-45deg);
+            -o-transform:rotate(-45deg);
+            -webkit-transform:rotate(-45deg);
+            transform:rotate(-45deg);
+        }
+    }
+    // 图文详情
+    .module_product_content {
+        text-align: center;
+        background-color: #fff;
+        padding: 10px;
+        box-sizing: border-box;
+        p {
+            margin-bottom: 0px;
+        }
+        img {
+            max-width: 100%;
+        }
+        video {
+            max-width: 100%;
+        }
+    }
+    // FAQ模块
+    .module_faq{
+        display: none;
+        height:40px;
+        line-height:40px;
+        border:1px solid #797979;
+        padding:0 10px;
+        margin-top:-1px;
+        text-align:center;
+    }
+    .module_comment {
+        padding: 0 10px;
+        line-height: 40px;
+    }
+}
+
+
+
+#dragLayer1 {
+    position: relative;
+    display: block;
+    width: 100%;
+    .layer {
+        position: relative;
+        display: block;
+        min-height: 40px;
+        margin: 10px 0px;
+        cursor: pointer;
+        background-color: #fff;
+        font-size: 14px;
+        &:first-child {
+            margin-top: 0px;
+        }
+        &.drag {
+            display: none;
+        }
+        .inDrag_module_label {
+            display: none;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            line-height: 100px;
+            height: 100px;
+            text-align: center;
+            font-size: 14px;
+        }
+    }
+    .preAdd {
+        position: relative;
+        display: block;
+        min-height: 40px;
+        border: solid 1px #ddd;
+        margin-bottom: 10px;
+        cursor: move;
+        background-color: #fff;
+        border-color: #ff6600;
+        box-sizing: content-box;
+    }
+    .layer.add {
+        border: none;
+        &:hover {
+            background-color: white;
+        }
+        > span {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 30px;
+            color: white;
+            padding: 0px;
+            background-color: @mainColor;
+            font-size: 18px;
+            cursor: pointer;
+            &:hover {
+                background-color: darken(@mainColor, 5%);
+            }
+        }
+    }
+}
+#dragLayer1.inDrag {
+    padding: 10px;
+    box-sizing: border-box;
+    .layer {
+        border: dashed 1px #ddd;
+        height: 100px;
+        overflow-y: hidden;
+        &:hover {
+            background-color: #f9f9f9;
+        }
+        > div {
+            &:after, &:before {
+                display: none;
+            }
+        }
+        > div > * {
+            display: none;
+        }
+        > div > .inDrag_module_label {
+            display: block;
+        }
+    }
+}
+
+// 按钮
+.button_group{
+    width: 375px;
+    font-size:0;
+    margin-top: 20px;
+    text-align: center;
+    position: fixed;
+    left: 300px;
+    bottom: 50px;
+    font-size: 0px;
+    button{
+        margin: 0 5px;
+        display: inline-block;
+        width:47%;
+        height:40px;
+        background:none;
+        border-radius:0;
+        background-color: @mainColor;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 14px;
+        &#publish{
+            margin-right:6%;
+        }
+    }
+}
+
+
+
+
+
+// 侧边栏
+.main_wrap aside {
+    width: 385px;
+    font-size:12px;
+    padding-top: 66px;
+    position: fixed;
+    left: 700px;
+
+    .module_boxer {
+        margin-bottom:20px;
+        position:relative;
+        border-radius: 7px;
+        border: solid 1px #ddd;
+        background-color: #fff;
+        overflow: hidden;
+        display: none;
+
+        .module_title{
+            height: 50px;
+            line-height: 50px;
+            font-size:14px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            i.iconfont {
+                margin-right: 10px;
+                color: #20a1ff;
+            }
+        }
+        >form{
+            padding:0 20px;
+            padding-bottom: 10px;
+            >span{
+                color:#999;
+            }
+            input[type='reset']{
+                float:right;
+                color:blue;
+                text-decoration:underline;
+                font-size:12px;
+                background:none;
+                border:none;
+                outline:none;
+            }
+        }
+        &:last-child{
+            margin:0;
+        }
+
+        // 按钮组
+        .button_layer {
+            button {
+                font-size: 12px;
+                border-radius: 5px;
+                width: 80px;
+            }
+            .btn-primary {
+                background-color: #20a1ff;
+                border-color: #20a1ff;
+            }
+            .btn-danger {
+
+            }
+        }
+
+    }
+    input{
+        margin-bottom:10px;
+    }
+}
+
+// 选择模块
+#chooseModule {
+    display: block;
+    .module_title {
+        margin-bottom: 10px;
+    }
+    ul {
+        padding: 0 10px;
+        padding-bottom: 20px;
+        font-size: 0px;
+        text-align: left;
+        li {
+            font-size: 12px;
+            display: inline-block;
+            margin: 0 12px;
+            margin-bottom: 10px;
+            text-align: center;
+            > span {
+                width: 95px;
+                height: 55px;
+                box-sizing: border-box;
+                display: block;
+                background-color: #fff;
+                border: solid 1px #eeeeee;
+                border-radius: 55px;
+                cursor: pointer;
+                i {
+                    line-height: 55px;
+                    font-size: 24px;
+                    color: #1f9fff;
+                }
+            }
+            > label {
+                margin-top: 7px;
+                margin-bottom: 0px;
+            }
+            &:hover, &.active {
+                > span {
+                    background-color: #1f9fff;
+                    i {
+                        color: #fff;
+                    }
+                }
+                > label {
+
+                }
+            }
+        }
+    }
+}
+
+// 图片模块
+#module_image {
+    .uploader {
+        color: #aaa;
+        margin-bottom:10px;
+        label{
+            width:100px;
+            height:34px;
+            background:url(/template/img/upload.png) no-repeat;
+            background-size:100%;
+            vertical-align:middle;
+            display:inline-block;
+            border: solid 1px #eee;
+            position: relative;
+            overflow: hidden;
+            &:after {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                bottom: 0px;
+                right: 0px;
+                text-align: center;
+                content: "上传图片";
+                line-height: 34px;
+            }
+            input[type='file']{
+                opacity:0;
+                display: block;
+                height: 100%;
+                margin: 0px;
+            }
+        }
+    }
+    .preview {
+        img {
+            display: block;
+            width: 100%;
+            height: 57px;
+        }
+        margin-bottom: 10px;
+    }
+}
+
+#module_service {
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+
+
+
+section a.close{
+    margin:6px 10px 0 0;
+}
+i.close{
+    float:right;
+    width:24px;
+    height:24px;
+    background:url(/template/img/close.png);
+    background-size:100%;
+    margin:4px 5px 0 0;
+}

@@ -1,0 +1,436 @@
+{% extends 'base.twig' %}
+{% block style %}
+    <style>
+        .table thead tr th {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+        }
+
+        .table tbody tr td {
+            height: 100px;
+            line-height: 2em;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        a.toDomain:hover {
+            color: #ff6600;
+            text-decoration: underline;
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="content-panel">
+                        <h4>
+                            <i class="fa fa-directory"></i> 所有产品
+                            <a class="btn btn-success pull-right" href="product.php?act=edit"> 增加产品 </a>
+                            <a class="btn btn-success pull-right" style="margin-right: 10px;" onclick="downloadexcel()">
+                                导出域名</a>
+                            {% if admin.is_admin==1 %}
+                                <button class="btn btn-primary pull-right" style="margin-right: 10px;" data-toggle="modal" data-target="#myModal">产品erp部门转移</button>
+                                <button id="department_btn" style="margin-right: 10px;" class="btn btn-primary pull-right">产品管理员迁移</button>
+                            {% endif %}
+                        </h4>
+                        <section class="filter bg-warning" style="padding: 10px 0;">
+                            <form action="product.php">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="input-group ">
+                                            <span class="input-group-addon" id="basic-addon1">产品名称</span>
+                                            <input type="text" class="form-control" name="title"
+                                                   value="{{ filter.title }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">模板</span>
+                                            <input type="text" class="form-control" name="theme"
+                                                   value="{{ filter.theme }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">域名</span>
+                                            <input type="text" class="form-control" name="domain"
+                                                   value="{{ filter.domain }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">erpID</span>
+                                            <input type="text" class="form-control" name="erp_id"
+                                                   value="{{ filter.erp_id }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">是否删除</span>
+                                            <select name="is_del" class="form-control">
+                                                <option value="-1">全部</option>
+                                                <option value="1" {% if filter.is_del ==1 %} selected {% endif %}>是
+                                                </option>
+                                                <option value="0" {% if filter.is_del ==0 %} selected {% endif %}>否
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {% if admin.is_admin==1 %}
+                                        <div class="col-sm-2">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1">用户</span>
+                                                <select name="aid" class="form-control">
+                                                    <option value="-1">用户</option>
+                                                    {% for i in user %}
+                                                        <option value="{{ i.uid }}" {% if i.uid==filter.aid %} selected{% endif %}>{{ i.username }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i> 搜索
+                                    </button>
+                                </div>
+
+                            </form>
+                        </section>
+                        <!--  -->
+                        <section id="unseen">
+                            <table class="table table-bordered ">
+                                <thead>
+                                <tr>
+                                    <th height="60px" width="100px"> 产品id <input type="checkbox" name="checkAll"></th>
+                                    <th>缩略图</th>
+                                    <th>名称</th>
+                                    <th>价格</th>
+                                    <th width="60px">货币</th>
+                                    <th>域名</th>
+                                    <!--  <th>销量</th>
+                                     <th>库存</th> -->
+                                    {% if admin.is_admin ==1 %}
+                                        <th>用户</th>
+                                    {% endif %}
+                                    <th>主题</th>
+                                    <th>添加时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for g in goodsList %}
+                                    <tr {% if g.is_del ==1 %} class='bg-danger' {% endif %}>
+                                        <td>{{ g.product_id }} {% if g.is_del ==0 %}<input type="checkbox"
+                                                                                           value="{{ g.domain }}"
+                                                                                           name="domain"
+                                                                                           data-index="{{ g.product_id }}"> {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="http://{{ g.domain }}/{{ g.identity_tag }}" target="_blank">
+                                                {% if g.thumb %}
+                                                    <img src="{{ g.thumb |replace({"img.stosz.com":"imgcn.stosz.com" ,'-shop':'-shop80'}) }}"
+                                                         width="80" height="80">
+                                                {% else %}
+                                                    <img src="/admin/template/img/product-preview.png" width="80"
+                                                         height="80">
+                                                {% endif %}
+                                            </a>
+                                        </td>
+                                        <td style="text-align:left;"><a
+                                                    href="http://{{ g.domain }}/{{ g.identity_tag }}" target="_blank">{{ g.title }}</a>
+                                        </td>
+                                        <td>
+                                            <!-- <a class="text-danger">
+                                        {% if g.currency_prefix == 1 %}{{ g.currency_code }} {{ g.price }}{% else %} {{ g.price }}{{ g.currency_code }} {% endif %}
+                                    </a> -->
+                                            <a style="color:red">{{ g.price }}</a>
+                                        </td>
+                                        <td>{{ g.currency_code }}</td>
+                                        <td><a href="http://{{ g.domain }}/{{ g.identity_tag }}" target="_BLANK"
+                                               class="toDomain">{{ g.domain }}/{{ g.identity_tag }}</a></td>
+
+                                        <!-- <td>{{ g.sales }}</td> -->
+                                        {% if admin.is_admin ==1 %}
+                                            <td>{{ g.user }}</td>
+                                        {% endif %}
+                                        <td>
+                                            {{ g.theme }}
+                                            <br/>
+                                            {% if g.lang == "TW" %}繁体中文{% endif %}
+                                            {% if g.lang == "CN" %}简体中文{% endif %}
+                                            {% if g.lang == "EN" %}英语{% endif %}
+                                            {% if g.lang == "THA" %}泰语{% endif %}
+                                            {% if g.lang == "JP" %}日语{% endif %}
+                                            {% if g.lang == "AR" %}阿拉伯语{% endif %}
+                                            {% if g.lang == "VNM" %}越南语{% endif %}
+                                            {% if g.lang == 'RUB' %}俄语{% endif %}
+                                            {% if g.lang == 'IDR' %}印尼语{% endif %}
+                                            <!-- {{ g.lang }} -->
+                                        </td>
+                                        <td>{{ g.add_time }}</td>
+                                        <td>
+                                            {% if g.is_del ==1 %}
+                                                <button type="button" class="btn btn-success"
+                                                        onclick="delproduct({{ g.product_id }},0);"><i
+                                                            class="fa fa-edit"></i> 恢复
+                                                </button>
+                                            {% else %}
+                                                <a class="btn btn-primary"
+                                                   href="product.php?&product_id={{ g.product_id }}&act=edit"> <i
+                                                            class="fa fa-edit"> </i> 编辑 </a>
+                                                <button type="button" class="btn btn-danger"
+                                                        onclick="delproduct({{ g.product_id }},1);"><i
+                                                            class="fa fa-edit"></i> 删除
+                                                </button>
+                                            {% endif %}
+
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <!-- 模态框（Modal） -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                ×
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">输入要转移的erp业务组id</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="text-danger"> erp业务部id </label>
+                                                <input type="text" class="id_department form-control"
+                                                       name="id_department">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">确定
+                                            </button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+                            <!-- 产品转移到其他部门模态框（Modal） -->
+                            <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title" id="myModalLabel">选择对应管理员转移</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                    <select name="department_id" class="department_id form-control">
+                                                        <option value="0">请选择管理员</option>
+                                                        {% for i in user %}
+                                                            {% if i.uid != 1 %}
+                                                                <option value="{{ i.uid }}">{{ i.username }}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">确定
+                                            </button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+                            <div class="text-center">
+                                {{ pageHtml|raw }}
+                            </div>
+                        </section>
+                    </div><!-- /content-panel -->
+                </div><!-- /col-lg-4 -->
+            </div><!-- /row -->
+        </section>
+    </section>
+    <!-- pnotify resource -->
+    <link href="http://oor3l2fop.bkt.clouddn.com/plugins/pnotify/pnotify.custom.css" rel="stylesheet" type="text/css">
+    <script src="http://oor3l2fop.bkt.clouddn.com/plugins/pnotify/pnotify.custom.min.js"
+            type="text/javascript"></script>
+    <!--  -->
+    <script type="text/javascript">
+        highlight_subnav('product.php?');
+        function delproduct(product_id, is_del) {
+            if (confirm("请确认是否删除")) {
+                var url = 'product.php?';
+                var json = {product_id: product_id, is_del: is_del, act: "del"};
+                $.ajax({
+                    url: url,
+                    data: json,
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.ret) {
+                            location.reload()
+                        }
+                        else {
+                            new PNotify({
+                                title: '错误！！',
+                                text: data.msg,
+                                type: 'error',
+                                addclass: 'stack-bar-top'
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            } else {
+                return false;
+            }
+        }
+        function downloadexcel() {
+            var msg = "您真的确定要导出产品域名到Excel表中吗？\n\n请确认！";
+            if (confirm(msg) == true) {
+                window.location.href = "product.php?act=downloadexcel";
+            } else {
+                return false;
+            }
+        }
+
+        <!-- 产品迁移到其他部门 -->
+        $('#department_btn').on('click', function () {
+            var check = $('input:checkbox:checked');
+            if (check.length == 0) {
+                new PNotify({
+                    title: '错误!',
+                    text: "选择要转移的产品",
+                    type: 'error',
+                    addclass: 'stack-bar-top'
+                });
+                return;
+            } else {
+                $('#departmentModal').modal('show')
+            }
+        });
+        $('#departmentModal').on('hide.bs.modal', function () {
+            var id_department = $('.department_id').val();
+            if (id_department ==0) {
+                new PNotify({
+                    title: '错误!',
+                    text: '请选择管理员',
+                    type: 'error',
+                    addclass: 'stack-bar-top'
+                });
+                return;
+            } else {
+                var productIDs = [], check;
+                check = $('input:checkbox:checked');
+                $.each(check, function () {
+                    productIDs.push($(this).attr('data-index'));
+                });
+
+                var url = 'product.php?';
+                var json = {products: productIDs, id_department: id_department, act: "productDepartChange"};
+                $.ajax({
+                    url: url,
+                    data: json,
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.ret) {
+                            new PNotify({
+                                title: '操作成功',
+                                text: '产品转移成功',
+                                type: 'success',
+                                addclass: 'stack-bar-top'
+                            });
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        }
+                        else {
+                            new PNotify({
+                                title: '错误!',
+                                text: data.msg,
+                                type: 'error',
+                                addclass: 'stack-bar-top'
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#myModal').on('hide.bs.modal',
+            function () {
+                var domain = [], check;
+                var id_department = $(".id_department").val();
+                if (!id_department || isNaN(id_department)) {
+                    new PNotify({
+                        title: '错误！！',
+                        text: "输入部门id或者部门id不是数字",
+                        type: 'error',
+                        addclass: 'stack-bar-top'
+                    });
+                    return;
+                }
+                check = $('input:checkbox:checked');
+                if (check.length == 0) {
+                    new PNotify({
+                        title: '错误！！',
+                        text: "选择要转移的域名！",
+                        type: 'error',
+                        addclass: 'stack-bar-top'
+                    });
+                    return;
+                }
+                $.each(check, function () {
+                    domain.push($(this).val());
+                });
+
+                var url = 'product.php?';
+                var json = {domain: domain, id_department: id_department, act: "departmentChange"};
+                $.ajax({
+                    url: url,
+                    data: json,
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.ret) {
+                            new PNotify({
+                                title: '操作成功',
+                                text: '域名转移成功',
+                                type: 'success',
+                                addclass: 'stack-bar-top'
+                            });
+                        }
+                        else {
+                            new PNotify({
+                                title: '错误！！',
+                                text: data.msg,
+                                type: 'error',
+                                addclass: 'stack-bar-top'
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            })
+
+        $("input[name='checkAll']").click(function(){
+            $("input[name='domain']").prop("checked",this.checked);
+        });
+    </script>
+{% endblock %}

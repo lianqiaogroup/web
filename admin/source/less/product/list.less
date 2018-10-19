@@ -1,0 +1,371 @@
+#mainlayer #page-product-list{
+    .searchuser{
+        &, & .el-input{
+            border: none;
+            background:white;
+            width: 100%;
+        }
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        .el-input{
+            input{
+                color: #666;
+                &::-webkit-input-placeholder{
+                  color: #666;
+                }
+                &::-moz-placeholder{
+                    color: #666;
+                }
+                &::-ms-input-placeholder{
+                    color: #666;
+                }
+            }
+        }
+    }
+    .el-input-group--prepend .el-input-group__prepend + .el-input__inner{
+            display: none;
+    }
+    .container{
+        width: 100%;
+        padding: 0;
+        .el-table_1_column_1,
+        .el-table_2_column_1{
+                text-align: left;
+                .cell{
+                    float: left;
+                }
+                padding-left: 50px;
+        }
+        .selection{
+            .cell{
+                padding-left: 0px;
+            }
+        }
+        .scope-name{
+            color: #222;
+            font-size: 14px;
+            padding-bottom: 10px;
+            text-decoration: none;
+        }
+        .scope-img-col{
+            height: 100px;
+            min-width: 64px;
+            vertical-align: middle;
+            display: table-cell;
+            img{
+                border-radius: 4px;
+                border: 1px solid #eee;
+                display: block;
+                position: relative;
+                width: 64px;
+                height: 64px;
+            }
+        }
+        .scope-name-col{
+            padding-left: 16px;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .scope-id{
+            color: #666;
+            font-size: 14px;
+        }
+        .scope-price{
+            color: #FF4141;
+            overflow-x: visible;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-align: right;
+        }
+        .scope-unit{
+            color: #FF4141;
+            font-weight: normal;
+            overflow-x: visible;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-align: right;
+        }
+        .scope-domain{
+            color: #20A0FF;
+            font-weight: normal;
+        }
+        
+        .scope-time, .scope-theme{
+            color: #666;
+            font-weight: normal;
+            word-break: keep-all;
+            white-space: nowrap;
+            a {
+                color: #333;
+                text-decoration: none;
+            }
+            i {
+                margin-left: 3px;
+            }
+        }
+        
+        .scope-op{
+            text-decoration: none;
+            color: #aaa;
+            margin: auto 8px auto 0px;
+            &:last-child{
+                margin: auto 0px;
+            }
+            &.scope-resume{
+                color: #ff5a5f;
+            }
+        
+        }
+        table.el-table__header{
+            border-top:none;
+            tr, thead {
+                border-top:none;
+            }
+        }
+        .el-table{
+            border-top:none;
+        }
+        table.el-table__header, 
+        table.el-table__body,
+        .el-table__header-wrapper,
+        .el-table__body-wrapper,
+        .el-table{
+            table-layout:fixed;
+            width: 100% !important;
+            font-size: 14px !important;
+            // overflow: auto !important;
+            word-break: keep-all;
+            white-space:normal;
+            border{
+                left: none;
+                right: none;
+            }
+            th.cell{
+                padding-left:  0px;
+                padding-right: 0px;
+            }
+            td.cell{
+                padding-left: 5px;
+                padding-right: 0px;
+            }
+            .el-table_1_column_2{ .cell{} }
+            
+            tr{
+                border{
+                    color: rgb(246, 246, 246);
+                }
+                
+                td{
+                    height: ;ght: 100px !important;
+                }
+                th {
+                    height: 48px !important;
+                    background: #F6F6F6;
+                    border-top: none;
+                    border-right: none;
+                    border-left: 1px solid #fff;
+                    border-bottom: none;
+                    white-space: nowrap;
+                    word-break: keep-all;
+                    & div {
+                        background: #F6F6F6;
+                    }
+                }
+                td{
+                    border: none;
+                }
+                
+                .el-table-column img{
+                    float: left;
+                }
+            }
+        }  
+    }
+    .header-panel .select-category.el-dropdown > span.el-dropdown-link{
+        background: #f6f6f6;
+        border: 1px solid #eee;
+        margin: 6px;
+        height: 32px;
+        top: 6px;
+        left: 6px;
+        position: relative;
+        color: #666;
+        font-size: 14px;
+        width: 88px;
+        padding: 4px 10px;
+        box-sizing: border-box;
+    }
+
+    .header-panel .control .op .op-link{
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .header-panel .control .op .el-checkbox__label{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .el-table_1_column_4 .cell{
+         padding-right: 32px;
+    }
+   
+    
+}
+
+.el-popover[x-placement^=bottom] {
+    padding-left: 5px;
+    padding-right: 0px;
+    div.item{
+        margin: 15px 0px;
+        .el-radio__input{
+            color: white;
+        }
+        .el-radio{
+            .el-radio__inner::after{
+                background: #222;
+                transform: translate(-50%,-50%) scale(1);
+                transition: none;
+                width: 16px;
+                height: 16px;
+            }
+            span{
+                font-size: 14px;
+            }
+            .is-checked .el-radio__inner::after{
+                background: transparent;
+                transform: none;
+                transition: none;
+            }
+            .el-radio__input.is-checked .el-radio__inner{
+                    border-color: #20a0ff;
+                    background: #20a0ff;
+            }
+            .el-radio__input .el-radio__inner{
+                    border-color: #AAA;
+                    background: #AAA;
+            }
+        }
+    }
+    &, &.popper__arrow{
+        background: #222;
+        border: #222;
+        border-radius: 4px;
+    }
+    .popper__arrow{
+        left: 25% !important;
+        &, &::after{
+            border-bottom-color: #222;
+        }
+    }
+    .el-radio__input{
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    .el-radio__input+span{
+        color: #AAA;
+    }
+    .el-radio__input.is-checked+span{
+        color: white;
+        font-weight: bold;
+    }
+    .el-table-filter__checkbox-group{
+        
+    }
+
+}
+#page-product-list .el-dialog.el-dialog--small{
+        width: 320px; 
+}
+#page-product-list .el-dialog.el-dialog--large{
+        width: 540px; 
+}
+#page-product-list .el-dialog.el-dialog--large textarea{
+    cursor:text;
+}
+// 部门转移样式
+#page-product-list {
+    .departmentalTransfer {
+        .el-dialog--small {
+            width: 50%;
+            .el-autocomplete{
+                width: 100%;
+            }
+        }
+    }
+    .departmentalTransferConfirm {
+        .el-dialog--small {
+            width: 60%;
+            .el-dialog__body {
+                .list {
+                    height: 450px;
+                    overflow-y: auto;
+                    width: 100%;
+                }
+                .el-table__header,
+                .el-table__body {
+                    width: 100% !important;
+                   
+                }
+                button {
+                    margin-top: 25px;
+                }
+                
+            }
+        }
+    }
+}
+
+// 新版搜索样式
+#mainlayer .control-new {
+    height: auto !important;
+    .search {
+        .el-input {
+            border:1px solid #ccc !important;
+        }
+        .moreSearch {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            & > div {
+                width: 100%;
+            }
+            .pright{
+                padding-right: 10px;
+            }
+            .el-select {
+                border: 1px solid #ccc !important;
+                margin-top: 20px;
+                .el-input {
+                    border: none !important;
+                }
+            }
+            .el-input{
+                width: 100%;
+            }
+        }
+        .searchbox{
+            .el-button{
+                min-width: 88px;
+            }
+        }
+        .advancedSearch,.clearSearch {
+            color: #20A0FF;
+            background-color:#fff;
+            cursor: pointer;
+        }
+        .clearSearch{
+            color: #666;
+            background-color: rgba(221, 221, 221, 0.94);
+            border-color: rgba(221, 221, 221, 0.94);
+        }
+        .advancedSearch{
+            i{
+                color: #20A0FF;
+                font-size: 12px;
+                margin-top: 2px;
+            }
+        }
+    }
+
+}

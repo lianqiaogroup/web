@@ -1,0 +1,984 @@
+{
+	"areamodel": [
+		{ 
+			"theme":"wnczxzd.com(jp)", 
+			"title":"style4(jp)",
+			"regions":["日本"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["日语"],
+			"author":"伍家能",
+			"referto_links":"http://www.kqizs.com/style4(jp)",
+			"scene":"数码科技 / 服鞋帽包 / 乐器 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, { 
+			"theme":"style7", 
+			"title":"style7",
+			"regions":["美国","泰国","阿拉伯","马来西亚","新加坡","俄罗斯","印度尼西亚","迪拜"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["英语","泰语","俄语","印尼语","日语"],
+			"author":"伍家能",
+			"referto_links":"http://www.kqizs.com/style7",
+			"scene":"数码科技 / 服鞋帽包 / 乐器 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"wnczxzd.com",
+			"title":"style4",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"伍家能",
+			"referto_links":"http://www.kqizs.com/style4",
+			"scene":"数码科技 / 服鞋帽包 / 运动户外 / 乐器 / 美妆护肤香水 / 石器配饰",
+			"special":"套餐选择 / 倒计时",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style5+timer", 
+			"title":"style5",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"伍家能",
+			"referto_links":"http://www.kqizs.com/style5",
+			"scene":"服鞋帽包 / 日用食品 / 儿童玩具 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时  / 订单查询",
+			"style":"活力",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style6", 
+			"title":"style6",
+			"regions":["台湾","香港","新加坡","澳门"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文","简体中文"],
+			"author":"伍家能",
+			"referto_links":"http://www.kqizs.com/style6",
+			"scene":"服鞋帽包 / 日用食品 / 儿童玩具 / 运动户外 / 乐器 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时  / 订单查询 / 评论晒图",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style13", 
+			"title":"style13",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文","简体中文"],
+			"author":"罗先绪",
+			"referto_links":"http://www.kqizs.com/style13",
+			"scene":"数码科技 / 服鞋帽包 / 儿童用品 / 运动户外 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择",
+			"style":"简约 / 淡雅",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style14",
+			"title":"style14",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style14",
+			"scene":"数码科技 / 服鞋帽包 / 儿童用品 / 运动户外 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时 / 订单查询 / 评论晒图",
+			"style":"淡雅",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+        	"theme":"style18",
+        	"title":"style18",
+        	"regions":["越南"],
+        	"type_goods":["单产品","2个套餐","多个套餐"],
+        	"pay_type":["货到付款"],
+        	"lang":["越南语"],
+        	"author":"徐梦圆",
+        	"referto_links":"http://www.kqizs.com/style18",
+        	"scene":"数码科技 / 高端珠宝 / 服鞋帽包 / 日常食品 / 运动户外 / 美妆护肤香水 / 石器配饰  / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+        	"use_number":""
+        }
+        , {
+        	"theme":"style20",
+        	"title":"style20",
+        	"regions":["越南"],
+        	"type_goods":["单产品","2个套餐"],
+        	"pay_type":["货到付款"],
+        	"lang":["越南语"],
+        	"author":"徐梦圆",
+        	"referto_links":"http://www.kqizs.com/style20",
+        	"scene":"数码科技 / 高端珠宝 / 服鞋帽包 / 运动户外 / 乐器 / 美妆护肤香水 / 石器配饰  / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时",
+			"style":"简约 / 大促",
+			"type":"垂直式页面",
+        	"use_number":""
+        }
+        , {
+        	"theme":"style22",
+        	"title":"style22",
+        	"regions":["哥伦比亚","墨西哥","美国", "泰国", "马来西亚", "新加坡", "俄罗斯", "印度尼西亚", "迪拜", "伊朗", "柬埔寨", "老挝", "缅甸", "阿曼", "卡塔尔", "阿拉伯联合酋长国", "沙特阿拉伯王国", "巴西", "西班牙", "菲律宾"],
+        	"type_goods":["单产品","2个套餐","多个套餐"],
+        	"pay_type":["货到付款"],
+        	"lang":["英语", "泰语", "阿拉伯语", "俄语", "印尼语", "波斯语", "柬埔寨", "老挝语", "缅甸语", "葡萄牙语", "西班牙语", "菲律宾语"],
+        	"author":"徐梦圆",
+        	"referto_links":"http://www.kqizs.com/style22",
+			"special":"轮番图 / 套餐选择  / 订单查询",
+        	"use_number":""
+        }
+        , {
+			"theme":"style23",
+			"title":"style23",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style23",
+			"scene":"服鞋帽包 / 日常食品  / 美妆护肤香水",
+			"special":"轮番图 / 套餐选择 / 倒计时",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style24",
+			"title":"style24",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style24",
+			"scene":"服鞋帽包 / 日常食品  / 儿童用品 / 运动户外/ 乐器 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时   / 其他用户浏览购买提示",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style25",
+			"title":"style25",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style25",
+			"scene":"服鞋帽包 / 日常食品  / 儿童用品 / 运动户外/ 乐器 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时   / 其他用户浏览购买提示",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style26",
+			"title":"style26",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style26",
+			"scene":"服鞋帽包 / 日常食品  / 儿童用品 / 运动户外/ 乐器 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时   / 其他用户浏览购买提示",
+			"style":"简约 / 淡雅",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style27",
+			"title":"style27",
+			"regions":["台湾","香港","澳门","新加坡"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style27",
+			"scene":"服鞋帽包 / 日常食品  / 儿童用品 / 运动户外/ 乐器 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时   / 其他用户浏览购买提示",
+			"style":"简约 / 淡雅",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style28",
+			"title":"style28",
+			"regions":["台湾","香港","澳门","新加坡"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style28",
+			"scene":"数码科技  / 服鞋帽包 / 儿童用品 / 运动户外/ 乐器 / 美妆护肤香水 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择",
+			"style":"简约 / 淡雅",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style29",
+			"title":"style29",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style29",
+			"scene":"服鞋帽包 / 儿童用品 / 运动户外/ 乐器",
+			"special":"轮番图 / 套餐选择",
+			"style":"活力",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style30",
+			"title":"style30",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style30",
+			"scene":"高端珠宝  / 服鞋帽包 / 儿童用品 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择,套餐名简短(2-5个字为宜) / 评论晒图 / 订单查询",
+			"style":"活力",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style31",
+			"title":"style31",
+			"regions":["台湾","香港","澳门"], 
+			"img":"/theme/style31/preview.png" ,
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style31",
+			"special":"轮番图 / 套餐选择 / 订单查询",
+			"use_number":""
+        }
+        , {
+			"theme":"style32",
+			"title":"style32",
+			"regions":["台湾","香港","澳门","新加坡"], 
+			"img":"/theme/style32/preview.png" ,
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style32",
+			"special":"可以选择数量",
+			"use_number":""
+        }
+        , {
+			"theme":"style33",
+			"title":"style33",
+			"regions":["台湾","香港","澳门"], 
+			"img":"/theme/style33/preview.png" ,
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style33",
+			"special":"轮播图,订单查询,属性字数相同,评论晒图",
+			"use_number":""
+        }
+        , {
+			"theme":"style34",
+			"title":"style34",
+			"regions":["美国","新加坡","越南","泰国","印度尼西亚","俄罗斯","迪拜","马来西亚"], 
+			"type_goods":["单产品","4个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语","越南语","泰语","印尼语","俄语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style34",
+			"special":"轮番图 / 套餐选择 / 订单查询",
+			"use_number":""
+        }
+        , {
+			"theme":"style35",
+			"title":"style35",
+			"regions":["台湾","香港","澳门"], 
+			"img":"/theme/style35/preview.png" ,
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style35",
+			"special":"轮播图,订单查询,属性字数相同,评论晒图",
+			"use_number":""
+        }
+        , {
+			"theme":"style36",
+			"title":"style36",
+			"regions":["台湾","香港","澳门"], 
+			"img":"/theme/style36/preview.png" ,
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文","简体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style36",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number":""
+		}
+		, {
+			"theme":"style37",
+			"title":"style37",
+			"regions":["台湾","香港","澳门"], 
+			"img":"/theme/style34/preview.png" ,
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文","简体中文"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style37",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"活力，少女风",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+        }
+        , {
+			"theme":"style38",
+			"title":"style38",
+			"regions":["韩国"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["韩语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style38",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number":""
+		}
+		, {
+			"theme":"style39",
+			"title":"style39",
+			"regions":["哥伦比亚","墨西哥","美国","越南","马来西亚","泰国","迪拜","柬埔寨","老挝","巴西","西班牙","菲律宾"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语","越南语","泰语","柬埔寨","老挝语","葡萄牙语","西班牙语","菲律宾语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style39",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约，欧美风",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style40",
+			"title":"style40",
+			"regions":["韩国"], 
+			"img":"/theme/style40/preview.png" ,
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["韩语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style40",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number":""
+		}
+		, {
+			"theme":"style41",
+			"title":"style41事业五部专用",
+			"regions":["泰国"], 
+			"img":"/theme/style41/preview.png" ,
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"伍家能",
+			"referto_links":"http://www.kqizs.com/style41",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number":"",
+			"belong": "78"
+		}
+		, {
+			"theme":"style42",
+			"title":"style42",
+			"regions":["印度"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["印地语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style42",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number":""
+		}
+		, {
+			"theme":"style43",
+			"title":"style43",
+			"regions":["日本"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["日语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style43",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style44",
+			"title":"style44",
+			"regions":["泰国"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style44",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number": ""
+		}
+		, {
+			"theme":"style45",
+			"title":"style45",
+			"regions":["日本"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["日语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style45",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		},
+		 {
+			"theme":"style46",
+			"title":"style46",
+			"regions":["泰国"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style46",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number": ""
+		}
+		, {
+			"theme":"style47",
+			"title":"style47",
+			"regions":["泰国"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style47",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number": ""
+		}
+		, {
+			"theme":"style48",
+			"title":"style48",
+			"regions":["泰国"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style48",
+			"special":"轮播图,订单查询,单页面,评论晒图",
+			"use_number": ""
+		}
+		, {
+			"theme":"style49",
+			"title":"style49",
+			"regions":["日本"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["日语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style49",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style50",
+			"title":"style50事业五部专用",
+			"regions":["泰国"], 
+			"img":"/theme/style50/preview.png" ,
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style50",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约",
+			"type":"固定浮层按钮页面",
+			"use_number":"",
+			"belong": "78"
+		}
+		, {
+			"theme":"style50_black",
+			"title":"style50_black事业五部专用",
+			"regions":["泰国"], 
+			"img":"/theme/style50_black/preview.png" ,
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style50_black",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约",
+			"type":"固定浮层按钮页面",
+			"use_number":"",
+			"belong": "78"
+		}
+		, {
+			"theme":"style51",
+			"title":"style51",
+			"regions":["日本"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["日语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style51",
+			"special":"轮番图 / 套餐选择 / 订单查询",
+			"style":"简约",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style52",
+			"title":"style52",
+			"regions":["韩国"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["韩语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style52",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style53",
+			"title":"style53",
+			"regions":["韩国"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["韩语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style53",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style54",
+			"title":"style54",
+			"regions":["日本"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["日语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style54",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style55", 
+			"title":"style55",
+			"regions":["缅甸"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["缅甸语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style55",
+			"scene":"服鞋帽包 / 日用食品 / 儿童玩具 / 运动户外 / 乐器 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时  / 订单查询 / 评论晒图",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style56",
+			"title":"style56",
+			"regions":["马来西亚","印度尼西亚","伊朗","缅甸","阿曼","卡塔尔","阿拉伯联合酋长国","沙特阿拉伯王国"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语","波斯语","缅甸","阿拉伯语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style56",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style57",
+			"title":"style57",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style57",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":"",
+			"belong": "buguniao"
+		}
+		, {
+			"theme":"style58",
+			"title":"style58",
+			"regions":["印度尼西亚","马来西亚"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style58",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style59",
+			"title":"style59",
+			"regions":["越南"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["越南语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style59",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style60",
+			"title":"style60",
+			"regions":["泰国"], 
+			"img":"/theme/style50/preview.png" ,
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["泰语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style50",
+			"scene":"服鞋帽包 / 乐器 / 石器配饰 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 评论晒图 / 订单查询",
+			"style":"简约",
+			"type":"固定浮层按钮页面",
+			"use_number":"",
+			"belong": "81"
+		}
+		, {
+			"theme":"style61",
+			"title":"style61",
+			"regions":["俄罗斯"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["俄语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style61",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style62",
+			"title":"style62",
+			"regions":["迪拜"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style62",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style63",
+			"title":"style63",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","2个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style63",
+			"scene":"服鞋帽包 / 日常食品  / 美妆护肤香水",
+			"special":"轮番图 / 套餐选择 / 倒计时",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":"",
+			"belong": "buguniao"
+        }
+        , {
+			"theme":"style64",
+			"title":"style64",
+			"regions":["美国","泰国","马来西亚","新加坡","俄罗斯","印度尼西亚","迪拜","巴西","越南","台湾","香港","澳门"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文","简体中文","英语","印尼语","俄语","泰语","葡萄牙语","越南语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style64",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style65", 
+			"title":"style65",
+			"regions":["阿拉伯联合酋长国","沙特阿拉伯王国","迪拜"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["波斯语","阿拉伯语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style65",
+			"scene":"服鞋帽包 / 日用食品 / 儿童玩具 / 运动户外 / 乐器 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时  / 订单查询 / 评论晒图",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style66", 
+			"title":"style66",
+			"regions":["阿拉伯联合酋长国","沙特阿拉伯王国","迪拜"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["波斯语","阿拉伯语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style66",
+			"scene":"服鞋帽包 / 日用食品 / 儿童玩具 / 运动户外 / 乐器 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时  / 订单查询 / 评论晒图",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style67", 
+			"title":"style67",
+			"regions":["阿拉伯联合酋长国","沙特阿拉伯王国","迪拜"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["波斯语","阿拉伯语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style67",
+			"scene":"服鞋帽包 / 日用食品 / 儿童玩具 / 运动户外 / 乐器 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时  / 订单查询 / 评论晒图",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style68", 
+			"title":"style68",
+			"regions":["沙特阿拉伯王国"], 
+			"type_goods":["单产品","2个套餐","多个套餐"],
+			"pay_type":["货到付款","易极付","paypal"],
+			"lang":["波斯语","阿拉伯语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style68",
+			"scene":"服鞋帽包 / 日用食品 / 儿童玩具 / 运动户外 / 乐器 / 礼品装饰",
+			"special":"轮番图 / 套餐选择 / 倒计时  / 订单查询 / 评论晒图",
+			"style":"活力 / 大促",
+			"type":"固定浮层按钮页面",
+			"use_number":""
+		}
+		, {
+			"theme":"style69",
+			"title":"style69",
+			"regions":["美国","泰国","马来西亚","新加坡","俄罗斯","印度尼西亚","迪拜","巴西","越南"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文","简体中文","英语","印尼语","俄语","泰语","葡萄牙语","越南语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style69",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style70",
+			"title":"style70",
+			"regions":["马来西亚"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style70",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style71",
+			"title":"style71",
+			"regions":["台湾","香港","澳门"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style71",
+			"special":"轮番图 / 套餐选择 / facebook主页",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style72",
+			"title":"style72",
+			"regions":["香港"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style72",
+			"special":"轮番图 / 套餐选择 / facebook主页",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style73",
+			"title":"style73",
+			"regions":["台湾","香港","澳门"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style73",
+			"special":"轮番图 / 套餐选择 / facebook主页",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style74",
+			"title":"style74",
+			"regions":["香港"], 
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["英语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style74",
+			"special":"轮番图 / 套餐选择 / facebook主页",
+			"type":"",
+			"use_number":"",
+			"belong": "技术部"
+		}
+		, {
+			"theme":"style75",
+			"title":"style75",
+			"regions":["日本"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["日语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style75",
+			"special":"轮番图 / 套餐选择 / facebook主页",
+			"type":"",
+			"use_number":"",
+			"belong": "技术部"
+		}
+		, {
+			"theme":"style76",
+			"title":"style76",
+			"regions":["日本"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["日语"],
+			"author":"徐梦圆",
+			"referto_links":"http://www.kqizs.com/style76",
+			"special":"轮番图 / 套餐选择 / facebook主页 / 需要上传logo",
+			"type":"",
+			"use_number":"",
+			"belong": "技术部"
+		}
+		, {
+			"theme":"style77",
+			"title":"style77",
+			"regions":["台湾","香港","澳门"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style77",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style78",
+			"title":"style78",
+			"regions":["阿曼苏丹国","卡塔尔"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["阿拉伯语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style78",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style79",
+			"title":"style79",
+			"regions":["台湾","马来西亚"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["繁体中文"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style79",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style80",
+			"title":"style80",
+			"regions":["菲律宾"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["菲律宾语","英语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style80",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+		, {
+			"theme":"style81",
+			"title":"style81",
+			"regions":["菲律宾"],
+			"type_goods":["单产品","多个套餐"],
+			"pay_type":["货到付款"],
+			"lang":["菲律宾语","英语"],
+			"author":"陈雪霞",
+			"referto_links":"http://www.kqizs.com/style81",
+			"special":"轮番图 / 套餐选择 ",
+			"type":"",
+			"use_number":""
+		}
+	]
+}

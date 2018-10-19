@@ -1,0 +1,17 @@
+<div class="module_boxer" id="module_countdown">
+    <div class="module_title"><i class="iconfont icon-daojishi01"></i>抢购倒计时</div>
+    <form action="#" name="" onsubmit="return false">
+        <div>
+            <label><input name="open" value="1" type="radio" c-bind-data="State.modules.countdown.open"> 开启</label>
+            <label><input name="open" value="0" type="radio" c-bind-data="State.modules.countdown.open" checked="checked"> 关闭</label>
+        </div>
+        <select name="class" c-bind-data="State.modules.countdown.class">
+            <option value="a">样式1</option>
+            <option value="b">样式2</option>
+        </select>
+        {# <input type="text" class="form-control" name="end_time" placeholder="活动结束时间"> #}
+        <div class="button_layer">
+            <button data-click="handleModuleSave" class="btn btn-primary" type="submit">保存</button>
+        </div>
+    </form>
+</div>

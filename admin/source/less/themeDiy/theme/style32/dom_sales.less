@@ -1,0 +1,66 @@
+.dom-sales{
+	background:#fff;
+	margin:4% 2.5% 0 2.5%;
+	padding-bottom:2%;
+	.sales_wrap{
+		background:#eee;
+		height: 51px;
+		display: table;
+		width: 100%;
+		overflow: hidden;
+		.sales {
+			display: table-cell;
+			width:60%;
+			color: #fff;
+			background: #f61d4b;
+			font-size:0;
+			vertical-align: middle;
+			margin-bottom: 0px;
+			.price{
+				font-size: 12px;
+				vertical-align: middle;
+				display:inline-block;
+				margin:1%;
+				ins{
+					font-size: 36px;
+					font-weight: 600;
+				}
+			}
+			.sales_info{
+				vertical-align:middle;
+				font-size: 12px;
+				display:inline-block;
+				@media screen and (min-width: 340px) {
+					margin-left:2%;
+				}
+				.sales_num{
+					background:#ca032e;
+				}
+			}
+		}
+		.time_wrapper{
+			display: table-cell;
+			width: 40%;
+			vertical-align: middle;
+			text-align:center;
+			margin-top: 10px;
+			.timeWrap{
+				display: inline-block;
+				font-size: 12px;
+				font-weight:600;
+			}
+			#clock{
+				display:block;
+				
+			}
+			#timer{
+				font-size:0;
+				color:red;
+				span{
+					font-size:12px;
+					font-weight:600;
+				}
+			}
+		}
+	}
+}

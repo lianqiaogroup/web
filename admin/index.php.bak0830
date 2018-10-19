@@ -1,0 +1,113 @@
+<?php
+require_once 'ini.php';
+if($_GET['ticket'])
+{
+    // 请求地址验证信息
+    $ticket = $_GET['ticket'];
+    if( environment == "office")
+    {
+        $erpSso = new \admin\helper\api\erpsso($register, 'dev');
+        $host = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? 
+                    $_SERVER['HTTP_X_FORWARDED_HOST'] : 
+                    (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
+       
+        if (empty($host)) {
+            die('程序获取测试环境域名失败');
+        }
+
+        $erpSso->setExperimentEnvironment("http://" . $host );
+    }else{
+        $erpSso = new \admin\helper\api\erpsso($register);
+        $serverPort = !empty($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
+        $erpSso->setIDCEnvironmentServerPort($serverPort);
+    }
+    
+    $result = $erpSso->getUserByTiket($ticket);
+    if(empty($result))
+    {
+        $erpUrl = $erpSso->getRequestDomain();
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location:" . $erpUrl);
+        exit;
+    }
+
+    $session['username']      = $result['name_cn'];
+    $session['login_name']    = $result['username'];
+    $session['uid']           = $result['uid'];
+    $session['is_admin']      = $result['is_admin'];
+    $session['is_root']       = $result['is_root'];
+    $session['company_id']    = $result['company_id'];
+    $session['id_department'] = $result['id_department'];
+    $_SESSION['admin'] = $session;
+
+    header("Location: index.php?");
+    exit;
+    
+}
+elseif($_GET['ticket2'])
+{
+
+    var_dump($_POST);exit();
+}
+else if($_GET['act'] && $_GET['act']=='logout')
+{
+    $_SESSION['admin']  =null;
+    if(  environment == "office")
+    {
+        $erpSso = new \admin\helper\api\erpsso($register, 'dev');
+        $host = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? 
+                    $_SERVER['HTTP_X_FORWARDED_HOST'] : 
+                    (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
+      
+        if (empty($host)) {
+            die('程序获取测试环境域名失败');
+        }
+
+        $erpSso->setExperimentEnvironment("http://" . $host );
+    }else{
+        $erpSso = new \admin\helper\api\erpsso($register);
+        $serverPort = !empty($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
+        $erpSso->setIDCEnvironmentServerPort($serverPort);
+    }
+    $erpLogoutUrl = $erpSso->getRequestLogoutDomain();
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location:" . $erpLogoutUrl);
+}
+
+else{
+    if(!$_SESSION['admin']['uid'])
+    {
+        if(  environment == "office" )
+        {
+            $erpSso = new \admin\helper\api\erpsso($register, 'dev');
+            $host = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? 
+                    $_SERVER['HTTP_X_FORWARDED_HOST'] : 
+                    (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
+           
+            if (empty($host)) {
+                die('程序获取测试环境域名失败');
+            }
+
+            $erpSso->setExperimentEnvironment("http://" . $host);
+        }else{
+            $erpSso = new \admin\helper\api\erpsso($register);
+            $serverPort = !empty($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
+            $erpSso->setIDCEnvironmentServerPort($serverPort);
+        }
+        $erpUrl = $erpSso->getRequestDomain();
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location:" . $erpUrl);
+    }
+    else{
+        $host = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ?
+            $_SERVER['HTTP_X_FORWARDED_HOST'] :
+            (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
+        if($host == 'dev.shopadmin.com'){
+            require_once 'develop/js/index.html';
+        }else{
+            require_once 'build/js/index.html';
+        }
+    }
+}
+
+

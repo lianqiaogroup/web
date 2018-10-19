@@ -1,0 +1,2466 @@
+{% extends 'base.twig' %}
+{% block style %}
+    <link href="http://shopadmin.stosz.com/fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/template/plugins/ue/themes/default/css/ueditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/template/plugins/ue/ueditor.config.js"></script>
+    {# <script type="text/javascript" src="/template/plugins/ue/ueditor.all.js"></script> #}
+    <script type="text/javascript" src="http://imgcn.stosz.com/shopadmin/public/ue/ueditor.all.js"></script>
+    <script type="text/javascript" src="/template/plugins/ue/lang/zh-cn/zh-cn.js"></script>
+    <script src="http://shopadmin.stosz.com/fileinput/js/fileinput.min.js" type="text/javascript"></script>
+    <script src="/template/plugins/tagsinput/jquery.tagsinput.js" type="text/javascript"></script>
+    <!--简体中文-->
+    <script src="http://shopadmin.stosz.com/fileinput/js/locales/zh.js" type="text/javascript"></script>
+    <script src="/template/plugins/validForm/validForm.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/template/plugins/bootstrap-select/bootstrap-select.min.css">
+    <script src="/template/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <style>
+        .photos{position: relative;width: 200px;height: 200px;float: left;}
+        .photos i{position: absolute;top:-5px; right:0;cursor: pointer;}
+        .photos img{width: 200px;height: 200px; padding: 5px}
+        .table{border: 1px solid #ddd}
+        #theme_div{width: 100px;text-align: center;margin-bottom: 10px;}
+        #theme_img{width: 100%;display: block;}
+        .ui-dialog-body {padding: 0px !important;}
+        .kv-file-zoom .kv-file-remove{display:none }
+        .edui-container{z-index: 1003 !important;}
+        /*.lockall .single-price-show {display: none;}*/
+        .lockall .single-price-show input { text-decoration: line-through; }
+    </style>
+    <style type="text/css">
+        #main-content{
+            background: #F6F6F6;
+        }
+        .wrapper{
+            margin-top: 0;
+            padding: 0;
+        }
+        .wrapper .mt{
+            margin-top: 20px;
+        }
+        .form-panel{
+            border: none;
+            margin:0;
+            box-shadow:none;
+            padding: 30px;
+        }
+        .tags {
+            display: inline-block;
+            padding: 4px 6px;
+            color: #777;
+            vertical-align: middle;
+            background-color: #FFF;
+            width: 206px;
+        }
+        .tags .tag {
+            display: inline-block;
+            position: relative;
+            font-size: 13px;
+            font-weight: normal;
+            vertical-align: baseline;
+            white-space: nowrap;
+            background-color: #91b8d0;
+            color: #FFF;
+            padding: 3px;
+            margin-right: 3px;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+        }
+        .tags .tag a {
+            color: #FFFFFF;
+        }
+        .tags input[type="text"], .tags input[type="text"]:focus {
+            border: 0;
+            display: inline;
+            outline: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            width: 100%;
+        }
+        .tags .tag .close {
+            font-size: 15px;
+            line-height: 20px;
+            opacity: 1;
+            filter: alpha(opacity=100);
+            color: #FFF;
+            text-shadow: none;
+            float: none;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 18px;
+            text-align: center;
+        }
+        button.close {
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            -webkit-appearance: none;
+        }
+        .define-width{
+            width: 100px;
+        }
+        .alertPage{
+            position: fixed;
+            left: 0px;
+            top:0px;
+            display: flex;
+            padding-top: 5%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width:100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10000;
+            box-sizing: border-box;
+        }
+        .alertPage .alertBox{
+            display: inline-block;
+            padding: 15px;
+            min-width: 320px;
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 0px 0px 24px rgba(0,0,0,0.5);
+        }
+        .alertPage .alertBox h5{
+            margin: 0px 0px 5% 0px;
+            font-size: 16px;
+            color: #999;
+        }
+        .alertPage .alertBox button{
+            margin-top: 5%;
+        }
+        .header-panel .Nbreadcrumb{
+            background-color: rgba(34, 34, 34, 0.8);
+            height: 65px;
+            line-height: 65px;
+            padding-left: 20px;
+        }
+        .header-panel .Nbreadcrumb ul{
+            display: block;
+        }
+        .header-panel .Nbreadcrumb li{
+            display: inline-block;
+            font-size: 16px;
+            font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+        }
+        .header-panel .Nbreadcrumb a{
+            text-decoration-line: none;
+        }
+        .header-panel .Nbreadcrumb .title{
+            color: rgba(255, 255, 255, 0.65);
+        }
+        .header-panel .Nbreadcrumb .item a{
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .header-panel .Nbreadcrumb .item a:after{
+            content: "/";
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.6);
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+        .header-panel .Nbreadcrumb .action a{
+            color: #fff;
+        }
+        .header-panel .Nbreadcrumb .action a:after{
+            display: none;
+        }
+        .header-panel .btnbox{
+            height: 80px;
+            background: #fff;
+            box-shadow: 0 4px 8px 0 rgba(153,153,153,0.10);
+        }
+        .changeless{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9;
+
+        }
+        .saveAll{
+            position: fixed;
+            right: 32px;
+            top:87px;
+            z-index:9;
+            background: #48A0F8;
+            color: #fff;
+        }
+        .cancelBack{
+            position: fixed;
+            right: 106px;
+            top:87px;
+            z-index:9;
+            color: #666;
+            background-color: rgba(221, 221, 221, 0.94);
+            border-color: rgba(221, 221, 221, 0.94);
+        }
+        .Picons:before{
+            content: " ";
+            display: inline-block;
+            width: 2px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 3px;
+            background: #20A0FF;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <section id="main-content">
+        <div class="header-panel">
+            <div class="Nbreadcrumb">
+                <ul>
+                    <li class="title">您的位置：</li>
+                    <li class="item"><a href="/">首页</a></li>
+                    <li class="item"><a href="/#/products">单品站管理</a></li>
+                    {% if  product_id %}
+                    <li class="item action"><a href="javascript:void(0)">编辑</a></li>
+                    {% else %}
+                    <li class="item action"><a href="javascript:void(0)">新增</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="btnbox"></div>
+        </div>
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb text-info">
+                            {% if  product_id %}
+                                <i class="Picons"></i>  {{ title }}
+                                {% else %}
+                                 <i class="fa fa-plus"></i> 新增产品
+                            {% endif %}
+                        </h4>
+                        {# 根据产品所属部门ID查找到对应的模版 #}
+                        <span id="theme_department" style="display:none;">{{ oa_id_department }}</span>
+                        {#  #}
+                        <form id='form' name="form" class="form-horizontal style-form" method="post" action="product.php?&act=save" >
+                            <input type="hidden" name="product_id" value="{{ product_id }}">
+                            <input type="hidden" name="id_department" value="{{id_department }}">
+                            <input type="hidden" name="domain_id_department" value="">
+                            <input type="hidden" name="oa_id_department" value="{{ admin.id_department }}">
+                            <input type="hidden" name="token" value="{{ token }}">
+                            {#<button type="submit" id="submit" class="hidden"></button>#}
+                            <button class="text-right btn pull-right saveAll" type="submit"><span class="saveText">保 存</span> </button>
+                            <button type="button" class="text-right btn pull-right cancelBack"><span>取 消</span> </button>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 优化师 </label>
+                                <div class="col-sm-4 users">
+                                    <select name="users" class="form-control selectpicker selectUsers" id="selectUsers" data-style="btn-warning" data-live-search="true" data-width="auto" required>
+                                    {# <option value="0">优化师</option> #}
+                                    {% for i in ad_member_list %}
+                                        {% if ad_member %}
+                                            <option value="{{i.ad_member_id}}" {% if ad_member == i.name %} selected {% endif %}>{{i.name}}</option>
+                                            {% else %}
+                                                <option value="{{i.ad_member_id}}" {% if admin.uid == i.ad_member_id %} selected {% endif %}>{{i.name}}</option>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_users" class="">
+                                        PS: 若列表里找不到名字，联系技术部ERP同事调整权限
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > ERP域名 <font color="red">(不加 http://) </font></label>
+                                <div class="col-sm-4 domains">
+                                    {# <input type="text" class="form-control domain" name="domain" value="{{ domain }}" required {% if product_id  %} readonly {% endif %}> #}
+                                    
+                                    {% if product_id %}
+                                        <input type="text" class="form-control domain" name="domain" value="{{ domain }}" required {% if product_id  %} readonly {% endif %}>
+                                    {% else %}
+                                        {# <input type="text" class="form-control domain" name="domain" value="{{ domain }}" required {% if product_id  %}  {% endif %}> #}
+                                        <select name="domain" class="form-control selectpicker selectDomain" id="selectDomain" data-style="btn-warning" data-live-search="true" data-width="auto" required>
+                                        </select>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_domain" class="text-danger">示例：www.abcd.com</span>
+                                </div>
+                            </div>
+                            
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 二级目录 </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="identity_tag" value="{{ identity_tag }}" {% if product_id %} readonly {% endif %} >
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_domain" class="text-danger">只能输入数字或字母，编辑时不可修改</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > ERP产品id </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="erp_number" value="{{ erp_number }}" required {% if product_id  %} readonly {% endif %}>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_erp_number" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="available_zone_ids" value="{{available_zone_ids}}">
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 选择地区 </label>
+                                <div class="col-sm-4 zone">
+                                    {% if product_id %}
+                                        <input type="hidden" id="id_zone" name="id_zone" class="form-control" required readonly {% for z in id_zones %} {% if id_zone == z.id_zone %} value="{{ z.id_zone }}" data-email="{{ z.email }}" {% endif %}{% endfor %}>
+                                        <span style="cursor:not-allowed;background-color: #eee;opacity: 1" class="form-control">{% for z in id_zones %} {% if id_zone == z.id_zone %}{{ z.title }}{% endif %}{% endfor %}</span>
+                                    {% else %}
+                                        <select id="id_zone" name="id_zone" class="form-control" required>
+                                            <option value=""> 选择地区</option>
+                                            {% if product_id %}
+                                            {% for z in id_zones %}
+                                                <option value="{{ z.id_zone }}" data-email="{{ z.email }}"  {% if id_zone == z.id_zone %} selected {% endif %}> {{ z.title }}</option>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_id_zone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 选择语言 </label>
+                                <div class="col-sm-4 zone">
+                                    <select id="id_lang" name="lang" class="form-control" required default="{{ lang }}">
+                                    </select>
+                                    <!-- language -->
+                                    <script type="text/javascript">
+                                        var langDom = $("#id_lang");
+                                        var languageConfig = {% include 'config/theme_language' %};
+                                        var option = '<option value="|value|">|name|</option>';
+                                        for( key in languageConfig ){
+                                            langDom.append(option.replace('|value|',key).replace('|name|',languageConfig[key]));
+                                        }
+                                        langDom.val(langDom.attr('default'));
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="form-group sms-show">
+                                <label class="col-sm-2 col-sm-2 text-center" > 是否开启短信 </label>
+                                <div class="col-sm-8">
+                                    <label><input type="radio"  name="is_open_sms" value="1" {% if 1 == is_open_sms %} checked {% endif %}>是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label><input type="radio"  name="is_open_sms" value="0" {% if 0 == is_open_sms %} checked {% endif %}>否</label>
+                                </div>
+                            </div>
+
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  ERP产品名称  </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="title" value="{{ title }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  产品外文名称 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="sales_title" value="{{ sales_title }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" >  面单产品名称 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control waybill-title" name="waybill_title" value="{{ waybill_title }}" required>
+                                    <div>
+                                        <span style="color: #7f7f7f;">
+                                            (此名称将显示在快递面单上,限制30字符长度,如果此字段为空,则将截取产品的"产品外文名称"的前30个字符显示在快递面单上)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" hidden>
+                                <label class="col-sm-2 col-sm-2 text-center" > seo标题 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="seo_title" value="{{ seo_title }}">
+                                </div>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label class="col-sm-2 col-sm-2 text-center" > seo描述 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="seo_description" value="{{ seo_description }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 价格 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="price" value="{{ price }}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 原价 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="market_price" value="{{ market_price }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 折扣 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="discount" value="{{ discount }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 标签 </label>
+                                <div class="col-sm-10">
+                                    <input id="tags" name="tags" type="text" class="form-control" value="{{ tags }}" style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 产品分类 </label>
+                                <div class="col-sm-4">
+                                    <select id="product_category" name="product_category" class="form-control" required>
+                                        <option value="0" {% if category_title is null %} selected {% endif %}> 产品分类 </option>
+                                        {{ module|raw }}
+                                    </select>
+                                </div>
+                            </div>
+                            <script>
+                                $(function() {
+                                    $('#tags').tagsInput({width:'auto'});
+                                });
+                            </script>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 前台显示模板 </label>
+                                <div class="col-sm-10">
+                                    <!-- <div class="row"> -->
+                                        {% if theme %}
+                                        <div id="theme_div">
+                                            {% if theme == 'style5+timer' %}
+                                            <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/style5.jpg">
+                                            {% elseif theme == 'style85_1' or theme == 'style85_2' or theme == 'style85_3' %}
+                                            <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/style85.jpg">
+                                            {% else %}
+                                                {% if theme == 'wnczxzd.com' %}
+                                                    <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/style4.jpg">
+                                                {% else %}
+                                                    <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/{{ theme|raw }}.jpg">
+                                                {% endif %}
+                                            {% endif %}
+                                            <span id="theme_text">{{ theme|raw }}</span>
+                                        </div>
+                                        {% else %}
+                                        <div id="theme_div">
+                                            <img id="theme_img" src="">
+                                            <span id="theme_text"></span>
+                                        </div>
+                                        {% endif %}
+                                        <button type="button" class="btn btn-primary" id="theme_layer" >选择模板</button>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 支付方式 </label>
+                                <div class="col-sm-10">
+                                    {#<input type="checkbox" value="1" name="payment_online" {% if payment_online == 1 %} checked {% endif %}> 易极付   <br/> <br/>#}
+
+                                    <input type="checkbox" value="1" name="payment_ocean" {% if payment_ocean == 1 %} checked {% endif %} {% if supportOcean ==false %} disabled {% endif %}> 钱海支付  <br/> <br/>
+                                    <input type="checkbox" value="1" name="payment_blue" {% if payment_blue == 1 %} checked {% endif %} {% if isSuppertBluePay == false %} disabled {% endif %}    > Pay Blue <br/> <br/>
+                                    {#<input type="checkbox" value="1" name="payment_paypal" {% if payment_paypal ==1 %} checked {% endif %}> paypal<br/><br/>
+                                    <input type="checkbox" value="1" name="payment_asiabill" {% if payment_asiabill ==1 %} checked {% endif %}> Asiabill <br/> <br/>#}
+                                    <input type="checkbox" value="1" name="payment_underline" {% if payment_underline ==1 or payment_underline ==""%} checked {% endif %}> 货到付款 <br/> <br/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 销量 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" value="{{ sales }}" name="sales" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 库存 </label>
+                                <div class="col-sm-10">
+                                    <input type="number" value="{{ stock }}" name="stock" class="form-control">
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 联系邮箱 </label>
+                                <div class="col-sm-10">
+                                    <input type="text" value="{{ service_email }}" name="service_email" readonly="readonly" class="form-control">
+                                </div>
+                            </div> -->
+                            <input type="hidden" value="0" name="zone_email_open" >
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > pop800 id </label>
+                                <div class="col-sm-10">
+                                    <input type="text" value="{{ service_contact_id }}" name="service_contact_id" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 图片水印文字</label>
+                                <div class="col-sm-4">
+                                    <input type="text" {% if product_id %} value="{% if photo_txt %}{{ photo_txt }}{% endif %}" {% endif %} name="photo_txt" class="form-control" readonly>
+                                </div>
+                                <!-- <div class="col-sm-3 text-danger">
+                                    默认的水印文字随域名和二级目录自动生成，不使用水印请将此项置为空，更改水印文字只对新上传的图片生效
+                                </div> -->
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > logo </label>
+                                <div class="col-sm-10">
+                                    <input  class="file-0a" type="file"  name="upfile"   multiple>
+                                    <input  type="hidden"  name="logoUrl" id="logo" value="">
+                                    <input  type="hidden"  name="originalLogoUrl" id="original_logo" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 缩略图 </label>
+                                <div class="col-sm-10">
+                                    <input class="file-1a"  type="file"  name="upfile"   multiple>
+                                    <input  type="hidden"  name="thumbsUrl" id="thumbs" value="">
+                                    <input  type="hidden"  name="originalThumbsUrl" id="original_thumbs" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 图集 </label>
+                                <div class="col-sm-10 file-photos">
+                                    <input id="file-photos" class="file" type="file"  name="upfile"   multiple>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div  class="col-sm-2 col-sm-2 text-center">
+                                    <label> 视频 </label>
+                                    <div>（仅限MP4格式，10M以下视频，注：由于安卓系统的多样性，不能完美兼容，所以建议添加视频和轮播图集功能中二选一）</div>
+                                </div>
+                                
+                                <div class="col-sm-10 file-video">
+                                    <input id="file-video" class="file" type="file" name="upfile" multiple>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center"> 视频预览图 </label>
+                                <div class="col-sm-10 file-cover">
+                                    <input id="file-cover" class="file" type="file" name="upfile" multiple>
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label class="col-sm-2 col-sm-2 text-center" > 属性 </label>
+                                <div class="col-sm-10" id="attr">
+                                  <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            属性id
+                                        </div>
+                                        <div class="col-sm-2">
+                                            属性名称
+                                        </div>
+                                        <div class="col-sm-2">
+                                            erp属性值id
+                                        </div>
+                                        <div class="col-sm-2">
+                                            属性值名称
+                                        </div>
+                                        <div class="col-sm-2">
+                                            图片预览
+                                        </div>
+                                        <div class="col-sm-1"> </div>
+                                        <div class="col-sm-2">
+                                            {# <div  id="addAttr" class="text-right btn btn-success" style="display:none;"> 增加属性 </div> #}
+                                            <div  id="syncAttr" class="text-right btn btn-success" style="display:;"> 同步属性 </div>
+                                        </div>
+                                     </div>
+                                    </div>
+                                    <div class="attr_area">
+                                    {% if attr %}
+                                        {% for a in attr %}
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                               <input type="number" value="{{ a.attr_group_id}}" class="form-control" name="up_attr_group_id[]" readonly style="padding: 0px;">
+                                            </div>
+                                            <div class="col-sm-2">
+                                                {# <input type="text" value="{{ a.attr_group_title}}" class="form-control" name="up_attr_group_title[]" > #}
+                                                <input type="text" style="float: left;width: 50%;" value="{{ a.attr_group_title}}" class="form-control" name="up_attr_group_title[]" >
+                                                <span class="form-control" style="color:grey;border: 0px;"></span>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="number" value="{{ a.number }}" class="form-control attr_value_id" name="up_number[]" readonly>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" style="float: left;width: 50%;"  value=" {{ a.name }}" class="form-control" name="up_name[]" >
+                                                <span class="form-control" style="color:grey;border: 0px;"></span>
+                                            </div>
+
+                                            <div class="col-sm-2 attr_img_url ">
+                                                {% if a.thumb %}
+                                                    <img src="{{ a.thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" width="60" height="60">
+                                                    <a class="text-danger del_attr_thumb" attr_id="{{ a.product_attr_id }}" href="javascript:void(0);">【删除图片】</a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-sm-1 for_attr_thumb">
+                                                <input type="file" name="upfile" class="attr_thumb"  multiple >
+                                                <input type="hidden" name="attr_thumb_url[]" class="attr_thumb_url" value="{{ a.thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" >
+                                                <input type="hidden" name="original_attr_thumb[]" class="attr_thumb_url" value="" >
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <input type="hidden" name='product_attr_id[]' value='{{ a.product_attr_id }}'>
+                                                <button class="btn  btn-danger deleteAttr " product_attr_id ="{{ a.product_attr_id }}" type="button"  style=""> 删除属性 </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                       {% endfor %}
+                                    {% endif%}
+                                    </div>
+                                    <style>
+                                        .for_attr_thumb {
+                                            position: relative;
+                                            height: 35px;
+                                            overflow: hidden;
+                                        }
+                                        .for_attr_thumb:after {
+                                            position: absolute;
+                                            left: 0px;
+                                            top: 0px;
+                                            width: 100%;
+                                            height: 100%;
+                                            content: "上传图片";
+                                            z-index: 1;
+                                            right: 0px;
+                                            bottom: 0px;
+                                            text-align: center;
+                                            line-height: 35px;
+                                            font-size: 14px;
+                                            border: solid 1px #ddd;
+                                            border-radius: 3px;
+                                            -webkit-box-sizing: border-box;
+                                            -moz-box-sizing: border-box;
+                                            box-sizing: border-box;
+                                        }
+                                        .attr_thumb {
+                                            position: absolute;
+                                            opacity: 0;
+                                            z-index: 2;
+                                            width: 100%;
+                                            height: 100%;
+                                            left: 0px;
+                                            top: 0px;
+                                        }
+                                        .define-width{
+                                            position: relative;
+                                        }
+                                        .show_all{
+                                            display: block;
+                                            width: 200px;
+                                            height: 34px;
+                                            text-overflow: ellipsis;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                        }
+                                        .show_all .hoverall{
+                                            display: none;
+                                            position: absolute;
+                                            top: 28px;
+                                            left: 8px;
+                                            z-index: 1000;
+                                            padding: 10px;
+                                            background: #fff;
+                                            color: #222;
+                                            font-size:14px;
+                                            border: 1px solid #eee;
+                                        }
+                                    </style>
+                                    <div id="attrArea"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 套餐 </label>
+                                
+                                <div class="col-sm-10">
+                                    <button class="add_combo btn btn-primary" type="button"> 增加套餐</button>
+                                    <br>
+                                    <br>
+                                    <div id="combo">
+                                        {% if combo %}
+                                        <style>
+                                            .combo-param {background: #fff; margin: 20px 0px; }
+                                            .combo-param tr td:first-child{font-weight: bold; text-align: right; }
+                                            .combo-param tr td {padding: 7px; }
+                                        </style>
+                                        {% for i,c in combo %}
+                                        <table class="table table-striped table-advance table-hover" data-id='{{c.combo_id}}'>
+                                            <tbody>
+                                            <tr>
+                                                <th colspan="7">套餐{{combo_num - i }}</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7" style="padding:0px; background:#fff; ">
+                                                <table class="combo-param">
+                                                    <tr>
+                                                        <td>套餐名称：</td>
+                                                        <td><input type="text" class="form-control" name="combo[{{ c.combo_id }}][name]" value="{{ c.title }}"required></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="vertical-align:top">套餐图片：</td>
+                                                        <td><input type="file" class="form-control comboThumb" name="upfile" >
+                                                            <input type="hidden"  name="combo[{{ c.combo_id }}][thumb]" class="comboThumbUrl" >
+                                                            <input type="hidden"  name="originalCombo[{{ c.combo_id }}][thumb]" class="comboThumbUrl" >
+                                                            {% if c.thumb %} <img src="{{ c.thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" width="120" height="120"> {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>限购：</td>
+                                                        <td>
+                                                            <input type="checkbox"  name="combo[{{ c.combo_id }}][is_single_combo]" value="1" {% if 1 == c.is_single_combo %} checked {% endif %}>
+                                                            (勾选后，客户端进行限购，每次只能购买一个)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>设置套餐优惠总价: </td>
+                                                        <td>
+                                                            <input type="checkbox" disabled name="combo[{{c.combo_id}}][is_lock_total]" value="1" data-lock {% if c.is_lock_total == 1 %} checked {% endif %}>
+                                                            (保存产品信息后，此模式不可再次修改)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>价格：</td>
+                                                        <td><input type="text" class="form-control" name="combo[{{ c.combo_id }}][price]" required value="{{ c.price }}" readonly>
+                                                        <input type="hidden" name="combo[{{ c.combo_id }}][combo_id]" value="{{ c.combo_id }}">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                </td>
+                                            </tr>
+                                            <tr><th>产品id</th><th>产品名称</th><th>产品外文名称</th><th class='single-price-show'>促销单价</th> <th > 数量 </th> <th> 产品erp id </th><th> 产品限定可选属性 </th> <th> <button class="btn btn-primary" type="button" onclick="add_combo_product(this,{{ c.combo_id }})" combo=""> 增加产品 </button> </th>
+                                            </tr>
+                                            {% for g in c.goodsList %}
+                                            <tr>
+                                                <td class="define-width"><input type="text" class="form-control" name="combo[{{ c.combo_id }}][product_id][]" readonly required value="{{ g.product_id }}"></td>
+                                                <td><input type="text" class="form-control" name="combo[{{ c.combo_id }}][title][]" required value="{{ g.title }}" readonly> </td>
+                                                <td><input type="text" class="form-control foreign-name" alt="{{ c.combo_id }}" onchange="changeSaleTitle(this)" name="combo[{{ c.combo_id }}][sale_title][]" required value="{{ g.sale_title }}"> </td>
+                                                <td class='single-price-show define-width'>{# <span style="color: gray;font-size: 14px;line-height: 34px;width: 20%;float: left;">原价：{{ g.price }}</span><input style="width: 70%;float: right;" type="text" class="form-control promotion" alt="{{ c.combo_id}}" name="combo[{{ c.combo_id }}][promotion_price][]" required value="{{ g.promotion_price }}"> #}
+                                                <input type="text" class="form-control promotion" onchange="sumCombo('{{ c.combo_id }}')" alt="{{ c.combo_id}}" name="combo[{{ c.combo_id }}][promotion_price][]" required value="{{ g.promotion_price }}">
+                                                </td>
+                                                <td class="define-width"> <input type="text" class="form-control pro_num" alt="{{ c.combo_id}}" name="combo[{{ c.combo_id }}][num][]"  required value="{{ g.num }}"> </td>
+                                                <td class="define-width"> <input type="text" class="form-control col-sm-1 {{ c.combo_id}}_erp_id" name="combo[{{ c.combo_id }}][erp_id][]"  required value="{{ g.erp_id }}" readonly>
+                                                    
+                                                <input type="hidden" value="{{ g.combo_goods_id }}" name="combo[{{ c.combo_id }}][combo_goods_id][]">
+                                                <input type="hidden" value="{{ g.attr_id_desc }}" name="combo[{{ c.combo_id }}][attr_id_desc][]">
+                                                </td>
+                                                <td class="define-width">
+                                                    {% if g.attr_name_desc %}
+                                                        <span class="show_all show-attr-name">
+                                                            <div class="attrsname">{{g.attr_name_desc }}</div>
+                                                            <div class="hoverall"></div>
+                                                        </span>
+                                                    {% else %}<span class="show-attr-name">全部</span>{% endif %}</td>
+                                                <td><button type="button" class ="btn btn-success selectGoods">选择产品</button></td>
+                                                <td><button type="button" class ="btn btn-success selectGoodsAttr" style="display:;">可选属性</button></td>
+                                                <td> <button class="btn btn-danger del_data_combo_goods" type="button" combo_goods_id="{{ g.combo_goods_id }}"> 删除 </button></td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan="7">
+                                                    <button class="btn btn-danger del_data_combo" type="button" combo_id="{{ c.combo_id }}"> 删除套餐</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > FB通用像素id </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="fb_px" value="{{ fb_px }}" required>
+                                </div>
+                                <div class="col-sm-2 text-danger">
+                                    多个fb像素用<code>半角逗号(,)</code>分开
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > yahooID </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="yahoo_id" value="{{ gle.yahoo_id }}">
+                                </div>
+                                <div class="col-sm-4 text-danger">
+                                    用于雅虎投放渠道,只支持输入数字(长度0-15个数字)。仅支持加载1个ID。
+                                </div>
+                            </div>
+                            {# <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center">Google 转化 ID</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="google_conversion_id" value="{{ gle.google_conversion_id }}">
+                                </div>
+                                <div class="col-sm-4 text-danger">
+                                    示例：123456789
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center">Google 转化 Label</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="google_conversion_label" value="{{ gle.google_conversion_label }}">
+                                </div>
+                                <div class="col-sm-4 text-danger">
+                                    提示：与google转化ID同时设置
+                                </div>
+                            </div> #}
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 购买提示 </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" name="tips"  style="height:100px;">{{ tips }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 自定义跟踪代码 </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" rows="10" class="form-control" name="la">{{ la|raw }}</textarea>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 产品序列号 </label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="ps_product_sn" value="{{ ps_product_sn }}">
+                                </div>
+                            </div> -->
+                            {% if admin.is_admin==1 or admin.is_root==1 %}
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > CDN加速方式 </label>
+                                <div class="col-sm-4 zone">
+                                        <select id="img_cdn_type" name="img_cdn_type" class="form-control" required>
+                                            {% for key,val in imgCdnTypeData %}
+                                                <option value="{{ key }}"  {% if key == img_cdn_type %} selected {% endif %}> {{ val }}</option>
+                                            {% endfor %}
+                                        </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_id_zone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 内容 </label>
+                                <div class="col-sm-8">
+                                    <textarea id="editor" name="content" style="width:101%;height:500px;">{{ content|raw|replace({"img.stosz.com":"imgcn.stosz.com"})}}</textarea>
+                                </div>
+                            </div>
+                            <input name="theme" type="hidden" id="this_theme" value="{{ theme|raw }}">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    {% include 'theme_select.twig' %}
+
+    <script src="template/plugins/dialog/dist/dialog-plus.js"></script>
+    <script type="text/javascript">
+        // 高亮侧边栏
+        highlight_subnav('product.php?');
+        //changeServiceMail();//修正 地区自定义邮箱，自定义邮箱开启状态
+        ajaxDomain();//全局域名邮箱数组，域名到期时间数组,包含执行 changeServiceMail()
+        changeSmsIsp();//更新短信开启状态
+        ajaxAttr();//编辑的时候带上 原始属性名称
+        // 地区 变更事件
+        $('#id_zone').change(changeSmsIsp);//短信开启
+        $('#id_zone').change(changeServiceMail);//售后邮箱,更新水印
+        $('#id_zone').change(changeZoneTip);//投放地区提示
+        $('#id_zone').change(function(){setTheme()});//更换地区-设置(清空)模版值
+        $('#id_lang').change(function(){setTheme()});//更换语言包-设置(清空)模版值
+        
+        $('[name="identity_tag"]').blur(changeWatermark);//更新水印
+        $('[name="domain"]').change(changeWatermark);//更新水印
+        $('[name="domain"]').change(domainChangeTipAndEmail);//域名到期时间和邮箱
+        var combo =0;
+        var um = UE.getEditor('editor');
+        if($("input[name='product_id']").val() =='')
+        {
+            $("input.domain").focus();
+        }
+
+        var check_domain_department = 1;
+        $(".add_combo").click(function () {
+            combo++;
+            var html = ' <table class="table table-striped table-advance table-hover" data-id="' + combo + '"><tbody> <tr><td colspan="7" style="padding:0px; background:#fff;"> <table class="combo-param"> <tr> <td>套餐名称：</td> <td> <input type="text" class="form-control" name="combo['+ combo+'][name]" required> </td> </tr> <tr> <td style="vertical-align:top">套餐图片：</td> <td> <input type="file" class="form-control comboThumb" name="upfile"> <input type="hidden"  name="combo['+combo+'][thumb]" class="comboThumbUrl" > <input type="hidden"  name="originalCombo['+combo+'][thumb]" class="comboThumbUrl" > </td> </tr> <tr> <td>限购：</td> <td> <input type="checkbox" name="combo['+combo+'][is_single_combo]" value="1"> (勾选后，客户端进行限购，每次只能购买一个) </td> </tr> <tr> <td>设置套餐优惠总价: </td> <td> <input type="checkbox"  name="combo['+ combo+'][is_lock_total]" value="1" data-lock> (保存产品信息后，此模式不可再次修改) </td> </tr> <tr> <td>价格：</td> <td> <input type="text" class="form-control" name="combo['+combo+'][price]" required readonly> </td> </tr> </table> </td></tr><tr><th>产品id</th><th>产品名称</th><th>产品外文名称</th><th class="single-price-show"> 产品促销单价 </th> <th class="col-sm-1"> 产品数量 </th> <th> 产品erp id </th><th> 产品可选属性 </th> <th> <button class="btn btn-primary" type="button" onclick="add_combo_product(this)" combo="'+combo+'"> 增加产品 </button> </th> </tr> <tr><td class="define-width"><input type="text" class="form-control" name="combo['+combo+'][product_id][]" required readonly > </td><td><input type="text" class="form-control" name="combo['+combo+'][title][]" required readonly> </td><td><input type="text" class="form-control foreign-name"  onchange="changeSaleTitle(this)" alt="'+combo+'" name="combo['+combo+'][sale_title][]" required> </td> <td class="single-price-show define-width"> <input type="text" class="form-control promotion" alt="'+combo+'" onchange="sumCombo('+combo+')" name="combo['+combo+'][promotion_price][]" value="" required> </td> <td class="define-width"> <input type="text" class="form-control pro_num col-sm-1" alt="'+combo+'" name="combo['+combo+'][num][]" onchange="sumCombo('+combo+')" value="1" required> </td> <td class="define-width"> <input type="text" class="form-control col-sm-1  '+combo+'_erp_id" name="combo['+combo+'][erp_id][]" readonly required><input type="hidden" value="0" name="combo['+combo+'][combo_goods_id][]"><input type="hidden" value="" name="combo['+combo+'][attr_id_desc][]"></td><td class="define-width"><span class="show-attr-name">全部</span></td> <td><button type="button" class ="btn btn-success selectGoods">选择产品</button></td><td><button type="button" class ="btn btn-success selectGoodsAttr sel_disabled" style="display:;" disabled >可选属性</button></td> <td><button class="btn btn-danger" type="button" onclick="del_combo_product(this)"> 删除 </button></td> </tr><tr><td colspan="7"><button class="btn btn-danger del_combo" type="button" onclick="del_combo(this)">删除套餐</button></td></tr> </tbody>  </table>' ;
+           
+            $("#combo").prepend(html)
+            recalc_combo_lock(combo);
+        });
+        // 判断是否设置套餐总价
+        function recalc_combo_lock(id){
+            var $table = $("table[data-id="+id+"]");
+            var value  = $table.find("[data-lock]:checked").val() || 0;
+            if(value == 1){
+                $table.addClass("lockall").removeClass("locksingle");
+                // 可以设置套餐总价
+                $table.find("[name='combo[" + id + "][price]']").attr('readonly', null);
+                // 屏蔽单品价格设置
+                $table.find('.single-price-show input').attr('readonly', 'readonly');
+            }else{
+                $table.removeClass("lockall").addClass("locksingle");
+                // 不可以设置套餐总价
+                $table.find("[name='combo[" + id + "][price]']").attr('readonly', 'readonly');
+                // 开启单品价格设置
+                $table.find('.single-price-show input').attr('readonly', null);
+                // 计算单品价格
+                sumCombo(id);
+            }
+        }
+
+        $(document).on('change', '[data-lock]', function(){
+            recalc_combo_lock($(this).closest('.table').attr('data-id'));
+        })
+
+        $(function(){
+            $('table[data-id]').each(function(i, e){
+                recalc_combo_lock($(this).attr('data-id'));
+            });
+        })
+        function del_combo(obj)
+        {
+            combo--;
+            $(obj).parentsUntil('.table').parent().remove();
+        }
+        function del_combo_product(obj)
+        {
+            $(obj).parentsUntil('tr').parent().remove();
+            var pro = $(obj).parent().parent().find("input").eq(3);
+            var combo_id = pro.prop('alt');
+            sumCombo(combo_id);
+        }
+
+
+        function  add_combo_product(obj,comboId) {
+             if(!comboId)
+             {
+                 var   comboId  = $(obj).attr('combo');
+             }
+             var html ='<tr><td><input type="text" class="form-control" name="combo['+comboId+'][product_id][]" readonly required> </td><td><input type="text" class="form-control" name="combo['+comboId+'][title][]" required readonly> </td><td><input type="text" class="form-control foreign-name"  onchange="changeSaleTitle(this)" alt="'+comboId+'" name="combo['+comboId+'][sale_title][]" required> </td> <td class="single-price-show"> <input type="text" class="form-control promotion" alt="'+comboId+'" onchange="sumCombo('+comboId+')" name="combo['+comboId+'][promotion_price][]" value="1" required> </td> <td> <input type="text" class="form-control pro_num  col-sm-1"  alt="'+comboId+'" name="combo['+comboId+'][num][]" value="1" onchange="sumCombo('+comboId+')" required> </td> <td> <input type="text" class="form-control col-sm-1  '+comboId+'_erp_id"  name="combo['+comboId+'][erp_id][]" readonly required><input type="hidden" value="0" name="combo['+comboId+'][combo_goods_id][]"><input type="hidden" value="" name="combo['+comboId+'][attr_id_desc][]"></td><td class="define-width"><span class="show-attr-name">全部</span></td><td><button type="button" class ="btn btn-success selectGoods">选择产品</button></td> <td><button type="button" class ="btn btn-success selectGoodsAttr" style="display:;" disabled>可选属性</button></td><td><button class="btn btn-danger" type="button" onclick="del_combo_product(this)"> 删除 </button></td> </tr>';
+            $(obj).parents('tr').after(html);
+        }
+        $(".del_data_combo").click(function () {
+            var $this = $(this);
+             if(confirm('是否删除套餐？'))
+             {
+                var url ='product_new.php?'  ;
+                var combo_id = $(this).attr('combo_id') ;
+                $.post(url,{combo_id:combo_id,act:'deleteCombo'}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret == 1)
+                    {
+                        $this.parentsUntil('.table').parent().remove();
+                    }
+                    else{
+                        alert(ret.msg)
+                    }
+
+                })
+            }
+        }) ;
+        $(".del_data_combo_goods").click(function () {
+            var $this = $(this);
+            if(confirm('是否删除该产品？'))
+            {
+                var url ='product.php?'  ;
+                var combo_id = $this.attr("combo_goods_id") ;
+                $.post(url,{combo_goods_id:combo_id,act:'deleteComboGoods'}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret == 1)
+                    {
+                        $this.parentsUntil('tr').parent().remove();
+                        var combos_id =  $this.parent().parent().find("input").eq(3).attr('alt');
+                        sumCombo(combos_id);
+                    }
+                    else{
+                        alert(ret.msg)
+                    }
+
+                })
+            }
+        }) ;
+
+        //上传logo
+        $('.file-0a').fileinput({
+            language: 'zh',
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            showCaption: false,
+            showUpload:false,
+            maxFileCount:1 ,
+            uploadUrl: 'qiniu_um.php?type=logo',
+            autoReplace:true,
+            showRemove:false,
+           {% if logo %}
+            initialPreview: [
+                '<img src="{{ logo |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" class="file-preview-image" alt="Desert" title="Desert" width="200" height="200">',
+            ],
+           {% endif %}
+            uploadExtraData: function(previewId, index) {   //额外参数的关键点
+                return { txt:$("input[name='photo_txt']").val()};
+            }
+        }).
+        on("filebatchselected", function(event, files) {
+            $(this).fileinput("upload");
+        }).on("fileuploaded", function(event, data) {
+            $('.kv-file-remove').hide() ; 
+            $('.kv-file-zoom').hide() ; 
+            res = data.response ;
+            if(res.state=="SUCCESS")
+            {
+                $('#logo').val(res.url) ;
+                $('#original_logo').val(res.original_name) ;
+                return true ;
+            }
+            alert('上传失败') ;
+            return false ;
+        }).on('filesuccessremove', function(event, key) { 
+             $('#logo').val('') ;
+        }).on('filecleared', function(event, key) { 
+             $('#logo').val('') ;
+        });
+        
+        //上传略缩图
+        $('.file-1a').fileinput({
+            language: 'zh',
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            showCaption: false,
+            showUpload:false,
+            maxFileCount:1 ,
+            uploadUrl: 'qiniu_um.php?type=thumb',
+            autoReplace:true,
+            showRemove:false,
+            {% if thumb %}
+
+
+            initialPreview: [
+                '<img src="{{ thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" class="file-preview-image" alt="Desert" title="Desert" width="200" height="200">',
+            ],
+            {% endif %}
+            uploadExtraData: function(previewId, index) {   //额外参数的关键点
+                return { txt:$("input[name='photo_txt']").val()};
+            }
+        }).on("filebatchselected", function(event, files) {
+            $(this).fileinput("upload");
+        }).on("fileuploaded", function(event, data) {
+            $('.kv-file-remove').hide() ; 
+            $('.kv-file-zoom').hide() ; 
+            res = data.response ;
+            if(res.state=="SUCCESS")
+            {
+                $('#thumbs').val(res.url) ;
+                $('#original_thumbs').val(res.original_name);
+                return true ;
+            }
+            alert('上传失败') ;
+            return false ;
+        }).on('filesuccessremove', function(event, key) {
+             $('#thumbs').val('') ;
+        }).on('filecleared', function(event, key) { 
+             $('#thumbs').val('') ;
+        });
+
+        //上传图集
+        $('#file-photos').fileinput({
+            language: 'zh',
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            showCaption: false,
+            showUpload:false,
+            uploadUrl: 'qiniu_um.php?type=photos',
+            {% if photos %}
+            initialPreview: [
+              {% for p in photos %}
+                '<img src="{{ p.thumb |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" class="file-preview-image"  width="200" height="200">',
+              {% endfor %}
+            ],
+            initialPreviewConfig: [
+                {% for p in photos %}
+                {
+                    url: "product.php", // server delete action
+                    extra: {thumb_id: {{ p.thumb_id }},act:'deletePhotos'}
+                },
+                {% endfor %}
+            ],
+
+            {% endif %}
+            uploadExtraData: function(previewId, index) {   //额外参数的关键点
+                return { txt:$("input[name='photo_txt']").val()};
+            }
+        }).on("filebatchselected", function(event, files) {
+            $(this).fileinput("upload");
+        }).on("fileuploaded", function(event, data , previewId, index) {
+            $('.kv-file-remove').hide() ; 
+            $('.kv-file-zoom').hide() ; 
+            res = data.response ;
+            if(res.state=="SUCCESS")
+            {
+                var str = '<input  type="hidden"  name="photos[]"  class="photos_img"  value="'+res.url+'">' ;
+                var original_str = '<input  type="hidden"  name="original_photos[]"  class="photos_img"  value="'+res.original_name+'">' ;
+                $(".file-photos").append(str);
+                $(".file-photos").append(original_str);
+                return true ;
+            }
+            alert('上传失败') ;
+            return false ;
+        }).on('filecleared', function(event,  key) { 
+             $('.photos_img').remove() ;
+        });
+
+
+        //上传视频
+         $('#file-video').fileinput({
+                language: 'zh',
+                allowedFileExtensions: ['mp4'],
+                showCaption: false,
+                showUpload: false,
+                 maxFileCount: 1,
+                 autoReplace:true,
+                 showRemove: false,
+                 maxFileSize: 10000,
+                uploadUrl: 'qiniu_um.php?type=video',
+            {% if video.video_url %}
+            initialPreview: [
+                
+            '<video src="{{ video.video_url |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" class="file-preview-image"  width="200" height="200"><input  type="hidden"  name="videoUrl"  class="photos_img video_img"  value={{video.video_url}}>',
+               
+            ],
+
+              initialPreviewConfig: [
+                        {
+                            url: "product.php", // server delete action
+                            extra: { product_id: {{ product_id }}, act: 'deleteVideo' }
+                }
+                    ],   
+
+            {% endif %}
+            uploadExtraData: function(previewId, index) {   //额外参数的关键点
+                return { txt: $("input[name='photo_txt']").val() };
+            }
+        }).on("filebatchselected", function (event, files) {
+            console.log(files)
+                Array.isArray(files) && files.length>0 && $(this).fileinput("upload");
+            }).on("fileuploaded", function (event, data, previewId, index) {
+                var imgLeg = $(".file-video").find(".file-preview-success").length;
+                console.log(imgLeg)
+                if (imgLeg == 2) {
+                    alert("只能选择一个视频");
+                    $(".file-video").find(".file-preview-success:last").remove();
+                    return;
+                }
+
+                $('.kv-file-remove').hide();
+                $('.kv-file-zoom').hide();
+                res = data.response;
+                console.log(res)
+                if (res.state == "SUCCESS") {
+                     if (imgLeg == 1) {
+                    var str = '<input  type="hidden"  name="videoUrl"  class="photos_img video_img"  value="' + res.url + '">';
+                    //var original_str = '<input  type="hidden"  name="originalVideoUrl"  class="video_img"  value="' + res.original_name + '">';
+                    $(".file-video").append(str);
+                    //$(".file-video").append(original_str);
+                    
+                     }
+                     return true;
+                }
+                alert('上传失败');
+                return false;
+            }).on('filecleared', function (event, key) {
+                $('.video_img').remove();
+            });
+
+            //视频预览图上传
+             $('#file-cover').fileinput({
+                    language: 'zh',
+                    allowedFileExtensions: ['jpg', 'png'],
+                    showCaption: false,
+                    showUpload: false,
+                     maxFileCount: 1,
+                     autoReplace:true,
+                     showRemove:false,
+                    uploadUrl: 'qiniu_um.php?type=cover',
+            {% if video.cover_url %}
+                initialPreview: [
+                '<img src="{{ video.cover_url |replace({"img.stosz.com":"imgcn.stosz.com"}) }}" class="file-preview-image"  width="200" height="200"><input  type="hidden"  name="coverUrl"  class="photos_img cover_img1"  value={{ video.cover_url }}>',
+                ],
+                initialPreviewConfig: [
+                {
+                    url: "product.php", // server delete action
+                    extra: { product_id: {{ product_id }}, act: 'deleteCover' }
+                }
+                ],   
+                {% endif %}
+                uploadExtraData: function(previewId, index) {   //额外参数的关键点
+                    return { txt: $("input[name='photo_txt']").val() };
+                }
+        }).on("filebatchselected", function (event, files) {
+                     Array.isArray(files) && files.length > 0 && $(this).fileinput("upload");
+                }).on("fileuploaded", function (event, data, previewId, index) {
+                    var imgLeg = $(".file-cover").find(".file-preview-success").length;
+                    if (imgLeg == 2) {
+                        alert("只能选择一个视频预览图");
+                        $(".file-cover").find(".file-preview-success:last").remove();
+                         return;
+                    }
+
+                    $('.kv-file-remove').hide();
+                    $('.kv-file-zoom').hide();
+                    res = data.response;
+                    console.log(res)
+                    if (res.state == "SUCCESS") {
+                        if(imgLeg == 1){
+                            var str = '<input  type="hidden"  name="coverUrl"  class="photos_img cover_img1"  value="' + res.url + '">';
+                            var original_str = '<input  type="hidden"  name="originalCoverUrl"  class="cover_img"  value="' + res.original_name + '">';
+                            $(".file-cover").append(str);
+                            $(".file-cover").append(original_str);
+                        }
+                        return true;
+                    }
+                    alert('上传失败');
+                    return false;
+                }).on('filecleared', function (event, key) {
+                    $('.cover_img').remove();
+                    $('.cover_img1').remove();
+                    // var url = "product.php"
+                    //   $.get(
+                    //       url,
+                    //      { act: 'deleteCover', product_id: '{{ product_id }}'}).success(function (data) {
+                    //          console.log(data);
+                    //      });
+                });
+
+        $("#addAttr").click(function(){
+            var html ='<div class="form-group attr_add_group"><div class="row">' ;
+                html+='<div class="col-sm-2"><input class="form-control" type="number"  name="attr_group_id[]" required></div>';
+                html+='<div class="col-sm-1"><input class="form-control" type="text" name="attr_group_title[]"  required></div>';
+                html+='<div class="col-sm-2"><input class="form-control" type="number" name="attr_erp_number[]" required></div>';
+                html+='<div class="col-sm-2"><input class="form-control" type="text" name="name[]" required></div>';
+                html+='<div class="col-sm-2 attr_img_url"></div>';
+                html+='<div class="col-sm-1 for_attr_thumb"><input type="file" name="upfile" class="attr_thumb">' ;
+                html+='<input type="hidden" name="attr_thumb[]" class="attr_thumb_url" >';
+                html+='<input type="hidden" name="original_attr_thumb[]" class="attr_thumb_url" ></div>';
+                html+='<div class="col-sm-1"><button class="btn  btn-danger" onclick="removeAttr(this)"> 删除属性 </button></div>';
+                html +='</div></div>' ;
+            $("#attr").append(html);
+        });
+
+       
+        _edit_email = '';
+        domain_www = new Array();
+        domain_time = new Array();
+        domain_email = new Array();
+
+        function ajaxDomain(){
+            var id_department = "{{admin.id_department}}";
+            var loginid = "{{admin.login_name}}";
+            var product_id = "{{product_id}}";
+            
+            if(id_department && !product_id){
+                var url = 'product_new.php?';
+                if($("select[name='domain']") && ($("select[name='domain']").length>0) ){
+                    $.get(url,{act:'getSeoDomain','id_department':id_department,'loginid':loginid}).success(function(data){
+                        var ret = JSON.parse(data);
+                        if(ret.ret)
+                        {
+                            //填充域名
+                            var h = '';
+                            l = ret.ret.length;
+                            _t = '';
+                            _currenDomain = '';
+                            for (var i = 0; i < l; i++) {
+                                if(i == 0){
+                                    _t = ret.ret[i].dead_time;
+                                    _currenDomain=  ret.ret[i].domain;
+                                    if(ret.ret[i].user_name){
+                                        $("input[name='service_email']").val(ret.ret[i].user_name + '@' + ret.ret[i].domain);
+                                    }
+                                }
+                                h += '<option value="www.'+ret.ret[i].domain+'" >www.'+ret.ret[i].domain+'</option>';
+                                domain_www.push('www.'+ret.ret[i].domain);
+                                domain_time.push(ret.ret[i].dead_time);
+                                if(ret.ret[i].user_name){
+                                    domain_email.push(ret.ret[i].user_name + '@' + ret.ret[i].domain);    
+                                }else{
+                                    domain_email.push('');
+                                }
+                            }
+                            $("#error_domain").html('查询成功  域名到期时间：'+_t);
+                            $("select[name='domain']").html(h);
+                            $(".domains .selectpicker").selectpicker('refresh');
+                            getDomainCat('www.'+_currenDomain);
+                        }else{
+                            $("#error_domain").html("没有可用域名，请联系技术部人员");return false;
+                        }
+                    });
+                    changeServiceMail();
+                }else{
+                    showDomainTime();
+                }
+            }else if(id_department && product_id){
+                $.get(url,{domain:"{{domain}}",act:'checkdomain','product_id':product_id}).success(function(data){
+                    var ret = JSON.parse(data);
+                    var oa_id_department = "{{oa_id_department}}";
+                    // console.log(id_department);
+                    // console.log(ret.ret.olderp_department_id);
+                    // if(ret.ret.olderp_department_id != id_department){
+                    //     check_domain_department = 0;
+                    // }
+                    // console.log(oa_id_department);
+                    // console.log(ret.ret.erp_department_id);
+
+                    if(ret.ret.erp_department_id != oa_id_department){
+                        check_domain_department = 0;
+                    }
+                    if(ret.ret == 0)
+                    {
+                        $("#error_domain").html('域名不可用');
+                        check_domain = 0;
+                    }
+                    else
+                    {
+                        check_domain = 1;
+                        $("#error_domain").html('查询成功  域名到期时间：'+ret.ret.dead_time);
+                        _edit_email = '';
+                        if(ret.ret.user_name && "{{admin.company_id}}" ==1 && $("input[name='zone_email_open']").val() != '1'){
+                                // 检测地区邮箱是否为为“统一邮箱”
+                                changeServiceMail();
+                                return;
+                                // var _domain = "{{domain}}";
+                                // _domain = _domain.substring(4);
+                                // _edit_email = ret.ret.user_name + '@' + _domain;
+                                // $("input[name='service_email']").val(_edit_email);
+                         }
+                    }
+                });
+            }
+        }
+
+
+        function domainChangeTipAndEmail(){
+            if($("input[name='zone_email_open']").val() != '1'){
+                if(domain_www && domain_time){
+                    var domain = $("select[name='domain']").val();
+                    var l = domain_www.length
+                    var index = -1;
+                    for (var i = 0; i < l; i++) {
+                        if(domain_www[i] == domain){
+                            index = i;
+                            if(domain_email[i]){
+                                $("input[name='service_email']").val(domain_email[i]);
+                            }
+                            break;
+                        }
+                    }
+                    // var index = domain_www.indexOf(domain_www);
+                    var time = domain_time[index];
+                    $("#error_domain").html('查询成功  域名到期时间：'+time);
+                    getDomainCat(domain);
+                }
+            }
+        }
+
+        //获取对应域名的主页分类
+        function getDomainCat(domain) {
+            var  url = 'product_new.php';
+            $.post(url,{domain:domain,act:'getTreeCat'}).success(function(data){
+                $("#product_category").find('option').not(':eq(0)').remove();
+                if(data){
+                    $("#product_category").append(data);
+                }
+            })
+            
+        }
+        // $("select[name='domain']").change(function(){
+        //     // if($("input[name='id_zone']").val() == 11)
+        //     // {
+        //     //     $("input[name='service_email']").val('service.th@outlook.com');
+        //     // }else{
+        //         if(domain_www && domain_time){
+        //             var domain = $("select[name='domain']").val();
+        //             var l = domain_www.length
+        //             var index = -1;
+        //             for (var i = 0; i < l; i++) {
+        //                 if(domain_www[i] == domain){
+        //                     index = i;
+        //                     if(domain_email[i]){
+        //                         $("input[name='service_email']").val(domain_email[i]);
+        //                     }
+        //                     break;
+        //                 }
+        //             }
+        //             // var index = domain_www.indexOf(domain_www);
+        //             var time = domain_time[index];
+        //             $("#error_domain").html('查询成功  域名到期时间：'+time);
+        //         }
+        //     // }
+        // });
+
+        $("select[name='users']").change(function(){
+            var url = 'product_new.php?';
+            var number = $("input[name='erp_number']").val();
+            var product_id = $("input[name='product_id']").val();
+            var ad_member = $("select[name='users']").find("option:selected").text();
+            // if (product_id == "") {
+            //     //新增的时候 域名下拉选择 部门可用即可,目前域名不具体到人
+            //     var id_department = "{{admin.id_department}}";
+            //     $.get(url,{act:'getSeoDomain','id_department':id_department,'ad_member':ad_member}).success(function(data){
+            //         var ret = JSON.parse(data);
+            //         if(ret.ret)
+            //         {
+            //             //填充域名
+            //             var h = '';
+            //             l = ret.ret.length;
+            //             domain_www = new Array();
+            //             domain_time = new Array();
+            //             _t = '';
+            //             for (var i = 0; i < l; i++) {
+            //                 if(i==0){
+            //                     _t = ret.ret[i].dead_time;
+            //                     h += '<option value="www.'+ret.ret[i].domain+'" selected >www.'+ret.ret[i].domain+'</option>';    
+            //                 }else{
+            //                     h += '<option value="www.'+ret.ret[i].domain+'"  >www.'+ret.ret[i].domain+'</option>';    
+            //                 }
+            //                 domain_www.push(ret.ret[i].domain);
+            //                 domain_time.push(ret.ret[i].dead_time);
+            //             }
+            //             $("select[name='domain']").html(h);
+            //             $(".domains .selectpicker").selectpicker('refresh');
+
+            //             $("#error_domain").html('查询成功  域名到期时间：'+_t);
+            //         }else{
+            //             $("#error_domain").html("没有可用域名，请联系技术部人员");
+            //         }
+            //     });
+            //     return;
+            // }
+            // 只对新产品 新增编辑 重新拉取产品校验权限
+            var new_erp ="{{new_erp}}";
+            if((product_id !='') && (new_erp == '1')){
+                $.post(url,{number:number,act:'getErpProduct','product_id':product_id,'ad_member':ad_member}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret)
+                    {
+                        $("#error_users").html("PS: 若列表里找不到名字，联系技术部ERP同事调整权限");
+                    }else{
+                        var o = $("select[name='users']").find("option:contains('{{ad_member}}')")[0];
+                        $("select[name='users']").selectpicker('val', o.value);
+                        var s = "PS: 若列表里找不到名字，联系技术部ERP同事调整权限";
+                        // $("#error_users").html(s+ '<br><a style="color:red;"> 该产品在ERP为非上架状态，不能修改优化师：优化师已还原<br><a style="color:grey;">'+ret.msg+'</a>');
+                        $("#error_users").html(s+ '<br><a style="color:red;text-decoration:none;">不能修改优化师：优化师已还原<br>'+ret.msg+'</a>');
+                    }
+                });
+            }
+        });
+        $("#syncAttr").click(function(){
+            var url = 'product_new.php?';
+            var number = $("input[name='erp_number']").val();
+            var product_id = $("input[name='product_id']").val();
+            var ad_member = $("select[name='users']").find("option:selected").text();
+            //if( product_id == ""){
+            //    return;
+            //}
+            $.post(url,{number:number,act:'getErpProduct','product_id':product_id,'ad_member':ad_member},function(result){
+                if (result.ret == 1) {
+                    if (result.data) {
+                        if (result.old_id_department) {
+                            if (Array.isArray(result.old_id_department)) {
+                                $("input[name='id_department']").val(result.old_id_department[0]);
+                            } else {
+                                $("input[name='id_department']").val(result.old_id_department);
+                            }
+                        }
+                        var attr = result.data.product_attr;
+                        var option = '';
+                        var html = '';
+                        var option_ids = $('input[name="up_number[]"]');
+                        //属性
+                        for (var i in attr) {
+                            option = attr[i]['attributeValueList'];//属性修改
+                            if (option) {
+                                for (var j in option) {
+                                    if ($('.attr_value_id[value=' + option[j].id + ']') && ($('.attr_value_id[value=' + option[j].id + ']').length > 0)) {
+                                    } else {
+                                        var attr_group_title = $('input[value=' + attr[i].id + ']').parent().next('div').find('input').val();
+                                        var html = '<div class="form-group attr_add_group"><div class="row">';
+                                        html += '<div class="col-sm-1"><input class="form-control" type="number"  name="attr_group_id[]" value="' + attr[i].id + '"  required readonly  style="padding: 0px;"></div>';
+                                        html += '<div class="col-sm-2"><input  style="float: left;width: 50%;" class="form-control" type="text" name="attr_group_title[]" value="' + attr[i].title + '" onchange="changeGroupTtitle(this)"  required><span class="form-control" style="color:grey;border: 0px;">' + attr[i].title + '</span></div>';
+                                        html += '<div class="col-sm-2"><input class="form-control attr_value_id" type="number" name="attr_erp_number[]" value="' + option[j].id + '" required readonly></div>';
+                                        html += '<div class="col-sm-2"><input style="float: left;width: 50%;" class="form-control" type="text" name="name[]" required value="' + option[j].title + '"><span class="form-control" style="color:grey;border: 0px;">' + option[j].title + '</span></div>';
+                                        html += '<div class="col-sm-2 attr_img_url"></div>';
+                                        html += '<div class="col-sm-1 for_attr_thumb"><input type="file" name="upfile" class="attr_thumb">';
+                                        html += '<input type="hidden" name="attr_thumb[]" class="attr_thumb_url" ></div>';
+                                        html += '<div class="col-sm-1"><button class="btn  btn-danger" onclick="removeAttr(this)" type="button"> 删除属性 </button></div>';
+                                        html += '</div></div>';
+                                        $("#attr").append(html);
+                                    }
+                                }
+                            }
+                        }
+                        $("#error_erp_number").html("查询成功");
+                    }
+                } else {
+                    alert(result.msg);
+                }
+            },'json')
+        });
+        
+        //属性异步上传图片
+        $(document).on('change', '.attr_thumb', function () {
+            var obj = $(this) ;
+            var file = this.files[0];
+            var fd = new FormData();
+            fd.append("upfile", file);
+            fd.append("txt",$("input[name='photo_txt']").val());
+            $.ajax({
+                url: "qiniu_um.php?type=attr",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: fd,
+                dataType: "json",
+                success: function (d) {
+                    if(d.state == "SUCCESS")
+                    {
+                        var p = obj.parent().parent();
+                        obj.next().val(d.url);
+                        obj.next().next().val(d.original_name);
+                        var str = '<img src="'+d.url+'" width="60" height="60">' ;
+                        p.find('.attr_img_url').html(str);
+                        return true;
+                    }
+                    alert('上传失败');
+                }
+            });
+        });
+        //套餐异步上传图片
+        $(document).on('change', '.comboThumb', function () {
+            var obj = $(this) ;
+            var file = this.files[0];
+            var fd = new FormData();
+            fd.append("upfile", file);
+            fd.append("txt",$("input[name='photo_txt']").val());
+            $.ajax({
+                url: "qiniu_um.php?type=combo",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: fd,
+                dataType: "json",
+                success: function (d) {
+                    if(d.state == "SUCCESS")
+                    {
+                        obj.next().val(d.url);
+                        obj.next().next().val(d.original_name);
+                        return true;
+                    }
+                    alert('上传失败');
+                }
+            });
+        });
+        //新增产品时候 删除同步过来的属性
+        function removeAttr(obj)
+        {
+            //新增的时候 属性区域是 attrArea
+            var attr_group_id = $(obj).parent().parent().find('input[name=\'attr_group_id[]\']').val();
+            if($(obj).parent().parent().parent().parent().find('input[value='+attr_group_id+']').length < 2){
+                // alert('每个属性组至少保留一个属性');
+                $("#main-content").append('<div class="alertPage">' +
+                    '<div class="alertBox">' +
+                            '<h5>提示</h5>' +
+                        '<p>每个属性组至少保留一个属性</p>' +
+                        '<button type="button" class="btn btn-primary">确定</button>'+
+                        '</div>'+
+                '</div>');
+                $(document).on("click",".alertPage .alertBox button",function(){
+                    $("body").removeAttr("style");
+                    $("#main-content .alertPage").fadeOut(250);
+                })
+                
+                
+                // $(".alert-page .alert-box").text("每个属性组至少保留一个属性");
+                // $(".alert-page").fadeIn(250);
+                return;   
+            }
+            $(obj).parents('.attr_add_group').remove();
+        }
+        var del_attr_dial = 0;
+        //删除已经有的属性
+        $(".deleteAttr").click(function(){
+            $("body").attr("style","overflow:hidden");
+            var obj=$(this);
+            var attr_group_id = $(this).parent().parent().find('input[name=\'up_attr_group_id[]\']').val();
+            if($('.attr_area').find('input[value='+attr_group_id+']').length <= 1){
+                // alert('每个属性组至少保留一个属性');
+                $("#main-content").append('<div class="alertPage">' +
+                        '<div class="alertBox">' +
+                                '<h5>提示</h5>' +
+                            '<p>每个属性组至少保留一个属性</p>' +
+                            '<button type="button" class="btn btn-primary">确定</button>'+
+                            '</div>'+
+                    '</div>');
+                    $(document).on("click",".alertPage .alertBox button",function(){
+                        $("body").removeAttr("style");
+                        $("#main-content .alertPage").fadeOut(250);
+                    })
+                return;
+            }
+            var $this = $(this);
+            var url ='product_new.php?'  ;
+            var product_id = "{{product_id}}";
+            var product_attr_id = $(this).attr('product_attr_id');
+            var geturl = 'product_new.php?act=getRelComboByAttr&product_attr_id='+product_attr_id+'&product_id='+product_id + '&json=1';
+            $.get(geturl).success(function(datas){
+                var data = JSON.parse(datas);
+                if(data.combo.length == 0){
+                    if(confirm("确认删除吗？")){
+                        $("body").removeAttr("style");
+                        console.log("是的");
+                        $.post(url,{product_attr_id:product_attr_id,act:'delete'}).success(function(response){
+                            var ret = JSON.parse(response);
+                            if(ret.ret == 1){
+                                $this.parentsUntil('.form-group').parent().remove();
+                            }else{
+                                alert(ret.msg)
+                            }
+                        })
+                    }else{
+                        $("body").removeAttr("style");
+                        console.log("否的");
+                    }
+                }else{
+                    del_attr_dial++;
+                    var _url= "product_new.php?act=getRelComboByAttr&product_attr_id="+product_attr_id+"&product_id="+product_id;
+                    dialog({
+                        id:'_confirmDel_'+del_attr_dial,
+                        title:'删除属性确认页面',
+                        url:_url,
+                        width:1080,
+                        minHeight:300,
+                        data:obj
+                    }).showModal();
+                }
+            });
+            // if(product_id){
+            //     //注意：包含该商品和属性的套餐也会自动删除！
+            //     var product_attr_id = $(this).attr('product_attr_id');
+            //     var obj=$(this);
+            //     del_attr_dial++;
+            //     var _url= "product_new.php?act=getRelComboByAttr&product_attr_id="+product_attr_id+"&product_id="+product_id;
+            //     dialog({
+            //         id:'_confirmDel_'+del_attr_dial,
+            //         title:'删除属性确认页面',
+            //         url:_url,
+            //         width:1000,
+            //         height:800,
+            //         data:obj
+            //     }).showModal();
+            //     //
+            // }else{
+            //     if(confirm("确认删除吗？"))
+            //     {
+            //       $.post(url,{product_attr_id:product_attr_id,act:'delete'}).success(function(data){
+            //           var ret = JSON.parse(data);
+            //           if(ret.ret == 1)
+            //           {
+            //             $this.parentsUntil('.form-group').parent().remove();
+            //           }
+            //           else{
+            //               alert(ret.msg)
+            //           }
+            //       })
+            //     }
+            // }
+         }) ;
+
+        function confirmDelProductAttr(_arr,_data){
+            if(_arr['confirm'] ==1 ){
+                product_attr_id = _data.prev('input')[0].value;
+                var url ='product_new.php?';
+                $.post(url,{product_attr_id:product_attr_id,act:'delete'}).success(function(data){
+                  var ret = JSON.parse(data);
+                  if(ret.ret == 1)
+                  {
+                     $(_data).parentsUntil('.form-group').parent().remove();
+                  }
+                  else{
+                      alert(ret.msg);
+                  }
+                })
+            }
+            $("body").removeAttr("style");
+            dialog.get('_confirmDel_'+del_attr_dial).close();
+        }
+
+        $(document).on("click",".ui-dialog-close",function(){
+            $("body").removeAttr("style");
+        })
+
+        // // 显示域名到期时间
+        // showDomainTime();
+        function showDomainTime(){
+            var product_id= '{{product_id}}';
+            if(product_id){
+                var url ='product_new.php?';
+                var domain = '{{domain}}';
+                $.get(url,{domain:domain,act:'checkdomain','product_id':product_id}).success(function(data){
+                        var ret = JSON.parse(data);
+                        if(ret.ret == 0)
+                        {
+                            $this.css('border-color',"#DB7028");
+                            $this.focus();
+                            $("#error_domain").html('域名不可用');
+                            check_domain = 0;
+                        }
+                        else
+                        {
+                            check_domain = 1;
+                            $("#error_domain").html('查询成功  域名到期时间：'+ret.ret.dead_time);
+                        }
+                    });
+            }
+        }
+        
+        var check_domain = 1;
+        // 检测域名是否重复
+        // $("input.domain")
+        $("input[name='domain']").change(function(){
+            var $this = $(this);
+            var url ='product_new.php?';
+            var domain = $(this).val();
+            var product_id= $("input[name='product_id']").val();
+            if(product_id !="")
+            {
+                return;
+            }
+            if(domain)
+            {
+                $("#error_domain").html("请稍后,查询中...");
+                $.get(url,{domain:domain,act:'checkdomain','product_id':product_id}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret)
+                    {
+                        check_domain = 1;
+                        $("#error_domain").html('查询成功  域名到期时间：'+ret.ret.dead_time);
+                        $.post(url,{domain:domain,act:'supportOcean'}).success(function(data){
+                            var ret = JSON.parse(data);
+                            if(ret.ret)
+                            {
+                                $("input[name='payment_ocean']").attr("disabled",false);
+                            }
+                        })
+                    }
+                    else
+                    {
+                        $this.css('border-color',"#DB7028");
+                        $this.focus();
+                        $("#error_domain").html('域名不可用');
+                        check_domain = 0;
+                    }
+                    if(ret.module){
+                        $('#product_category').append(ret.module);
+                    }
+                });
+            }
+            else{
+                $this.focus();
+                $("#error_domain").html('请先填写域名。示例：www.abcd.com');
+            }
+        });
+        
+        state_list_index = new Array();
+        state_list = new Array();
+        var erp_check = 1;
+        $("input[name='erp_number']").change(function() {
+            var $this = $(this);
+            var url = 'product_new.php?';
+            var number = parseInt($(this).val());
+            var product_id = $("input[name='product_id']").val();
+            var ad_member = $("select[name='users']").find("option:selected").text();
+            if (product_id != "") {
+                return;
+            }
+            if (number) {
+                $("#error_erp_number").html("请稍后,查询中...");
+                $.post(url,{number:number,act:'getErpProduct','product_id':product_id,'ad_member':ad_member}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret)
+                    {
+                        var result = ret.data;
+                        if(result)
+                        {
+                            //console.log(result.old_id_department);console.log($("input[name='domain_id_department']").val());
+                            if(result.old_id_department){
+                                if(Array.isArray(result.old_id_department)){
+                                    $("input[name='id_department']").val(result.old_id_department[0]);
+                                    if( $.inArray($("input[name='domain_id_department']").val(),result.old_id_department) == -1){
+                                        // $("input[name='erp_number']").val('') ;
+                                        // $("#error_erp_number").html("你输入ERP产品部门与域名部门不一致");
+                                        // $("input[name='sales_title']").val('');
+                                        // $("input[name='title']").val('');
+                                        // $("input[name='seo_title']").val('');
+                                        // $("input[name='seo_description']").val('');
+                                        // $("input[name='price']").val('');
+                                        // $("input[name='market_price']").val('');
+                                        // $("#attrArea").html('');
+                                        // return false;
+                                    }
+                                }else{
+                                    $("input[name='id_department']").val(result.old_id_department);
+                                    if($("input[name='domain_id_department']").val() != result.old_id_department){
+                                        // $("input[name='erp_number']").val('') ;
+                                        // $("#error_erp_number").html("你输入ERP产品部门与域名部门不一致");
+                                        // $("input[name='sales_title']").val('');
+                                        // $("input[name='title']").val('');
+                                        // $("input[name='seo_title']").val('');
+                                        // $("input[name='seo_description']").val('');
+                                        // $("input[name='price']").val('');
+                                        // $("input[name='market_price']").val('');
+                                        // $("#attrArea").html('');
+                                        // return false;
+                                    }
+                                }
+                            }
+                            
+                            //可投放地区
+                            $("input[name='available_zone_ids']").val(result.productAvailableZoneIds);
+                            //地区下拉项
+                            var zone_html = '';
+                            if(result.productZoneList){
+                                var l = result.productZoneList.length;
+                                //id_zone state
+                                // state_list = result.productZoneState;
+                                state_l = result.productZoneState.length;
+                                var _zone_tip = '';
+                                for (var i = 0; i < l; i++) {
+                                    z = result.productZoneList[i];
+                                    // console.log(result.productZoneState[z.title]);
+                                    if(i == 0){
+                                        _zone_tip = '地区为 '+z.title+' 的状态为'+ result.productZoneState[z.title];
+                                    }
+                                    state_list_index.push(z.id_zone);
+                                    state_list.push('地区为 '+z.title+' 的状态为'+ result.productZoneState[z.title]);
+                                    zone_html += '<option value="'+z.id_zone+'"  >' + z.title +'</option>';
+                                    // if('{{id_zone}}' == z.id_zone){
+                                    //     zone_html += '<option value="'+z.id_zone+'"   selected > ' + z.title + '</option>';    
+                                    // }else{
+                                    //     zone_html += '<option value="'+z.id_zone+'"  >' + z.title +'</option>';
+                                    // }
+                                }
+
+                            }
+                            
+                            $('#id_zone').html(zone_html);
+                            $('#error_id_zone').html(_zone_tip);
+                            changeServiceMail();
+                            changeSmsIsp();
+                            var attr = result.product_attr;
+                            $("input[name='sales_title']").val(result.title);
+                            $("input[name='title']").val(result.title);                        
+                            $("input[name='seo_title']").val(result.title);
+                            $("input[name='seo_description']").val(result.title);
+                            $("input[name='price']").val(result.price);
+                            $("input[name='market_price']").val(result.price);
+                            $("input[name='product_category']").val(result.id_category);
+                            $("input[id='product_category_name']").val(result.category);
+                             var option='';
+                             var html ='';
+                            //属性
+                            for(var i in attr)
+                            {
+                                option  =  attr[i]['attributeValueList'];//属性修改                                
+                                if(option){
+                                    for(var j in option)
+                                    {
+                                      html +='<div class="form-group attr_add_group"><div class="row">' ;
+                                      html+='<input type="hidden" name="attr_group_id[]" value='+attr[i].id+'>';
+                                      html+='<div class="col-sm-1"><input class="form-control" type="text" value='+attr[i].id+' readonly  style="padding: 0px;"></div>';
+                                      html+='<div class="col-sm-2"><input style="float: left;width: 50%;" class="form-control" type="text" name="attr_group_title[]"  value='+attr[i].title+' onchange="changeGroupTtitle(this)" ><span class="form-control" style="color:grey;border: 0px;">'+attr[i].title+'</span></div>';
+                                      html+='<div class="col-sm-2"><input class="form-control attr_value_id" type="number" name="attr_erp_number[]" required readonly value='+option[j].id+'></div>';
+                                      html+='<div class="col-sm-2"><input style="float: left;width: 50%;" class="form-control" type="text" name="name[]" required value='+option[j].title+'><span class="form-control" style="color:grey;border: 0px;">'+option[j].title+'</span></div>';
+                                      html+='<div class="col-sm-2 attr_img_url"></div>';
+                                      html+='<div class="col-sm-1 for_attr_thumb"><input type="file" name="attr_thumb" class="attr_thumb"  multiple>';
+                                      html+='<input type="hidden" name="attr_thumb[]" class="attr_thumb_url" >';
+                                      html+='<input type="hidden" name="original_attr_thumb[]" class="attr_thumb_url" ></div>';
+                                      html+='<div class="col-sm-1"><button class="btn  btn-danger" onclick="removeAttr(this)"> 删除属性 </button></div>';
+                                      html +='</div></div>' ;
+                                      }
+                                }
+                                
+                            }
+                            $("#attrArea").html(html);
+                            $("#error_erp_number").html("查询成功");
+                            erp_check = 1;
+                        }else{
+                            $("input[name='erp_number']").val('') ;
+                            $("#error_erp_number").html("请确认ERP是否存在此商品");
+                            $("input[name='sales_title']").val('');
+                            $("input[name='title']").val('');
+                            $("input[name='seo_title']").val('');
+                            $("input[name='seo_description']").val('');
+                            $("input[name='price']").val('');
+                            $("input[name='market_price']").val('');
+                            $("#attrArea").html('');
+                            erp_check = 0;
+                        }
+                        
+                    }
+                    else{
+                        $("input[name='erp_number']").val('') ;
+                        $("#error_erp_number").html(ret.msg);
+                        $("input[name='sales_title']").val('');
+                        $("input[name='title']").val('');
+                        $("input[name='seo_title']").val('');
+                        $("input[name='seo_description']").val('');
+                        $("input[name='price']").val('');
+                        $("input[name='market_price']").val('');
+                        $("#attrArea").html('');
+                        erp_check = 0;
+                    }
+                    
+                })
+            }
+        });
+
+
+        // 生成水印
+        function changeWatermark(){
+            var domain = $.trim($('[name="domain"]').val()) || ''
+                , identity_tag = $.trim($('[name="identity_tag"]').val()) || ''
+                , $watermark = $('[name="photo_txt"]');
+
+            $watermark.val([domain,identity_tag].join('/'));
+        }
+
+        //check if hide sms choose jade add
+        function changeSmsIsp(){
+            var zone = $('#id_zone').val();
+            $.get('/sms.php?act=checkIsp',{zone:zone}).success(function(data){
+                data = JSON.parse(data);
+                // 判断地区是否开通短信渠道
+                if( data.ret==0 ){
+                    $('.sms-show').hide();
+                }else{
+                    $('.sms-show').show();
+                    // 判断是否强制开启短信验证码
+                    if( data.is_open==1 ){
+                        $("input:radio[name='is_open_sms'][value=1]").prop('checked', true);
+                        $("input:radio[name='is_open_sms'][value=0]").attr('disabled', true);
+                        $('.sms-show').hide();
+                        {# if(zone == 2 || zone ==11 || zone == 64 || zone == 37 || zone == 29 || zone == 45){ #}
+                            $('.sms-show').show();
+                        {# } #}
+                    }else{
+                        if("{{ is_open_sms }}" == 0)
+                        {
+                            $("input:radio[name='is_open_sms'][value=0]").prop('checked', true);
+                            $("input:radio[name='is_open_sms'][value=0]").attr('disabled', false);
+                        }
+
+                        $('.sms-show').show();
+                    }
+                }
+            });
+        }
+
+       
+
+        ///删除属性图片
+        $(".del_attr_thumb").click(function(){
+            var $this = $(this);
+            var product_attr_id = $(this).attr("attr_id"),url='product.php';
+            if(confirm("确认删除图片吗？"))
+            {
+                $.post(url,{product_attr_id:product_attr_id,act:'delAttrThumb'}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret)
+                    {
+                        $this.prev("img").remove();
+                        //隐藏域 值清空
+                        $($this.parent().next('.for_attr_thumb')[0]).find('input')[0].value = '';
+                        $($this.parent().next('.for_attr_thumb')[0]).find('input')[1].value = '';
+                        $this.remove();
+                    }
+                })
+            }
+        });
+
+        //选择套餐商品可选属性
+        var attr_dial = 0;
+        $('#combo').on('click','.selectGoodsAttr',function(){
+            $("body").attr("style","overflow:hidden");
+            var obj=$(this);
+            attr_dial++;
+            var product_id = obj.parent().parent().find("input").eq(0).val();
+            var attr_id_desc = obj.parent().parent().find("input").eq(7).val();
+            var _url= "product_new.php?act=publicProductAttr"+"&product_id="+product_id+"&attr_id_desc="+attr_id_desc;
+            dialog({
+                id:'_selectGoodsAttr_'+attr_dial,
+                title:'选择套餐商品可选属性',
+                url:_url,
+                width:1000,
+                height:800,
+                data:obj
+            }).showModal();
+        });
+
+        function setGoodsOneAttr(_attr_arr,_data){
+            _data.parent().parent().find("input").eq(7).val(_attr_arr['attr_str']);
+            if(_attr_arr['hoverall'] == 'hover'){
+                var html = "<div class='attrsname'>"+ _attr_arr['attr_str_name'] +"</div><div class='hoverall'></div>";
+                $(_data.parent().parent().find(".show-attr-name")[0]).addClass('show_all');
+                $(_data.parent().parent().find(".show-attr-name")[0]).html(html);
+            }else{
+                $(_data.parent().parent().find(".show-attr-name")[0]).html(_attr_arr['attr_str_name']);
+            }
+            dialog.get('_selectGoodsAttr_'+attr_dial).close();
+            $("body").removeAttr("style");
+        }
+    
+        //选择套餐商品
+        var dial = 0;
+        $('#combo').on('click','.selectGoods',function(){
+            var obj=$(this);
+            dial++;
+            var user_id = $("#selectUsers").find("option:selected").val();
+            var _url= "product_new.php?act=publicProduct"+"&userid="+user_id+"&id_zone="+$("#id_zone").val();
+            dialog({
+                id:'_selectGoods_'+dial,
+                title:'选择商品',
+                url:_url,
+                width:1000,
+                height:800,
+                data:obj
+            }).showModal();
+        });
+        function setGoodsOne(_arr,_data){
+            var _id = _arr['_id'];
+            var _number = _arr['_number'];
+            var _sales_title = _arr['_sales_title'];
+            var _title = _arr['_title'];
+            var _price = _arr['_price'];
+            var combo_id = $(_data.parent().parent().parent().parent('table')).attr('data-id');
+            var combo_goods_id = _data.parent().parent().find("input").eq(6).val();
+            var erp_id_objs = _data.parent().parent().parent().find('.'+combo_id+'_erp_id');
+            var count_same_erp_id = 0;
+            var first_obj = '';
+            for (var i = 0; i < erp_id_objs.length; i++) {
+                if(_number == erp_id_objs[i].value){
+                    count_same_erp_id += 1;
+                    if(count_same_erp_id == 1){
+                        first_obj = erp_id_objs[i];
+                    }
+                }
+            }
+            if(count_same_erp_id > 0){
+                if((count_same_erp_id==1) && ($(first_obj).parent().parent().index() == _data.parent().parent().index())) {
+                    //
+                }else{
+                    if(_id != $(first_obj).parent().parent().find("input").eq(0).val()){
+                        alert('套餐内erp_id出现重复时，产品id 必须相同！请更换产品!');
+                        return;
+                    }
+                    _sales_title = $(first_obj).parent().parent().find("input").eq(2).val();//跟第一个一致
+                }
+            }
+            _data.parent().parent().find("input").eq(0).val(_id);
+            _data.parent().parent().find("input").eq(1).val(_title);
+            _data.parent().parent().find("input").eq(2).val(_sales_title);
+            _data.parent().parent().find("input").eq(3).val(_price);
+            var b = $('input[name=\'combo['+combo_id+'][is_lock_total]\']')[0].checked;
+            if(b){
+                _data.parent().parent().find("input").eq(3).attr('readonly','readonly');
+            }
+            _data.parent().parent().find("input").eq(5).val(_number);
+            if($(_data.parent().next('td')[0]).find('.selectGoodsAttr')){
+                $(_data.parent().next('td')[0]).find('.selectGoodsAttr').removeAttr('disabled');
+            }
+            var pro = _data.parent().parent().find("input").eq(3);
+            var combo_id = pro.prop('alt');
+            sumCombo(combo_id);
+            dialog.get('_selectGoods_'+dial).close();
+        }
+
+        function changeSaleTitle(e){
+            var sale_title = e.value;
+            var combo_id = $(e).attr('alt');
+            var erp_number = $(e).parent().parent().find("input").eq(5).val();
+            var erp_id_objs = $(e).parent().parent().parent().find('.'+combo_id+'_erp_id');
+            for (var i = erp_id_objs.length - 1; i >= 0; i--) {
+                if(erp_number == erp_id_objs[i].value){
+                    $(erp_id_objs[i]).parent().parent().find("input").eq(2).val(sale_title);
+                }
+            }
+        }
+
+        // 提交表单
+        $("#form").Validform({
+            btnSubmit:"#submit",
+            beforeSubmit:function(curform){
+                var content = $("[name='content']").val();
+                if(content.length>0){
+                    console.log(content)
+                    var arr = content.split(" ");
+                    var reg = /^src.*source$/;
+                    for(var i = 0;i<arr.length;i++){
+                        if(reg.test(arr[i])){
+                            var src = arr[i].match(/src="(\S*)"/)[1];
+                            var poster = ' poster="' + src + '?vframe/png/offset/5" ';
+                            arr[i] = poster + arr[i];
+                        };
+                    }
+                    var str = arr.join(" ");
+                    str = str.replace(/auto/g,'none');
+                    $("[name='content']").val(str);
+                }
+                var theme = $('[name="theme"]').val() || '';
+                var waybill_title = $('.waybill-title').val() || '';
+                var yahoo_id = $('[name="yahoo_id"]').val() || '';
+                var data = curform.serialize();
+                var name = $("input[name='sales_title']").val();
+                var lang = $("#id_lang").val();
+                // var google_conversion_id = $('[name="google_conversion_id"]').val();
+                // var google_conversion_label = $('[name="google_conversion_label"]').val();
+
+                if( waybill_title.length>30) {
+                    alert('面单名称长度大于30个字符了');
+                    return false;
+                }
+                if (waybill_title.trim() == "") {
+                    alert('面单名称不能输入纯空格');
+                    return false;
+                }
+                if (lang !== "CN" && lang !== "TW" && lang !== "JP") {
+                    var regEn = /[’`~ …!-@#$%^&*()_+<>?:"{},.\/;'[\]]/g, regCn = /[· ！#￥（——）：；“”‘、，|《。》？、【】[\]]/g;
+                    var numReg = /[0-9]/g;
+                    var xiegang = /\\/g;
+                    var pattern = /^[\u4E00-\u9FA5]{0,}$/
+                    name = name.replace(regEn, "名");
+                    name = name.replace(regCn, "名");
+                    name = name.replace(numReg, "名");
+                    name = name.replace(xiegang, "名");
+                    var flag = pattern.test(name);
+                    if (flag === true) {
+                        alert("不能输入纯中文,特殊符号,数字,以及中文加特殊符号加数字！");
+                        return false;
+                    }
+                }
+                if (theme=='') {
+                    alert('请重新选择对应语言和模版！');
+                    return false;
+                }
+                if (check_domain!=1) {
+                    alert('请输入正确的域名！');
+                    return false;
+                }
+                if (check_domain_department!=1) {
+                    alert('域名部门与产品部门不一致,域名部门可能发生变更!');
+                    return false;
+                }
+                if (checkYahooID(yahoo_id)==false) {
+                    alert('雅虎ID填写不正确，只支持输入数字(长度0-15个数字)');
+                    return false;
+                }
+
+                // if (checkGoogleConversionID(google_conversion_id)==false) {
+                //     alert('Google转化ID只能为数字，请修改');
+                //     return false;
+                // }
+                $(".saveText").html("保存中");
+                $(".saveAll").css("pointer-events", "none");    
+                $.post('product_new.php?act=checkProductUserID', data).success(function (d) {
+                    
+                    var response = JSON.parse(d);
+                    if(response.session==0){
+                        $(".saveAll").css("pointer-events", "auto");
+                        $(".saveAll").css("background", "#5cb85c");
+                        $(".saveAll").css("border-color", "#5cb85c");
+                        alert("登录状态超时，请先在新的页面中登录后，在原来的界面进行操作。");
+                        window.open(window.location.href);
+                        return false;
+                    }
+                    if (response.ret == 0) {
+                        productSave('product_new.php?act=save', data);
+                    } else {
+                        var _url= "product_new.php?act=showDiffProductUserName&diffData=" + escape(d);
+                        dialog({
+                            id:'_showDiffProductUser_1',
+                            title:'错误提示',
+                            url:_url,
+                            width:800,
+                            height:600,
+                            data:null
+                        }).showModal();
+                    }
+                });
+                return false;
+            }
+        });
+
+        //确认不同产品的优化师
+        function submitComboProductUser() {
+            dialog.get('_showDiffProductUser_1').close();
+        }
+
+        //保存产品
+        function productSave(url, data) {
+            $.post(url, data).success(function (d) {
+                d = JSON.parse(d);
+                if (d.ret) {
+                    if(confirm("保存成功，是否跳转到首页？"))
+                    {
+                        window.location.href ='/index.php?#/products';
+                    }
+                    else{
+                        window.location.href = d.url?d.url:window.location.href;
+                    }
+                } else {
+                    $(".saveText").html("保存");
+                    $(".saveAll").css("pointer-events", "auto");
+                    $(".saveAll").css("background","#5cb85c");
+                    $(".saveAll").css("border-color","#5cb85c");
+                    alert(d.msg);
+                }
+            });
+        }
+
+        if($('.pro_num')){
+            $('.pro_num').change(function(){
+            $(this).val(parseInt($(this).val()));
+            if(($(this).val() == 'NaN') || ($(this).val() <= 0)){
+                alert('请输入正数！');
+                $(this).val(1);
+            }
+            var combo_id = $(this).prop('alt');
+            sumCombo(combo_id);
+        });
+        }
+        
+        $('.promotion').change(function(){
+            var isNum=/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+            
+            if(!isNum.test($(this).val()) || ($(this).val() < 0) ){
+                $(this).val(0);
+            }
+            var combo_id = $(this).prop('alt');
+            sumCombo(combo_id);
+        });
+
+        function sumCombo(combo_id){
+            // 整型转浮点
+            function toDecimal(x) { return isNaN(parseFloat(x)) ? '' : Math.round(x*100)/100; }
+            if($('table[data-id='+combo_id+'] [data-lock]:checked').val() == 1)return;
+            var _price = $("input[name='combo["+combo_id+"][promotion_price][]']");
+            var _num = $("input[name='combo["+combo_id+"][num][]']");
+            if(!_num){
+                $("input[name='combo["+combo_id+"][price]']").val(0);
+                return ;
+            }
+            l = _price.length;
+            var total_price = 0;
+            for (var i = l - 1; i >= 0; i--) {
+                total_price += _price[i].value * _num[i].value;
+            }
+            $("input[name='combo["+combo_id+"][price]']").val(toDecimal(total_price));
+        } 
+
+        
+
+        
+        function ajaxAttr(){
+            var url = 'product_new.php?';
+            var product_id = "{{product_id}}";
+            var attr = "{{attr}}";
+            var erp_number = "{{erp_number}}";
+            var ad_member = "{{ad_member}}";
+            if(product_id && attr){
+                $.post(url,{number:erp_number,act:'getErpProduct','product_id':product_id,'ad_member':ad_member}).success(function(data){
+                    var ret = JSON.parse(data);
+                    if(ret.ret)
+                    {
+                        var result = ret.data;
+                        if(result)
+                        {
+                            // if(result.old_id_department){
+                            //     if(Array.isArray(result.old_id_department)){
+                            //         $("input[name='id_department']").val(result.old_id_department[0]);
+                            //     }else{
+                            //         $("input[name='id_department']").val(result.old_id_department);
+                            //     }
+                            // }
+                            // //可投放地区
+                            // $("input[name='available_zone_ids']").val(result.productAvailableZoneIds);
+                            // //地区下拉项
+                            // var zone_html = '';
+                            // var l = result.productZoneList.length;
+                            // for (var i = l - 1; i >= 0; i--) {
+                            //     z = result.productZoneList[i]
+                            //     if('{{id_zone}}' == z.id_zone){
+                            //         zone_html += '<option value="'+z.id_zone+'"   selected > ' + z.title + '</option>';    
+                            //     }else{
+                            //         zone_html += '<option value="'+z.id_zone+'"  >' + z.title +'</option>';
+                            //     }
+                            // }
+                            // $('#id_zone').html(zone_html);
+                            var attr = result.product_attr;
+                            var option='';
+                            var html ='';
+                            var option_ids = $('input[name="up_number[]"]');
+                            //属性
+                            for(var i in attr)
+                            {
+                                option  =  attr[i]['attributeValueList'];//属性修改
+                                if(option){
+                                    for(var j in option)
+                                    {
+                                        if($('.attr_value_id[value='+option[j].id+']') && ($('.attr_value_id[value='+option[j].id+']').length>0) ){
+                                            $('.attr_value_id[value='+option[j].id+']').parent().prev().children('span').html(attr[i].title);
+                                            $('.attr_value_id[value='+option[j].id+']').parent().next().children('span').html(option[j].title);
+                                        }
+                                    }
+                                }
+                            }
+                            $("#error_erp_number").html("查询成功");
+                        }
+                    }
+                });
+            }
+        }
+
+        // 检测、更改售后邮箱
+        function changeServiceMail(){
+            var id_zone = $("select[name='id_zone']").val() || false;
+            if(id_zone){
+                $.ajax({
+                    url: "country.php?act=getZoneEmail",
+                    type: "GET",
+                    data: {id_zone:id_zone},
+                    dataType: "json",
+                    success: function (d) {//布谷鸟以及统一邮箱的
+                        if(d.email !='' && "{{ admin.company_id }}" ==1)
+                        {
+                            $("input[name='service_email']").val(d.email);
+                            $("input[name='zone_email_open']").val(1);
+                        }else{
+                            $("input[name='zone_email_open']").val(0);
+                        }
+                    }
+                });    
+            }
+        }
+        
+
+        // 检测、更改 投放地区提示
+        function changeZoneTip(){
+            if(state_list_index && state_list){
+                var l = state_list_index.length;
+                for (var i = 0; i < l; i++) {
+                    if(state_list_index[i] == $("select[name='id_zone']").val()){
+                        $('#error_id_zone').html(state_list[i]);
+                        break;
+                    }
+                }
+            }
+        }
+        //编辑产品 修改属性外文名同步
+        $('input[name=\'up_attr_group_title[]\']').change(function(){
+            var group_id = $(this).parent().prev().find('input').val();
+            var group_e = $('input[value='+group_id+']');
+            for (var i = 0; i < group_e.length; i++) {
+                $(group_e[i]).parent().next().find('input').val($(this).val());
+            }
+        });
+        //新增产品 修改属性外文名同步
+        function changeGroupTtitle(obj){
+            var attr_group_id = $(obj).parent().parent().find('input[name=\'attr_group_id[]\']').val();
+            var group_e = $(obj).parent().parent().parent().parent().find('input[value='+attr_group_id+']');
+            for (var i = 0; i < group_e.length; i++) {
+                $(group_e[i]).parent().next().find('input').val($(obj).val());
+            }
+        }
+        
+        $(document).ready(function(){
+           
+            $('#combo').on('mouseenter','.show_all',function(){
+                var text = $(this).find('.attrsname').html();
+                    text = text.replace(/;/g,'<br>');
+                $(this).find('.hoverall').html(text).show();
+            })
+            $('#combo').on('mouseleave','.show_all',function(){
+                $(this).find('.hoverall').hide();
+            })
+        });
+
+        // 检查雅虎id是否正确
+        function checkYahooID(id){
+            return id=='' || /^\d{0,15}$/.test(id);
+        }
+
+        // 设置(清空)模版值
+        function setTheme(val, title, thumb){
+            $('#theme_img').attr('src', thumb||'');
+            $('#theme_text').html(title||'');
+            $('[name="theme"]').val(val||'');
+        }
+
+
+        // 检查google转化id是否正确
+        function checkGoogleConversionID(x) {
+            var id = x.split(' ').join();
+            if (id=='') return true;
+            return /^\d{1,20}$/.test(id);
+        }
+        $('.cancelBack').click(function(){
+            dialog({
+                id:'_showDiffProductUser_4',
+                title:'确认返回',
+                content:'<div style="line-height:80px;padding:0 10px;">该站点还未保存，是否不做保存，直接返回上级!</div>',
+                width:350,
+                height:80,
+                okValue: '确定',
+                ok:function(){
+                    window.location.href = '/#/products';
+                },
+                cancelValue: '取消',
+                cancel: function () {
+
+                }
+            }).showModal();
+            // var r = confirm("该站点还未保存，是否不做保存，直接返回上级!");
+            // if (r == true){
+            //     window.location.href = '/#/products';
+            // }else{
+                
+            // }
+        })
+        $(window).scroll(function(){
+            var height = $(window).scrollTop();
+            if(parseInt(height) > 80){
+                $('.btnbox').addClass('changeless');
+                $('.saveAll,.cancelBack').attr('style','top:20px;');
+            }else{
+                $('.btnbox').removeClass('changeless');
+                $('.saveAll,.cancelBack').removeAttr('style');
+            }
+            
+        })
+        var H = $(window).scrollTop();
+        if(parseInt(H) > 80){
+            $('.btnbox').addClass('changeless');
+            $('.saveAll,.cancelBack').attr('style','top:20px;');
+        }else{
+            $('.btnbox').removeClass('changeless');
+            $('.saveAll,.cancelBack').removeAttr('style');
+        }
+
+    </script>
+
+{% endblock %}

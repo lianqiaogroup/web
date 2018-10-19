@@ -1,0 +1,175 @@
+#mainlayer #page-order-list{
+    .header-panel{
+        .control{
+            padding: 50px;
+            height:  60px;
+            background: #F6F6F6;
+            display: block;
+            position: relative;
+            
+            .operations{
+                float: right;
+            }
+            .el-input{
+                width: 264px;
+                height: 44px;
+                font-size: 10px !important;
+                padding: 0px;
+                font-weight: bold;
+                input {
+                    height: 44px;
+                }
+                i {
+                    font-size: 18px !important;
+                    color: #666;
+                    font-weight: bold;
+                    line-height: 44px;
+                    height: 44px;
+                }
+            }
+            .el-button{
+                height: 44px;
+                i {
+                    margin-left: 5px;
+                    float:right;
+                    width: 14px;
+                    height: 14px;
+                    font-size: 14px;
+                }    
+            }
+            .el-button--default{
+                color: #0080FF;
+                border-color: #0080FF;
+            }
+            .op{
+                    margin-top: 20px;
+                    width: 264px;
+            };
+            
+            .op-link{
+                font-weight: bold;
+                color: #0080FF;
+                font-size: 14px;
+            }
+            .op-checkbox .el-checkbox{
+                font-weight: bold;
+                color: #aaa;
+                font-size: 14px;
+            }
+        }
+    }
+    
+    .container{
+        width: 100%;
+        padding: 0;
+        .el-table_1_column_1,
+        .el-table_2_column_1{
+                text-align: right;
+                .cell{
+                    float: right;
+                }
+        }
+        
+        .scope-name{
+            color: rgb(181, 181, 181);
+            font-weight: bold;
+        }
+        .scope-id{
+            color: #898989;
+            font-weight: bold;
+        }
+        .scope-price{
+            color: #7621EC;
+        }
+        .scope-unit{
+            color: #777;
+            font-weight: normal;
+        }
+        .scope-domain{
+            color: rgb(200, 200, 200);
+            font-weight: bold;
+        }
+        .scope-time, .scope-theme{
+            color: #838383;
+            font-weight: normal;
+        }
+        .scope-op{
+            text-decoration: none;
+            color: rgb(173, 173, 173);
+            &:first-child{
+                margin: auto 16px auto 0px;
+            }
+        }
+        table.el-table__header{
+            border-top:none;
+            tr, thead {
+                border-top:none;
+            }
+            
+            .el-checkbox{
+                display: inline;
+                &:after{
+                    content: "全选";
+                    display: inline;
+                    font-family: "黑体";
+                    cursor: pointer;
+                    color: #0080FF;
+                }
+            }
+            .el-checkbox__input{
+                .el-checkbox__inner{
+                    display: none;
+                }
+            }
+        }
+        .el-table{
+            border-top:none;
+        }
+        table.el-table__header, 
+        table.el-table__body,
+        .el-table__header-wrapper,
+        .el-table__body-wrapper,
+        .el-table{
+            width: 100% !important;
+            font-size: 10px !important;
+            overflow: hidden;
+            word-break: break-all;
+            white-space:normal;
+            border{
+                left: none;
+                right: none;
+            }
+            tr{
+                border{
+                    //left, right, bottom, top{
+                        color: rgb(246, 246, 246);
+                    //}
+                }
+                
+                td{
+                    height: 100px !important;
+                }
+                th {
+                    height: 45px !important;
+                    background: #F6F6F6;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                        
+                    & div {
+                        background: #F6F6F6;
+                    }
+                }
+                td{
+                    border-right: none;
+                    border-left: none;
+                    border-color: rgb(246, 246, 246);
+                }
+                
+                .el-table-column img{
+                    float: left;
+                }
+            }
+        }  
+    }
+}

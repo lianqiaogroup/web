@@ -1,0 +1,268 @@
+html,body,h1,h3,ul,li{margin:0;padding:0;}
+@color : #f50057;
+@color2 : #ff4081;
+@b_color : #222;
+@b_color2 : #bbaa77;
+@p_color : #6200ea;
+@p_color2 : #fff;
+@o_color : #ff9800;
+@o_color2 : #ffc107;
+@padding:4%;
+body,html{
+	max-width:640px;
+	margin:0 auto;
+}
+body{
+	margin-bottom:50px;
+}
+button{
+	border:none;
+	background:none;
+	outline:none;
+}
+
+#page-index {
+	background: #fff;
+
+	.module_container {
+		padding: 0 4%;
+		font-size: 14px;
+	}
+
+	.swiper-container {
+		position: relative;
+	}
+	.swiper-slide {
+		font-size:0;
+	}
+	.swiper-pagination{
+		position: absolute;
+		font-size: 14px;color: #222;
+		font-weight: bold;
+		background: rgba(255,255,255,0.8);
+		border:2px solid rgba(238,238,238,0.8);
+		width: auto !important;
+		left: auto !important;
+		right:@padding;
+		bottom:20px !important;
+		padding: 1% 4%;
+		border-radius: 14px;
+	}
+
+	// 浮层文案
+	.message{
+		position:absolute;
+		top: 20px;
+		z-index: 99;
+		width: 100%;
+		max-width:640px;
+		#fahuo{
+			@media screen and (max-width:640px) {
+				left:@padding;
+			}
+			background: rgba(0,0,0,0.8);
+			color: #fff;
+			font-size: 12px;
+			padding: 1.5% 3%;
+			border-radius: 20px;
+			position:fixed;
+			display:none;
+			@media screen and (min-width:768px) {
+				padding: 12px 24px;
+			}
+		}
+		#kefu{
+			right:@padding;
+			background:url(../images/services.png);
+			width: 10%;
+			padding-top: 10%;
+			background-size: 100%;
+			position:absolute;
+		}
+	}
+
+	// 价格
+	@import 'dom_price.less';
+
+	// 倒计时
+	@import 'dom_timewrap.less';
+
+	// 抢购进度
+	.module_process {
+	    display:inline-block;
+	    margin:8px auto 0;
+	    height:8px;
+	    border-radius:4px;
+	    font-size:0;
+	    text-align:left;
+	    width:92%;
+	    background:rgba(180, 170, 119, 0.2);
+	    span{
+	        width:60%;
+	        height:8px;
+	        display:inline-block;
+	        border-radius:4px;
+	        background:@b_color2;
+	        background-image: linear-gradient(-45deg, rgba(255, 255, 255, .2) 2%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+	        background-size: 5px 5px;
+	    }
+	}
+	
+	// 标题
+	.product_title {
+		padding-top: 10px;
+		font-size:14px;
+		color: #222;
+	}
+
+	// 标签
+	.module_tags {
+		display: block;
+		line-height: 20px;
+		li {
+			font-size: 12px;
+			display: inline-block;
+    		margin-right: 10px;
+    		font-weight:bold;
+    		color: #bbaa77;
+		}
+	}
+
+	// 送达时间
+	.arrival_time{
+		font-weight:bold;
+		color:#666;
+		line-height:52px;
+		padding:0 @padding
+	}
+
+	@import 'dom_inqcom.less';
+	@import 'dom_service.less';
+	@import 'dom_proinfo.less';
+	@import 'dom_comment.less';
+	
+}
+#POP800_PANEL_DIV{
+	display:none;
+}
+
+
+@import 'dom_footer.less';
+
+
+
+//订单产品信息
+section#page-order{
+	padding:0 4%;
+	background:#fff;
+	z-index: 100;
+	display:none;
+	position:absolute;
+	top:0;
+	width: 92%;
+	max-width:640px;
+	@media screen and (min-width:640px) {
+		padding:0 0 0 40px;
+		width:600px;
+	}
+	.info-con{
+		position:relative;
+		padding-top:50px;
+		#attrimg{
+			width: 20%;
+			max-width: 150px;
+			min-width: 100px;
+		}
+	}
+	.tt{
+		font-size: 12px;
+		font-weight: bold;
+	}
+	.left.f-fl{
+		width:100px;
+		margin-right:-100px;
+	}
+	.right.f-fl {
+		margin-left:116px;
+	}
+	.f-fl{
+		float:left;
+	}
+	.money{
+		font-size:20px;
+		font-weight:bold;
+	}
+	.sku{
+		color:#666;
+		font-size:12px;
+		.it{
+			display:inline-block;
+		}
+	}
+	.con{
+		padding-top:16px;
+	}
+	.textWrap{
+		font-size:12px;
+		color:#666;
+		padding:0 16px;
+		line-height:32px;
+		vertical-align:middle;
+		display:inline-block;
+	}
+	.less,.more,.close{
+		width:32px;
+		height:32px;
+		color:#222;
+		border:1px solid #eee;
+		border-radius:16px;
+		line-height:32px;
+		text-align:center;
+		font-size:28px;
+		font-family:monospace;
+		vertical-align:middle;
+		display:inline-block;
+	}
+	.close{
+		position:absolute;
+		top:20px;
+		right:0;
+		border-color:#222;
+	}
+	.tab {
+		display: block;
+		width: 92%;
+		height: 32px;
+		line-height: 32px;
+		color: #ccc;
+		background: #f6f6f6;
+		border-radius: 16px;
+		margin: 10px 0;
+		padding: 0 10px;
+		font-size: 12px;
+		text-align: center;
+	}
+	.tab.tab-sel{
+		color:#fff;
+	}
+	.con{
+		font-size:0;
+	}
+	.con .tab{
+		width:auto;
+		display:inline-block;
+		margin-right:16px;
+		&:last-child{
+			margin-right:0;
+		}
+	}
+	//黑色
+	.money {
+		color:@b_color;
+	}
+	.tab.tab-sel{
+		background:@b_color;
+		color:@b_color2;
+	}
+}
+

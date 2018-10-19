@@ -1,0 +1,266 @@
+#mainlayer div.usergroup {
+    div.operations{
+        font-weight: bold;
+        padding-left: 16px;
+        padding-right: 16px;
+             
+        button.el-button i{
+            margin-left: 8px;
+        }
+    }
+    .hero-title{
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #666;
+    }
+    .hero-link{
+        font-size: 14px;
+        font-weight: bold;
+        color: #0080ff;
+    }
+    @font: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    .widget{
+        margin-left: 50px;
+        width: 100%;
+        margin-bottom: 50px;
+        .widget-heading{
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .el-table{
+            .el-table__header-wrapper .cell{
+                font-size: 12px;
+                font-weight: bold;
+                color: #222;
+                height: 44px;
+                line-height: 44px;
+            }     
+            .el-table__body-wrapper .cell{
+                font-size: 12px;
+                color: #666; 
+                padding: 10px;
+                height: auto;   
+                // line-height: 50px;
+            }
+        }
+        .el-table .cell, .el-table th>div {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+         .el-table.more{
+            .el-table__body-wrapper .cell{
+                height: 80px;  
+            }
+        }
+        
+    }
+
+
+    .widget:last-child{
+        margin-right: 50px;
+    }
+
+    .half{
+        width: 50% !important;
+    }
+
+    .quarter{
+        width: 25% !important;
+    }
+
+    .table-op{
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 50px;
+    }
+
+    
+    
+    .el-form-item{
+        margin-left: 20px;
+        //&:last-child{ margin-right: 20px; }
+        width: 100%;
+        .el-form-item__label{
+            font-size: 12px;
+            color: 222px;
+            font-weight: bold;
+        }
+        input, textarea{
+            border: 1px solid  #ccc;
+            font-size: 12px;
+            color: #666;
+            font-family:@font;
+        }
+        .el-form-item__label{
+            padding-top: 0px;
+        }
+        .el-form-item__content{
+            font-size: 12px;
+        }
+    }
+
+    .el-form{
+        padding-left: 50px;
+
+    }
+    
+    .container{
+
+        width: 100%;
+        margin: 0px auto;
+        padding: 0;
+        .el-table_1_column_1,
+        .el-table_2_column_1{
+                text-align: left;
+                .cell{
+                    float: left;
+                }
+                padding-left: 32px;
+        }
+        table.el-table__header{
+            //border-top:none;
+            tr, thead {
+                //border-top:none;
+            }
+            
+            .el-checkbox{
+                display: inline;
+                &:after{
+                    content: "全选";
+                    display: inline;
+                    font-weight: bold;
+                    cursor: pointer;
+                    color: #0080FF;
+                    font-size: 12px;
+                }
+            }
+            .el-checkbox__input{
+                .el-checkbox__inner{
+                    display: none;
+                }
+            }
+        }
+        .el-table{
+            border-top:none;
+        }
+        table.el-table__header, 
+        table.el-table__body,
+        .el-table__header-wrapper,
+        .el-table__body-wrapper,
+        .el-table{
+            table-layout:fixed;
+            width: 100% !important;
+            font-size: 10px !important;
+            overflow: hidden;
+            word-break: keep-all;
+            white-space:normal;
+            border{
+                left: none;
+                right: none;
+            }
+            th.cell{
+                padding-left:  0px;
+                padding-right: 0px;
+            }
+            td.cell{
+                padding-left: 5px;
+                padding-right: 0px;
+            }
+            .el-table_1_column_2{ .cell{padding-left: 0px;} }
+            /*
+            .el-table_1_column_1{ &, &.cell{width: 90px;}}
+            th.el-table_1_column_2{  &, &.cell{width: 348px;}}
+            .el-table_1_column_3{  &, &.cell{width: 98px; }}
+            th.el-table_1_column_4{  &, &.cell{ width: 324px; }}
+            .el-table_1_column_5{  &, &.cell{width: 98px;}}
+            .el-table_1_column_6{  &, &.cell{width: 98px;}}
+            */
+            
+            tr{
+                border{
+                    //left, right, bottom, top{
+                        color: white;
+                    //}
+                }
+                
+                td{
+                    height: 50px !important;
+                }
+                th {
+                    height: 48px !important;
+                    background: #F6F6F6;
+                    //border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    white-space: nowrap;
+                    word-break: keep-all;
+                    & div {
+                        background: #F6F6F6;
+                    }
+                }
+                th:nth-last-child(1),
+                td:nth-last-child(1) {
+                  text-align: left;
+                  
+                }
+  
+                td{
+                    border-right: none;
+                    border-left: none;
+                    border-color: #eee;
+                }
+                
+                .el-table-column img{
+                    float: left;
+                }
+            }
+        }  
+    }
+        &.inversed {
+            overflow: hidden;
+            height: auto;
+        }
+        .upload{
+            height: 180px;
+        }
+        .heading{
+            .clear-history{
+                font-size: 12px;
+                color: 222px;
+                font-weight: bold;
+                float:right;
+            }
+            .title{
+                font-size: 14px;
+                color: 666px;
+            }
+            line-height: 44px;
+            height: 44px;
+            border-bottom: 1px solid #eee;
+            background: #f6f6f6;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+        .upload{
+            padding-left: 10px;
+        }
+        .listing{
+            padding-top: 16px;
+            .list-time{
+                margin-right: 50px;
+            }
+            color: #aaa;
+            font-size: 12px;
+            margin-left: 50px;
+            margin-right: 50px;
+            li{
+                padding-bottom: 16px;
+            }
+
+        }
+ }
+
+

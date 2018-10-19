@@ -1,0 +1,65 @@
+.module_countdown {
+    display:-webkit-flex;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 14px;
+    font-size: 14px;
+}
+
+
+// 样式1
+.module_countdown.class-a {
+    background:#facd89;
+    color:#c36f0b;
+    #timer span[class]{
+        margin-left:-0.11em;
+    }
+    #h, #m, #s{
+        letter-spacing:0.22em;
+        background:url(../images/time_bg.png) repeat-x;
+        background-size:1.08em;
+        height:0.56em;
+        line-height:0.56em;
+        padding-left:0.1em;
+        display:inline-block;
+        color:#fff;
+    }
+    .hot_sell, .countdown_label{
+        display:none;
+    }
+}
+
+
+// 样式2
+.module_countdown.class-b{
+    background:url(../images/timer_bg.png);
+    background-size:15em;
+    .clock{
+        font-weight:600;
+        padding-left:1.6em;
+        background:url(../images/clock.png) no-repeat 0 center;
+        background-size:1em;
+    }
+    .timeWrap{
+        text-align:center;
+        color:#fb6058;
+        font-weight:bold;
+    }
+    #timer{
+        font-size:0.6em;
+    }
+    .countdown_label {
+        display:block;
+    }
+    .hot_sell{
+        padding:1px 1.4em;
+        border-radius:0.7em;
+        background:linear-gradient(to right,#b84ed4,#f23c88); 
+        background:-moz-linear-gradient(left, #b84ed4, #f23c88);  
+        background:-webkit-gradient(linear, 0 0, right 0, from(#b84ed4), to(#f23c88));  
+        background:-o-linear-gradient(left, #b84ed4, #f23c88);
+        color:#fff;
+        line-height:1.4;
+    }
+}

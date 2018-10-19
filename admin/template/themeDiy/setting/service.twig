@@ -1,0 +1,18 @@
+<div class="module_boxer" id="module_service">
+    <div class="module_title"><i class="iconfont icon-shuoming"></i>服务说明</div>
+    <form action="#" name="" onsubmit="return false">
+        <input type="hidden" name="open" value="1">
+        <textarea class="form-control" rows='5' name="list" c-bind-data="State.modules.service.list"></textarea>
+        <p><span>每行代表一项服务</span></p>
+        <div class="button_layer">
+            <button data-click="handleModuleSave" class="btn btn-primary" type="submit">保存</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('[c-bind-data="State.modules.service.list"]').change(function(){
+		State.modules.service.list = $(this).val().split("\n");
+	});
+});
+</script>

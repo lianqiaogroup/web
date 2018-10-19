@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1440, height=960, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <title>建站系统v3.2.2</title>
+    <script>window.UEDITOR_HOME_URL = '/build/plugins/ue/';</script>
+    <!-- Vue -->
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vue.js"></script>
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vuex.js"></script>
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vue-resource.min.js"></script>
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vue-router.js"></script>
+    <!-- ElementUI core CSS -->
+    <link href="<%= htmlWebpackPlugin.options.static %>/plugins/element-ui/elementui.css" rel="stylesheet">
+    <script src="<%= htmlWebpackPlugin.options.static %>/plugins/element-ui/el.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.static %>/plugins/clipboard/clipboard.min.js"></script>
+    <!-- Stylesheet -->
+    <link href="<%= htmlWebpackPlugin.options.static %>/style/main.css?v=<%= htmlWebpackPlugin.options.timestamp %>" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <slidemenu></slidemenu>
+    <div id="mainlayer">
+        <router-view></router-view>
+    </div>
+</div>
+<!-- javascript -->
+<input type='hidden' value='<%= htmlWebpackPlugin.options.static %>' id='appPath'>
+<!-- Plugins Echarts -->
+<script src="<%= htmlWebpackPlugin.options.static %>/plugins/echarts/echarts_full.min.js" type="text/javascript"></script>
+<!-- Plugins Ueditor -->
+<script src="http://shopadmin.stosz.com/build/plugins/ue/ueditor.config.js" async></script>
+<script src="http://shopadmin.stosz.com/build/plugins/ue/ueditor.all.min.js" async></script>
+<link href="http://shopadmin.stosz.com/build/plugins/ue/themes/default/css/ueditor.min.css">
+<!-- inject -->
+</body>
+</html> 

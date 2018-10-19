@@ -1,0 +1,277 @@
+#mainlayer #page-product-new{
+    background:   #F6F6F6;
+    min-height: 1000px;
+    left:         250px;
+    
+    .right {
+        text-align: right;
+        float:      right;
+    }
+    .title-bar{
+        
+        .title{
+            font-size: 24px;
+            padding-bottom: 5px;
+            color: #222;
+        }
+        
+        .link{
+            font-size: 14px;
+            color: #0080FF;
+            text-decoration: none;
+        }
+    }
+    
+    .content{
+        width: 992px;
+        padding-bottom: 200px;
+        
+        .left-panel{
+            .form{
+                textarea{
+                    min-height: 400px;
+                }
+
+
+                
+                margin-left: 50px;
+                margin-bottom: 20px;
+                width: 548px;
+                box-sizing: content-box;
+                position :relative;
+                border:  1px solid #EEE;
+                padding: 22px 50px 32px 50px;
+                background: white;
+                
+                .el-select, .el-button{
+                    display: block;
+                }
+                .el-select .el-input .el-input__icon{
+                   top: 75%; 
+                   width: 44px;
+                }
+                .el-input{
+                    input {
+                        color: #666;
+                        &:-webkit-input-placeholder,
+                        &:-moz-placeholder{
+                            color: #ccc;
+                        }
+                        font-size: 14px;
+                    }    
+                }
+                .el-button{
+                    &, & span{
+                      width: 100%;
+                      display: block;
+                      position: relative;
+		      text-align: left;
+		      height: 44px;
+                    }
+                }
+                .el-form-item{
+                    margin-bottom: 0px;
+                }
+                .el-select.form-input{
+                    border: none;
+                }
+                .form-caption{
+                    font-weight: bold;
+                    color:  #666;
+                    label{
+                        font-size: 14px;
+                        overflow-x: visible;
+                        word-break: keep-all;
+                    }
+                }
+                .form-input{
+                    border-radius: 4px;
+                    border: 1px solid #F6F6F6;
+                }
+                .form-upload-link{
+                    label{
+                        &:after{
+                            content: "+";
+                            font-weight: bold;
+                            vertical-align: middle;
+                            margin-left: 4px;
+                        }
+                        color: #0080FF;
+                        vertical-align: middle;
+                    }
+                    &.right{
+                        .el-form-item__label {
+                            padding-right: 0px;
+                        }
+                    }
+                    i{
+                        
+                        font-size: 14px;
+                        color: #0080FF;
+                        vertical-align: middle;
+                    }
+                }
+                .params-pay-option{
+                    margin: 22px auto 0px;
+                    span {
+                        width: 14px;
+                        height: 14px;
+                        margin-right: 3px;
+                    }
+                    .el-checkbox__inner::after{
+                            width: 3.11px;
+                            height: 6.22px;
+                            left: 4px;
+                    }
+                    .el-checkbox__label{
+                            font-size: 12px;
+                            color: #666;
+                    }
+                    
+                }
+                .icon-link(@color){
+                    label{     
+                        color: @color;
+                        vertical-align: middle;
+                        display: table-cell;
+                        font-size:12px;
+                        line-height: 12px;
+                        height: 36px;
+                        padding: 10px 0 14px;
+                    }
+                    .el-form-item__content{
+                        display: table-cell;
+                        vertical-align: middle;
+                    }
+                    i{
+                        font-size: 12px;
+                        color: #FF5A5F;
+                        vertical-align: middle;
+                        line-height: 12px;
+                        color: @color;
+                        padding: 8px 0 14px 4px;
+                    }
+                }
+                .form-delete-link{
+                     .icon-link(#FF5A5F);
+                }
+                .form-add-link{
+                     .icon-link(#0080FF);
+                }
+                .form-row{
+                    img{
+                        height: 169px;
+                        width:  169px;
+                        border: none;
+                        border-radius: 4px;
+                    }
+                }
+                
+                .multiform(){
+                    border-bottom: none;
+                    margin-bottom: 20px;
+                    
+                    &:nth-last-child(n+2){
+                        border-bottom: 1px solid #eee;
+                        margin-bottom: 0px;
+                    }
+                    
+                    &:nth-child(n+1){
+                        border-top: none;
+                    };
+                }
+                &.attrs{
+                    .name{
+                        width: 154px;
+                        box-sizing: content-box;
+                    }
+                    .attr{
+                        width: 64px;
+                        box-sizing: content-box;
+                    }
+                    .pic{
+                        width: 122px;
+                        box-sizing: content-box;
+                    }
+                    .el-form-item__label{
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    .multiform();
+                    .add-link, .delete-link{
+                        display: table-cell;
+                        padding-right: 16px;
+                    }
+                }
+                &.suits{
+                    .multiform();
+                    &:nth-last-child(1){
+                        border-bottom: 1px solid #eee;
+                        margin-bottom: 20px;
+                        background: #f6f6f6;
+                        &:hover{
+                            background: #eee;
+                        }
+                        padding: 9px 50px;
+                        height: 14px;
+                        line-height: 14px;
+                        font-size: 14px;
+                        color: #aaa;
+                        text-align: center;
+                        cursor: pointer;
+                        i{
+                            font-size: 14px;
+                            vertical-align: middle;
+                            padding-left: 4px;
+                        }
+                        font-weight: bold;
+                        vertical-align: middle;
+                    };
+                    
+                }
+               
+                
+                
+            }
+            
+        }
+        .right-panel{
+            position :relative;
+            left: 70px;
+            
+            ul{
+                list-style: none;
+                position        : relative;
+                background : white;
+                display         : block;
+                width           : 100%;
+                border-top:   2px solid #EEE;
+                border-right: 2px solid #EEE;
+            }
+            li{
+                border-left:  2px solid #EEE;
+                position   : relative;
+                list-style : none;
+                display    : block;
+                padding    : 15px 20px;
+                border-bottom: 2px solid #EEE;
+                font-size  : 14px;
+                height     : 14px;
+                font-weight: bold;
+                box-sizing : content-box;
+                color      : #666;
+                &.is-active{
+                    color: #0080FF;
+                    border-left: 2px solid #0080FF;
+                }
+                
+                &:hover{
+                    background: #F6F6F6;
+                    cursor:     pointer;
+                }
+            }
+        }
+    }
+    
+    
+}

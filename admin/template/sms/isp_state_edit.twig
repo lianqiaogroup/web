@@ -1,0 +1,261 @@
+{% extends 'base.twig' %}
+{% block style %}
+    <link href="http://shopadmin.stosz.com/fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/template/plugins/ue/themes/default/css/ueditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="/template/plugins/ue/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/template/plugins/ue/ueditor.all.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/template/plugins/ue/lang/zh-cn/zh-cn.js"></script>
+    <script src="http://shopadmin.stosz.com/fileinput/js/fileinput.min.js" type="text/javascript"></script>
+    <script src="/template/plugins/tagsinput/jquery.tagsinput.js" type="text/javascript"></script>
+    <!--简体中文-->
+    <script src="http://shopadmin.stosz.com/fileinput/js/locales/zh.js" type="text/javascript"></script>
+    <script src="/template/plugins/validForm/validForm.min.js" type="text/javascript"></script>
+    <style>
+        .photos{position: relative;width: 200px;height: 200px;float: left;}
+        .photos i{position: absolute;top:-5px; right:0;cursor: pointer;}
+        .photos img{width: 200px;height: 200px; padding: 5px}
+        .table{border: 1px solid #ddd}
+        #theme_div{width: 100px;text-align: center;margin-bottom: 10px;}
+        #theme_img{width: 100%;display: block;}
+        .ui-dialog-body {padding: 0px !important; }
+        .kv-file-zoom .kv-file-remove{display:none }
+        .edui-container{z-index: 1003 !important;}
+    </style>
+    <style type="text/css">
+        .tags {
+            display: inline-block;
+            padding: 4px 6px;
+            color: #777;
+            vertical-align: middle;
+            background-color: #FFF;
+            width: 206px;
+        }
+        .tags .tag {
+            display: inline-block;
+            position: relative;
+            font-size: 13px;
+            font-weight: normal;
+            vertical-align: baseline;
+            white-space: nowrap;
+            background-color: #91b8d0;
+            color: #FFF;
+            padding: 3px;
+            margin-right: 3px;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+        }
+        .tags .tag a {
+            color: #FFFFFF;
+        }
+        .tags input[type="text"], .tags input[type="text"]:focus {
+            border: 0;
+            display: inline;
+            outline: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            width: 100%;
+        }
+        .tags .tag .close {
+            font-size: 15px;
+            line-height: 20px;
+            opacity: 1;
+            filter: alpha(opacity=100);
+            color: #FFF;
+            text-shadow: none;
+            float: none;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 18px;
+            text-align: center;
+        }
+        button.close {
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            -webkit-appearance: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+    <section id="main-content">
+        <div style="position: absolute;top: 50px;margin-left: 30px"><a href="sms.php?act=isp_list&page=1">短信提供商列表</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="sms.php?act=isp_state_list&page=1">所有关联列表</a></div>
+        <section class="wrapper">
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel" style="border-top: 1px solid #dedede">
+                        <form id='form' name="form" class="form-horizontal style-form" onsubmit="" method="post" action="product.php?&act=save" >
+                            <h4 class="mb text-info">
+                                {% if originInfo.id %}
+                                    <i class="fa fa-edit"></i>  {{originInfo.title }}
+                                    <input type="hidden" name="id" value="{{originInfo.id}}">
+                                    {% else %}
+                                    <i class="fa fa-plus"></i> 新增ISP关联
+                                {% endif %}
+                            </h4>
+                            <span class="text-right btn btn-success pull-right saveAll"  style="position: fixed;right: 0;top:100px;z-index:9" ><i class="fa fa-save"></i> 保 存 </span>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 选择服务提供商 </label>
+                                <div class="col-sm-4 zone">
+                                     <select id="ispid" name="ispid" class="form-control" required>
+                                        <option value=""> 选择服务提供商</option>
+                                        {% for z in ispids %}
+                                             <option value="{{ z.id }}"  {% if originInfo.ispid == z.id %} selected {% endif %}> {{ z.ispname }}</option>
+                                         {% endfor %}
+                                     </select>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 选择地区 </label>
+                                <div class="col-sm-4 zone">
+                                     <select id="id_zone" name="nation" class="form-control" required>
+                                         <option value=""> 选择地区</option>
+                                         {% for z in id_zones %}
+                                             <option value="{{ z.id_zone }}"  {% if originInfo.nation == z.id_zone %} selected {% endif %}> {{ z.title }}</option>
+                                         {% endfor %}
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 选择语言 </label>
+                                <div class="col-sm-4 zone">
+                                    <select id="id_lang" name="lang" class="form-control" required default="{{ originInfo.lang }}">
+                                    </select>
+                                    <!-- language -->
+                                    <script type="text/javascript">
+                                        var langDom = $("#id_lang");
+                                        var languageConfig = {% include 'config/theme_language' %};
+                                        var option = '<option value="|value|">|name|</option>';
+                                        for( key in languageConfig ){
+                                            langDom.append(option.replace('|value|',key).replace('|name|',languageConfig[key]));
+                                        }
+                                        langDom.val(langDom.attr('default'));
+                                    </script>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 前台显示模板 </label>
+                                <div class="col-sm-10">
+                                    <!-- <div class="row"> -->
+                                        {% if theme %}
+                                        <div id="theme_div">
+                                            {% if theme == 'style5+timer' %}
+                                            <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/style5.jpg">
+                                            {% else %}
+                                                {% if theme == 'wnczxzd.com' %}
+                                                    <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/style4.jpg">
+                                                {% else %}
+                                                    <img id="theme_img" src="http://shopadmin.stosz.com/image/theme/{{ theme|raw }}.jpg">
+                                                {% endif %}
+                                            {% endif %}
+                                            <span id="theme_text">{{ theme|raw }}</span>
+                                        </div>
+                                        {% else %}
+                                        <div id="theme_div">
+                                            <img id="theme_img" src="">
+                                            <span id="theme_text"></span>
+                                        </div>
+                                        {% endif %}
+                                        <button type="button" class="btn btn-primary" id="theme_layer" >选择模板</button>
+                                        <label><input type="checkbox" name="use_default" value="1">不使用模版</label>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                            <input name="styles" type="hidden" id="this_theme" value="{{ theme|raw }}">
+                            {% include 'theme_select.twig' %}
+                            <div class="form-group" style="">
+                                <label class="col-sm-2 col-sm-2 text-center" > 区号 </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="ncode" value="{{ originInfo.ncode }}" placeholder="示例： 886 (必填项)" ><a style="color:red;">*</a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_erp_number" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 text-center" > 前缀 </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="prefix" value="{{ originInfo.prefix }}" placeholder="示例： 886 (必填项)" ><em style="color:red;">*</em>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="error_erp_number" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    {% include 'theme_select.twig' %}
+
+
+    <script src="template/plugins/dialog/dist/dialog-plus.js"></script>
+    <script type="text/javascript">
+    if('{{ originInfo.styles }}' == 0){
+        $('input[name=\'use_default\']').attr('checked',true);
+        $('#theme_layer').attr('disabled','disabled');
+    }
+    $('.saveAll').click(function(){
+        if($('input[name=\'use_default\']').attr('checked')){
+            $('input[name=\'styles\']').val('');
+        }else{
+            if($('#theme_text').html()){
+                $('input[name=\'styles\']').val($('#theme_text').html());
+            }
+        }
+        if(!$('input[name=\'ncode\']').val()){
+            alert('区号不能为空');
+        }
+        if(!$('input[name=\'prefix\']').val()){
+            alert('前缀不能为空');
+        }
+        //prefix
+        $.post('/sms.php?act=save_isp_state',$("#form").serialize()).success(function(d){
+            d = JSON.parse(d);
+            if (d.ret) {
+                if(confirm("保存成功，是否跳转到列表页？"))
+                {
+                    window.location.href ='/index.php?#/sms/states_list';
+                }
+                else
+                {
+                    window.location.href ='/sms.php?act=isp_state_edit';
+                }
+            } else {
+                   alert(d.msg);
+            }
+        })
+    });
+
+    // 设置(清空)模版值
+    function setTheme(val, title, thumb){
+        $('#theme_img').attr('src', thumb||'');
+        $('#theme_text').html(title||'');
+        $('[name="theme"]').val(val||'');
+    }
+
+    $('input[name=\'use_default\']').click(function(){
+        if(this.checked){
+            $('input[name=\'use_default\']').attr('checked','checked');
+            $('#theme_layer').attr('disabled','disabled');
+        }else{
+            $('input[name=\'use_default\']').removeAttr('checked');
+            $('#theme_layer').removeAttr('disabled');
+        }
+    });
+    </script>
+
+
+
+{% endblock %}

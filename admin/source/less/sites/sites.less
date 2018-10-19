@@ -1,0 +1,191 @@
+div.sites {
+    div.operations{
+        font-weight: bold;
+        padding-left: 16px;
+        padding-right: 16px;
+             
+        button.el-button i{
+            margin-left: 8px;
+        }
+    }
+    
+    .hero-title{
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #666;
+    }
+    .hero-link{
+        font-size: 14px;
+        font-weight: bold;
+        color: #0080ff;
+    }
+    @font: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    .widget{
+        margin-left: 50px;
+        width: 100%;
+        margin-bottom: 50px;
+        .widget-heading{
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 20px;
+        }
+        .widget-control{
+            float: right;
+        }
+
+        .el-table{
+            .el-table__header-wrapper .cell{
+                font-size: 12px;
+                font-weight: bold;
+                color: #222;
+                height: 44px;
+                line-height: 44px;
+            }
+            .el-table__body-wrapper .cell{
+                font-size: 12px;
+                color: #666; 
+                padding: 10px;
+                height: auto;   
+                // line-height: 50px;
+            }
+        }
+        .el-table .cell, .el-table th>div {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+         .el-table.more{
+            .el-table__body-wrapper .cell{
+                height: 80px;  
+            }
+        }
+        
+    }
+
+
+    .widget:last-child{
+        margin-right: 50px;
+    }
+
+    .half{
+        width: 50% !important;
+    }
+
+    .quarter{
+        width: 25% !important;
+    }
+  
+    
+    .el-form-item{
+        margin-left: 20px;
+        //&:last-child{ margin-right: 20px; }
+        width: 100%;
+        .el-form-item__label{
+            font-size: 12px;
+            color: 222px;
+            font-weight: bold;
+        }
+        input, textarea{
+            border: 1px solid  #ccc;
+            font-size: 12px;
+            color: #666;
+            font-family:@font;
+        }
+        .el-form-item__label{
+            padding-top: 0px;
+        }
+        .el-form-item__content{
+            font-size: 12px;
+        }
+    }
+
+    .el-form{
+        padding-left: 50px;
+
+    }
+    
+    .content{
+        &.inversed {
+            overflow: hidden;
+            height: auto;
+        }
+        .upload{
+            height: 180px;
+        }
+        .heading{
+            .clear-history{
+                font-size: 12px;
+                color: 222px;
+                font-weight: bold;
+                float:right;
+            }
+            .title{
+                font-size: 14px;
+                color: 666px;
+            }
+            line-height: 44px;
+            height: 44px;
+            border-bottom: 1px solid #eee;
+            background: #f6f6f6;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+        .upload{
+            padding-left: 10px;
+        }
+        .listing{
+            padding-top: 16px;
+            .list-time{
+                margin-right: 50px;
+            }
+            color: #aaa;
+            font-size: 12px;
+            margin-left: 50px;
+            margin-right: 50px;
+            li{
+                padding-bottom: 16px;
+            }
+
+        }
+    }
+    .product_select {
+        table td {
+            padding: 10px;
+        }
+    }
+    .category_edit, .product_edit, .article-new{
+        .el-form-item{
+            padding-left: 0px;
+            margin-left:  0px;
+        }
+       .el-form{
+           padding-left:  0px;
+           position: relative;
+        }
+    }
+    .parent-title{
+        border-radius: 4px;
+        background: #FF5A5f;
+        color: white;
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .flex .widget{
+        max-width: 1000px;
+    }
+ 
+}
+.el-scrollbar__wrap{
+    display: inline-block;
+    width: 100%;
+    overflow: auto;
+}
+#mainlayer #page-comment-list .header-panel .select-category.el-dropdown > span.el-dropdown-link{
+    background: #fff!important;
+    border: none!important;
+}
+#mainlayer #page-comment-list .header-panel .select-category.el-dropdown > span.el-dropdown-link,
+.header-panel .control .select-category{
+    width: auto!important;
+}

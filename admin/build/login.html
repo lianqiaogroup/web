@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=1440, height=960, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+	<title>布谷鸟建站系统</title>
+    <script src="http://shopadmin.stosz.com/build/plugins/vue/vue.js"></script>
+	<script src="http://shopadmin.stosz.com/build/plugins/vue/vue-resource.min.js"></script>
+    <link href="http://shopadmin.stosz.com/build/style/login.css?v=1531381981169" rel="stylesheet">
+    <link href="http://cdn.bgnht.com/font/font-awesome.css?v=1.14" rel="stylesheet" />
+    
+    
+    <link href="/public/image/favicon.ico" type="image/x-icon" rel=icon>
+</head>
+<body>
+<div id="app" class="app">
+    <div class="appbackground"></div>
+    
+    <div class="form-login-heading">
+       <object data='http://shopadmin.stosz.com/build/images/Cuckoo.png' type='image/png'></object>
+    </div>
+    
+    <div class="form-input username">
+        <div class='inner'>
+            <div class='caption'>用户名</div>
+            <input type="text" name='email' autofocus required v-model="uname" form='form-login'>
+        </div>
+    </div>
+    <div class="form-input password">
+        <div class='inner'>
+            <div class='caption'>密码</div>
+            <input name='password' type='password'  required v-model="pwd" form='form-login'>
+        </div>
+    </div>
+    <div class="submit-button">
+        <button form='form-login' class="btn-login" v-bind:class="{ loging: isLogin == true }" type="button" @Click=onLogin>{{ loginLabel }}
+            <!--
+            <span class='outer'>
+                <span class='inner'>
+
+                </span>
+                
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 12' width='8' height='12'>
+                    <line x1='0' y1='0' x2='8' y2='6' stroke-width='2' fill='white' stroke='white'></line>
+                    <line x1='8' y1='6' x2='0' y2='12' stroke-width='2' fill='white' stroke='white'></line>
+                </svg>
+                
+            </span>
+            -->
+        <i class='fa fa-chevron-right'></i>
+        </button>
+    </div>
+    
+    
+        <form class="form-login" action="index.php?" method="post" id='form-login'>
+            <input type="hidden" name="act" value="login">
+        </form>
+    <div class='text-l version'>布谷鸟建站系统V{{version}}</div>
+    <div class='text-r'>由 技术研发部 开发提供</div>
+</div>
+
+<script type="text/javascript">
+    ;(function(){
+        var testServer = ["192.168.105.196:9090", "admintest.stosz.com", "www.shopadmin.com"];
+        var config = {
+            envfast: "production",
+            version: "4.1",
+        }
+        testServer.map(function(item){
+            window.location.href.indexOf(item) > -1 ? config.envfast = 'test' : null;
+        });
+        window.ConfigObject = new Vue({data: config})//make it reactive to components
+    })();
+</script>
+<script type="text/javascript" src="http://shopadmin.stosz.com/build/js/login.e57f910eebeff335b174.js"></script>
+</body>
+</html> 
+

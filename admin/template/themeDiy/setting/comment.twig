@@ -1,0 +1,21 @@
+<div class="module_boxer" id="module_comment">
+    <div class="module_title"><i class="iconfont icon-pinglun"></i>用户评论</div>
+    <form action="#" name="" onsubmit="return false">
+        <input type="hidden" name="product_id" value="{{ product_id }}">
+        <input type="hidden" name="module" value="comment">
+        <div>
+            <label><input name="open" value="1" type="radio"  c-bind-data="State.modules.comment.open"> 开启</label>
+            <label><input name="open" value="0" type="radio" checked="checked" c-bind-data="State.modules.comment.open"> 关闭</label>
+        </div>
+        <div>
+            评论数
+            <div>
+                <input type="int" name="count" class="form-control" c-bind-prop="value" c-bind-data="State.modules.comment.count">
+            </div>
+        </div>    
+        <p><span>请先导入商品评论</span></p>
+        <div class="button_layer">
+            <button data-click="handleModuleSave" class="btn btn-primary" type="submit">保存</button>
+        </div>
+    </form>
+</div>

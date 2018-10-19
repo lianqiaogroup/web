@@ -1,0 +1,58 @@
+@b_color : #222;
+@b_color2 : #bbaa77;
+@padding:4%;
+footer.footer{
+    position: fixed;
+    bottom: 0;
+    width:100%;
+    height:44px;
+    z-index:105;
+    max-width:640px;
+    background:@b_color;
+    li{
+    	float: left;
+    	width: 46%;
+    	&:nth-child(2){
+    		text-align:right;
+    	}
+    }
+    .price_lost{
+    	font-size: 0;
+	    line-height: 44px;
+	    padding-left:@padding;
+        color:@b_color2;
+    	&:before{
+    		content:'';
+    		width:16px;
+    		height:12px;
+    		display:inline-block;
+            background:url(../images/b-left.png) no-repeat;
+            background-size:12px;
+    	}
+    	span{
+    		font-size:12px;
+    	}
+    }
+    .buy_now{
+    	padding-right:@padding;
+		button{
+		    font-size: 16px;
+		    display: inline-block;
+		    line-height:44px;
+            color:@b_color2;
+		}
+		span.net{
+			border-right:2px solid @b_color2;
+		    border-bottom:2px solid @b_color2;
+			display: inline-block;
+		    width: 6px;
+		    height: 6px;
+		    transform:rotate(-45deg);
+		    -webkit-transform:rotate(-45deg);
+		}
+		#times{
+			color: @b_color2;
+			font-size: 12px;
+		}
+    }
+}

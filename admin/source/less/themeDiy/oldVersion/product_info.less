@@ -1,0 +1,69 @@
+.module_product_info {
+    position: relative;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    align-items:center;
+    padding:14px;
+    font-size: 32px;
+
+    .left{
+        background-size: 1px 12px;
+        background-repeat: repeat-y;
+        background-position:right;
+        h1{
+            font-weight:normal;
+            font-size:.48em;
+            line-height: 1.3em;
+        }
+        .dec_title {
+            font-size:.37333em;
+            color:#7f7f7f;
+            line-height:1.5em;
+            overflow:hidden;
+            text-overflow :ellipsis;
+            white-space:nowrap;
+        }
+        .tags {
+            vertical-align: middle;
+            line-height: 22px;
+            font-size: 0px;
+            height: 22px;
+            margin-top: 5px;
+            a {
+                line-height: 20px;
+                display:inline-block;
+                color:#f48f18;
+                border:1px solid #f48f18;
+                border-radius: 2px;
+                font-size: 12px;
+                padding:  0 5px;
+                margin-right: 5px;
+
+            }
+        }
+    }
+    .price{
+        color: #b4282d;
+        font-weight:bold;
+        font-size:.64em;
+        line-height:1.5em;
+    }
+}
+
+
+// 显示评论模块的
+.module_product_info.class-comment {
+
+}
+// 什么都不显示的
+.module_product_info.class-none {
+    padding: 14px;
+    .left {
+        padding: 0px;
+    }
+    .right {
+        display: none;
+    }
+}
+

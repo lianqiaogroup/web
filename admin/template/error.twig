@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <title>错误</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html">
+</head>
+<body>
+<img style="height: 120px;width: 120px;margin-top: 100px;display: block;margin-left: auto; margin-right: auto;" src="template/img/pay_fail.png"/>
+<div style="font-size: 27px; text-align: center; margin-top: 40px;">
+    <p> 出错了！</p>
+    <p>{{ content }}</p>
+</div>
+<a style="margin-left: auto;margin-right: auto;display: table;margin-top: 29px;font-size: 23px;" href="javascript:jump();" class="jump"><i id="down_time">5</i>s后返回 【点击跳转】</a>
+<script type='text/javascript'>
+    var down_time=parseInt(document.getElementById("down_time").innerText) || 5;
+    var url = "{{ url }}";
+    setInterval(function(){
+        if (down_time<=0){
+            jump();
+        }
+        else
+        {
+            down_time--;document.getElementById("down_time").innerText=down_time;
+        }},1000);
+
+      function jump() {
+        var url = "{{ url }}";
+        if(url)
+        {
+            window.location.href="{{ url }}";
+        }
+        else{
+            history.go(-1);
+        }
+    }
+
+</script>
+</body>
+</html>

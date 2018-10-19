@@ -1,0 +1,430 @@
+<style>
+#main-content {
+    margin-left: 250px;
+}
+.slideMenu .el-menu::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+.slideMenu .el-menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+.slideMenu .el-menu::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+.slideMenu .el-menu li.el-menu-item{
+	height: auto !important;
+	color: #666;
+}
+.slideMenu .el-menu .el-menu-item a{
+	height: 36px;
+}
+.checkmenu{
+	margin: 0 !important;
+	color: #666;
+}
+.el-menu--dark .el-menu-item, .el-menu--dark .checkmenu .el-submenu__title{
+	color: #666;
+}
+.se-menu{
+	display: none;
+	background: #111 !important;
+}
+.slideMenu .el-menu .se-menu .el-menu-item{
+	margin-left: 90px;
+}
+.slideMenu .el-menu .el-menu-item:hover a, .slideMenu .el-menu .el-menu-item:hover{
+	color: #fff;
+}
+.item.icons{
+	margin-right: 12px !important;
+}
+.item.icons .material-icons{
+	font-size: 25px !important;
+}
+i.lefticon{
+	margin-right: 20px;
+}
+i.righticon{
+	position: absolute;
+    top: 50%;
+    right: 20px;
+    margin-top: -7px;
+    transition: transform .3s;
+    font-size: 20px;
+}
+</style>
+<link rel="stylesheet" href="/build/style/main.css">
+<link rel="stylesheet" href="/build/plugins/element-ui/menu.css">
+
+
+<input type="hidden" id="id_department" value="{{admin.id_department}}">
+<input type="hidden" id="is_admin" value="{{ admin.is_admin }}">
+
+{% if admin.username == 'googleID' %}
+	<div class="slideMenu">
+		<div id="headers" class="headers">
+			<div class="logo">
+				<div class="logo-body">
+					<div class="logo-name">Cuckoo</div>
+					<div class="logo-text">布谷鸟建站系统v3.2.2</div>
+				</div>
+			</div>
+			<div class="login-info">
+				<div class="login-body">
+					<div class="login-text">Hi, {{ admin.username }} <a href="index.php?act=logout" class="login-out">注销</a></div>
+				</div>
+			</div>
+		</div>
+		<ul class="el-menu el-menu-vertical-demo el-menu--dark">
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/" class="router-link-exact-active router-link-active">
+					<div class="item">
+						<i class="el-icon-dpz-home"></i>
+					</div>
+					<div class="item">首页</div>
+				</a>
+			</li>
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/products" class="router-link-exact-active router-link-active">
+					<div class="item">
+						<i class="el-icon-dpz-product"></i>
+					</div>
+					<div class="item">单品站管理（所有产品）</div>
+				</a>
+			</li>
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="/document/index.html" target="_blank">
+					<div class="item">
+						<i class="el-icon-dpz-help"></i>
+					</div>
+					<div class="item">帮助中心</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+{% else %}
+	<div class="slideMenu">
+		<div id="headers" class="headers">
+			<div class="logo">
+				<div class="logo-body">
+					<div class="logo-name">Cuckoo</div>
+					<div class="logo-text">布谷鸟建站系统2.0</div>
+				</div>
+			</div>
+			<div class="login-info">
+				<div class="login-body">
+					<div class="login-text">Hi, {{ admin.username }} <a href="index.php?act=logout" class="login-out">注销</a></div>
+				</div>
+			</div>
+		</div>
+		<ul class="el-menu el-menu-vertical-demo el-menu--dark">
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/">
+					<div class="item">
+						<i class="el-icon-dpz-home"></i>
+					</div>
+					<div class="item">首页</div>
+				</a>
+            </li>
+            <li class="el-menu-item" style="padding-left: 20px;">
+                <a href="index.php?#/products" class="router-link-exact-active router-link-active">
+                    <div class="item">
+                        <i class="el-icon-dpz-product"></i>
+                    </div>
+                    <div class="item">单品站管理（所有产品）</div>
+                </a>
+            </li>
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/sites" class="">
+					<div class="item">
+						<i class="el-icon-dpz-site"></i>
+					</div>
+					<div class="item">集合站管理（主页管理）</div>
+				</a>
+			</li>
+			{% if admin.is_admin ==1 or admin.id_department == '497' or admin.id_department == '529' or admin.id_department == '530' or admin.id_department == '675' or admin.id_department == '685' %}
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/advert" class="">
+					<div class="item">
+						<i class="el-icon-dpz-theme"></i>
+					</div>
+					<div class="item">软文站管理</div>
+				</a>
+			</li>
+			{% endif %}
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/comments">
+					<div class="item" data-hilite='comment'>
+						<i class="el-icon-dpz-comment"></i>
+					</div>
+					<div class="item">评论管理</div>
+				</a>
+			</li>
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/analytics">
+					<div class="item icons">
+						<i class="material-icons">search</i>
+					</div>
+					<div class="item">订单信息查询</div>
+				</a>
+			</li>
+			{% if admin.is_admin ==1 or admin.id_department == '497' or admin.id_department == '529' or admin.id_department == '530' or admin.id_department == '661' or admin.id_department == '668' or admin.id_department == '669' %}
+				<li class="el-menu-item" style="padding-left: 20px;">
+	                <a href="/#/cloak" data-hilite='manage'>
+	                    <div class="item">
+	                        <i class="el-icon-dpz-moban"></i>
+	                    </div>
+	                    <div class="item">cloak关联管理</div>
+	                </a>
+	            </li>
+			{% endif %}
+			{% if admin.is_admin ==1 %}
+            <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/orders">
+					<div class="item">
+						<i class="el-icon-dpz-order"></i>
+					</div>
+					<div class="item" data-hilite='order'>订单明细查询</div>
+				</a>
+			</li>
+			{% endif %}
+			
+			{% if admin.is_admin ==1 %}
+			<li class="checkmenu">
+				<div class="el-submenu__title">
+					<i class="el-icon-dpz-theme lefticon"></i>
+					<span>模板管理</span>
+					<i class="material-icons righticon">keyboard_arrow_down</i>
+				</div>
+				<ul class="se-menu">
+					<a href="index.php?#/themes">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">单品站模板管理</div>
+						</li>
+					</a>
+					<a href="index.php?#/shopThemes">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">集合站模板管理</div>
+						</li>
+					</a>
+				</ul>
+			</li>
+			<li class="checkmenu">
+				<div class="el-submenu__title">
+					<i class="el-icon-dpz-currency lefticon"></i>
+					<span>系统设置</span>
+					<i class="material-icons righticon">keyboard_arrow_down</i>
+				</div>
+				<ul class="se-menu">
+					<a href="index.php?#/pay">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">支付管理</div>
+						</li>
+					</a>
+					<a href="index.php#/country">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">地区管理</div>
+						</li>
+					</a>
+					<a href="index.php#/currency">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">货币管理</div>
+						</li>
+					</a>
+					<a href="index.php#/#/sms/isp_states">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">短信配置</div>
+						</li>
+					</a>
+				</ul>
+			</li>
+			<li class="checkmenu">
+				<div class="el-submenu__title">
+					<i class="el-icon-dpz-admin lefticon"></i>
+					<span>管理员</span>
+					<i class="material-icons righticon">keyboard_arrow_down</i>
+				</div>
+				<ul class="se-menu">
+					<a href="index.php#/#/user">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">管理员列表</div>
+						</li>
+					</a>
+					<a href="index.php#/#/userlog">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">管理员操作日志</div>
+						</li>
+					</a>
+				</ul>
+			</li>
+			<li class="checkmenu">
+				<div class="el-submenu__title">
+					<i class="el-icon-dpz-home lefticon"></i>
+					<span>操作</span>
+					<i class="material-icons righticon">keyboard_arrow_down</i>
+				</div>
+				<ul class="se-menu">
+					<a href="index.php#/#/operationlog">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">站点操作日志</div>
+						</li>
+					</a>
+					<a href="index.php#/#/copySite">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">跨系统复制站点</div>
+						</li>
+					</a>
+					<a href="index.php#/#/reportStatistics">
+						<li class="el-menu-item" style="padding-left: 20px;">
+							<div class="item">爆款站查询</div>
+						</li>
+					</a>
+				</ul>
+			</li>
+			{% endif %}
+			
+			<!-- {% if admin.is_admin ==1 %} -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/pay">
+					<div class="item" data-hilite='comment'>
+						<i class="material-icons">speaker_notes</i>
+					</div>
+					<div class="item">支付管理</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php#/country">
+					<div class="item">
+						<i class="material-icons">monetization_on</i>
+					</div>
+					<div class="item" data-hilite='currency'>地区管理</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/currency">
+					<div class="item">
+						<i class="material-icons">monetization_on</i>
+					</div>
+					<div class="item" data-hilite='currency'>货币管理</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="user.php" data-hilite='manage'>
+					<div class="item">
+						<i class="material-icons">settings_applications</i>
+					</div>
+					<div class="item">管理员列表</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php?#/sms/isp_states" data-hilite='manage'>
+					<div class="item">
+						<i class="material-icons">settings_applications</i>
+					</div>
+					<div class="item">短信配置</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="/api.php?act=erp_list&page=1" data-hilite='manage'>
+					<div class="item">
+						<i class="material-icons">settings_applications</i>
+					</div>
+					<div class="item">接口配置</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="/company.php?act=list&page=1" data-hilite='manage'>
+					<div class="item">
+						<i class="material-icons">receipt</i>
+					</div>
+					<div class="item">公司用户</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php#/themes" data-hilite='manage'>
+					<div class="item">
+						<i class="material-icons">receipt</i>
+					</div>
+					<div class="item">单品站模板管理</div>
+				</a>
+			</li> -->
+			<!-- <li class="el-menu-item" style="padding-left: 20px;">
+				<a href="index.php#/shopThemes" data-hilite='manage'>
+					<div class="item">
+						<i class="material-icons">receipt</i>
+					</div>
+					<div class="item">集合站模板管理</div>
+				</a>
+            </li> -->
+            <!-- <li class="el-menu-item" style="padding-left: 20px;">
+                <a href="/#/cloak" data-hilite='manage'>
+                    <div class="item">
+                        <i class="material-icons">receipt</i>
+                    </div>
+                    <div class="item">cloak关联管理</div>
+                </a>
+            </li> -->
+            <!-- {% endif %} -->
+<!--             {% if admin.id_department == '497' or admin.id_department == '529' or admin.id_department == '530'%}
+            <li class="el-menu-item" style="padding-left: 20px;">
+                <a href="/#/cloak" data-hilite='manage'>
+                    <div class="item">
+                        <i class="material-icons">receipt</i>
+                    </div>
+                    <div class="item">cloak关联管理</div>
+                </a>
+            </li>
+            {% endif %} -->
+			<li class="el-menu-item" style="padding-left: 20px;">
+				<a href="/document/index.html" target="_blank">
+					<div class="item">
+						<i class="el-icon-dpz-help"></i>
+					</div>
+					<div class="item">帮助中心</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+{% endif%}
+<script>
+$(function(){
+  var items = {"order": "order", "currency": "currency", "comment": "comment"};
+  for(let [k, v] of Object.entries(items)){
+      if(window.location.href.indexOf(k) > - 1){
+          $("[data-hilite='" + v + "']").parents("li").addClass("is-active");
+      }
+  }
+  if(localStorage.version){
+	$(".logo-text").text("布谷鸟建站系统" + localStorage.version);
+  }
+
+  $('.checkmenu').on('click',function(){
+  	if($(this).hasClass('action')){
+  		$(this).find('ul.se-menu').hide();
+  		$(this).removeClass('action');
+  		$(this).find('.material-icons').html('keyboard_arrow_down');
+  	}else{
+  		$(this).find('ul.se-menu').show();
+  		$(this).addClass('action');
+  		$(this).find('.material-icons').html('keyboard_arrow_up');
+  	}
+  })
+});
+
+</script>
+
+<div class="crouching tiger, hidden dragon">
+<header class="header black-bg">
+    <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+    </div>
+    <div class="text-center">
+    	<a href="index.php" class="logo">后台管理系统</a>
+    </div>
+</header>
+</div>

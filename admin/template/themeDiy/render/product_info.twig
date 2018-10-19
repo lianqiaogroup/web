@@ -1,0 +1,16 @@
+<div class="module_product_info" c-bind-class="State.modules.product_info.showItem">
+    <div class="left">
+        <h1>{{ title }}</h1>
+        <div class="price">
+            {% if currency_prefix == 1 %}{{ currency_code }}{{ price }}{% endif %}
+            {% if currency_prefix == 0 %}{{ price }}{{ currency_code }}{% endif %}
+        </div>
+        <div class="tags">
+            {% set tags = tags|split(',') %}
+            {% for tag in tags %}
+                <a href="javascript:;" class="make">{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="inDrag_module_label">商品信息模块</div>
+</div>

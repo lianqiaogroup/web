@@ -1,0 +1,169 @@
+@import './config';
+.module_comment {
+    .picList {
+        > li {
+            > span {
+                font-size: 14px;
+            }
+            >  span:first-child {
+                color: @subColor;
+            }
+            > span:nth-child(2) span {
+                color: @subColor;
+            }
+        }
+    }
+}
+/*评论*/
+.big-i {
+    width: 100%;
+    height: 100%;
+    background: rgba(100,100,100,.6);
+    position: fixed;
+    top:0;
+    z-index: 998;
+    left: 0;
+}
+.buyinfo_hd {
+    display: block;
+    height:35px;
+    line-height:35px;
+    text-align:center;
+    font-size:16px;
+    background-color:  @mainColor;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-weight: normal;
+    display: none;
+}
+#big-i {
+    .buyinfo_table {
+        width:90%;
+        padding:10px 3% 20px;
+        background:#fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        display: none;
+        position: fixed;
+        top: 30px;
+        z-index: 999;
+        left: 2%;
+        right: 2%
+    }
+    .zaix {
+        font-size: 16px;
+        text-align: center;
+        padding-left: 35px;
+        margin-top: 16px;
+    }
+
+    .buyinfo_table_box {
+        padding-top:10px;
+    }
+    .buyinfo_table_box table {
+        width:100%;
+    }
+    .buyinfo_table_box tr {
+        padding:5px 0;
+        height:40px;
+    }
+    .table_td {
+        width:21%;
+        font-size:14px;
+        line-height:39px;
+        text-align:right;
+        vertical-align:top;
+    }
+    .table_cell {
+        width:78%;
+        padding-left:1%;
+    }
+    .input01 {
+        width:95%!important;
+        text-indent:5px;
+        height:25px!important;
+        padding:0!important;
+        line-height:25px;
+        border:1px solid #dadada;
+        font-size:12px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+    }
+    .input_btn {
+        width:70%;
+        margin:0 auto;
+        border:0;
+        font-size:16px;
+        color:#fff;
+        height:40px;
+        line-height:40px;
+        background: @subColor;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+    .tj {
+        text-align:center;
+    }
+    .input_btn01 {
+        width:50%;
+        margin:0 auto;
+        border:0;
+        margin-top:10px;
+        font-size:14px;
+        color:#fff;
+        height:37px;
+        line-height:36px;
+        background: @mainColor!important;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+    }
+    .input_btn:hover {
+        background:#FF1818!important;
+    }
+    .textarea_style {
+        width:95%;
+        text-indent:5px;
+        height:70px;
+        padding:0!important;
+        font-size:12px;
+        font-family: å¾®è½¯é›…é»‘;
+        line-height:22px;
+        margin-bottom:0px;
+        border:1px solid #dadada;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+    }
+    .buyinfo_table_box i {
+        font-style:normal;
+        color: @subColor;
+        padding:0 2px;
+    }
+    .line {
+        text-align:right;
+        font-weight:bold;
+        padding-right:6%;
+        color:#666;
+        font-size:15px;
+    }
+    .buyinfo_table_red {
+        color: @subColor;
+    }
+    .closeBtn {
+        width: 30px;
+        height: 30px;
+        background: url('../images/close.png');
+        background-size:100% auto;
+        float: right
+    }
+    #img_1 img {
+        width: 20px;
+    }
+}

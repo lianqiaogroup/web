@@ -1,0 +1,12 @@
+{
+    "label": {
+        "mainlist": ["语言", "主页", "标题", "SEO标题", "SEO描述"],
+        "focus":    ["排序", "ID", "产品信息"],
+        "article":  ["排序", "ID", "标题"]
+    },
+    "data-key": {
+        "mainlist": ["lang", "domain", "title", "seo_title", "seo_description"],
+        "focus":    ["sort", "product_id", ""],
+        "article":  ["sort", "article_id", "title"]
+    }
+}

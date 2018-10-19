@@ -1,0 +1,295 @@
+@import './config';
+
+#page-order {
+    max-width: 540px;
+    margin: 0 auto;
+    display: none;
+    
+    .u-detail-back {
+        width: 50px;
+        height: 50px;
+        background-image: url(../images/detail-back.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    .m-orderFt {
+        display: block;
+        zoom:1;
+        z-index: 1;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        max-width: 540px;
+        height: 50px;
+        background-color: #fff;
+        border-top: 1px solid rgba(0,0,0,.2);
+        padding-left: 15px;
+        box-sizing: border-box;
+        .actualPrice {
+            float: right;
+            line-height: 50px;
+            font-size: 16px;
+            margin-right: 10px;
+            .label, .value {
+                color: @mainColor;
+                font-size: 16px;
+            }
+            .value {
+                font-weight: 600;
+            }
+        }
+    }
+    .m-orderFt .btn {
+        float: right;
+        width: 120px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 0;
+    }
+    .w-button, .w-button:focus, .w-button:visited {
+        display: inline-block;
+        vertical-align: middle;
+        ;text-align: center;
+        font-size: 16px;
+        color: #fff;
+        border: 1px solid @mainColor;
+        background-color: @mainColor;
+        overflow: hidden;
+    }
+    #POP800_LEAVEWORD_DIV {
+        display: none !important;
+    }
+    .decimal {
+        color: @mainColor
+    }
+    .tips {
+        padding: 5px 15px;
+        color: #999
+    }
+
+
+    /*规格*/
+    .f-fl {
+        float: left;
+    }
+    .dt-btns:after, .dt-paramselect .info-con:after {
+        display: block;
+        clear: both;
+        visibility: hidden;
+        height: 0;
+        overflow:hidden;
+        content: ".";
+    }
+    .dt-paramselect .spec-con {
+        padding: 0 15px 60px 15px;
+    }
+    .dt-paramselect .info-con {
+        padding: 15px;
+        padding-top: 30px;
+        background: #fff;
+        border-bottom: 1px solid #E0E0E0;
+    }
+    .dt-paramselect .info-con .left {
+        width: 100px;
+        height:100px;
+        overflow: hidden;
+        border-radius: 2px;
+        background-color: #fff;
+        margin-right: -100px;
+    }
+    .dt-paramselect .info-con .left img {
+        width: 100%;
+        height: 100%;
+    }
+    .dt-paramselect .info-con .right {
+        line-height: 15px;
+        width: 100%;
+        padding-top: 0px;
+        padding-left: 10px;
+    }
+    .dt-paramselect .info-con .right .con {
+        margin-left: 100px;
+    }
+    .dt-paramselect .info-con .right .price {
+        font-size: 16px;
+        padding-bottom: 10px;
+    }
+    .dt-paramselect .info-con .right .money {
+        font-weight: 600
+    }
+    .dt-paramselect .info-con .right .sku {
+        font-size: 16px;
+    }
+    .dt-paramselect .info-con .right .sku .it {
+        margin-right: 5px;
+    }
+    .u-format,.u-fornum {
+        padding: 0 15px;
+        font-size: 16px
+    }
+    .u-format .tt,.u-fornum .tt {
+        line-height: 15px;
+        padding-bottom: 10px;
+        font-size: 16px;
+    }
+    .u-format .package {
+        padding-bottom: 15px;
+    }
+    .u-format .package .tab {
+        display: inline-block;
+        width: 90%;
+        position: relative;
+        vertical-align: middle;
+        border-radius: 3px;
+        padding: 3px 15px;
+        font-size: 14px;
+        text-align: center;
+        margin-right: 15px;
+        margin-bottom: 10px;
+        border: 1px solid #333;
+    }
+    .u-format .package .u-spec-sel {
+        background-repeat: no-reqeat;
+        background-size: 100%;
+        width: 0px;
+        height: 0px;
+        border-bottom: 15px solid @mainColor;
+        border-left: 15px solid transparent;
+    }
+    .u-format .package .tab .u-spec-sel {
+        display: none;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    .u-format .con {
+        padding-bottom: 15px;
+    }
+    .u-format .con .tab {
+        display: inline-block;
+    }
+    .u-format .con .tab {
+        position: relative;
+        vertical-align: middle;
+        border-radius: 3px;
+        padding: 0 15px;
+        font-size: 14px;
+        line-height: 30px;
+        text-align: center;
+        margin-right: 15px;
+        margin-bottom: 10px;
+        border: 1px solid #333;
+    }
+    .u-format .con .tab-sel,.u-format .package .tab-sel {
+        border: 1px solid @mainColor;
+        color: @mainColor;
+    }
+    .u-format .con .u-spec-sel {
+        // background-image: url(../images/spec-sel.png);
+        background-color: transparent;
+        background-repeat: no-reqeat;
+        background-size: 100%;
+        width: 0px;
+        height: 0px;
+        border-bottom: 15px solid @mainColor;
+        border-left: 15px solid transparent;
+    }
+    .u-format .con .tab .u-spec-sel {
+        display: none;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    .u-format .con .tab-sel .u-spec-sel,.u-format .package .tab-sel .u-spec-sel {
+        display: block;
+    }
+    .m-selnum {
+        display: inline-block;
+        background-image: url(../images/selnum.png);
+        background-size:100% 100%;
+    }
+    .m-selnum.dr {
+        background-image: url(../images/selnum.png)
+    }
+    .m-selnum .less, .m-selnum .more, .m-selnum .textWrap, .m-selnum input {
+        border: none;
+        background-color: transparent;
+    }
+    .m-selnum .less, .m-selnum .more, .m-selnum .textWrap {
+        position: relative;
+        float: left;
+        height: 32px;
+    }
+    .m-selnum .textWrap {
+        position: relative;
+        width: 60px;
+        text-align: center;
+        font-size: 14px;
+    }
+    .m-selnum .less, .m-selnum .more {
+        width: 41px;
+    }
+    .m-selnum .textWrap input {
+        position: relative;
+        z-index: 1;
+        font-size: 14px;
+    }
+    .m-selnum input {
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        text-align: center;
+        color: #333;
+    }
+    .u-detail-back {
+        width: 50px;
+        height: 50px;
+        background-image: url(../images/detail-back.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+
+// 主题定制
+.page_order_setClass(@mainColor, @subColor, @hightLight){
+    .w-button,
+    .u-format .tab-sel {
+        border-color: @mainColor !important;
+    }
+    .actualPrice .label,
+    .actualPrice .value,
+    .actualPrice .decimal,
+    .u-format .tab-sel {
+        color: @mainColor !important;
+    }
+    .w-button {
+        background-color: @mainColor !important;
+    }
+    .u-format .tab-sel .u-spec-sel {
+        border-bottom-color: @mainColor !important;
+    }
+}
+
+#page-order {
+    &.class-a {
+        .page_order_setClass(#b4282d,red,#b4282d);
+    }
+    &.class-b {
+        .page_order_setClass(#e70382,#ed71ad,#e70382);
+    }
+    &.class-c {
+        .page_order_setClass(#08a5a0,#09bab4,#08a5a0);
+    }
+    &.class-d {
+        .page_order_setClass(#e55968,#f67280,#e55968);
+    }
+    &.class-e {
+        .page_order_setClass(#6971a4,#8c94c6,#6971a4);
+    }
+    &.class-f {
+        .page_order_setClass(#b94e8a,#d87ca1,#b94e8a);
+    }
+}
+

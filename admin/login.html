@@ -1,0 +1,94 @@
+
+
+
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="/admin/static/images/favicon.ico" type="image/x-icon">
+    <title>erp登录</title>
+    <style>
+        .login{
+            height: 100%;
+            width:  100%;
+            position: relative;
+            background: url(/admin/static/images/loginpage_background.jpg) left top no-repeat;
+            background-size:cover;
+        }
+        body, html{
+            height: 100%;
+            width:  100%;
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+            position: relative;
+        }
+        .login input{
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            height: 30px;
+            font-size: 14px;
+            line-height:20px;
+            padding: 5px 20px;
+            margin-bottom: 30px;
+            outline: none;
+            width: 300px;
+        }
+        .login input:focus{
+            /*border: 1px solid rgba(0, 128, 255, 1);*/
+        }
+        .login input[type='submit']{
+            color: grey;
+            padding: 30px auto;
+            background: linear-gradient(to bottom, white, rgb(216, 239, 239));
+            cursor: pointer;
+        }
+        .login input[type='submit']:hover{
+            background: linear-gradient(to bottom, white, rgba(216, 239, 239, 0.4));
+        }
+        .message{
+            font-size: 12px;
+            color: #fff;
+            line-height: 26px;
+            margin: 10px 0px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        #absolute_center_content_wrap{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 60%;
+            text-align: center;
+            height: 350px;
+        }
+    </style>
+</head>
+<body>
+<div class='login'>
+    <div id="absolute_center_content_wrap">
+            <div class='logo'><img src='/admin/static/images/loginlogo.png'></div>
+            <div class='message' title=""></div>
+            <form action="/index.php?ticket=1" method="post">
+                <div><input type="text" name="loginid" placeholder='账号' autofocus required></div>
+                <div><input type="password" name="password" placeholder='密码' required></div>
+                <div><input type="submit" value="登录"></div>
+            </form>
+    </div>
+    <script>
+        if(top != self){
+            top.location = self.location;
+        }
+    </script>
+</div>
+</body>
+</html>

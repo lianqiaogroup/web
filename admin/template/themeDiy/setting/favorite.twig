@@ -1,0 +1,15 @@
+<div class="module_boxer" id="module_favorite">
+    <div class="module_title"><i class="iconfont icon-guanlian"></i>关联推荐</div>
+    <form action="#" name="" onsubmit="return false">
+        <input type="hidden" name="product_id" value="{{ product_id }}">
+        <input type="hidden" name="module" value="favorite">
+        <div>
+            <label><input name="open" value="1" type="radio"> 开启</label>
+            <label><input name="open" value="0" type="radio" checked="checked"> 关闭</label>
+        </div>
+        <p><button>选择关联商品</button></p>
+        <div class="button_layer">
+            <button data-click="handleModuleSave" class="btn btn-primary" type="submit">保存</button>
+        </div>
+    </form>
+</div>

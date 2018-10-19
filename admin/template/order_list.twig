@@ -1,0 +1,211 @@
+{% extends 'base.twig' %}
+  {% block style %}
+       <style>
+           .table tr td{font-size: 12px;height: 60px; line-height: 60px;}
+       </style>
+      <link href="template/plugins/pnotify/css/pnotify.custom.css" rel="stylesheet" type="text/css">
+      <script src="template/plugins/pnotify/js/pnotify.custom.js" type="text/javascript"></script>
+      {% endblock %}
+{% block content %}
+    <section id="main-content">
+     <section class="wrapper">
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="content-panel">
+                    <h4><i class="fa fa-directory"></i> 订单列表  </h4>
+                </div>
+            </div>
+        </div>
+         <section class="filter bg-warning" style="padding: 10px 0;">
+             <form action="order.php">
+                 <div class ="row">
+                     <div class="col-sm-3">
+                         <div class="form-group">
+                             <label class="col-sm-5 col-sm-5 text-right"> 订单号/erp订单号 </label>
+                             <div class="col-sm-7">
+                                 <input class="form-control " type="text" name="order_no" value="{{ filter.order_no }}">
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-2">
+                         <div class="form-group">
+                             <label class="col-sm-4 col-sm-4 text-right"> 通信状态 </label>
+                             <div class="col-sm-8">
+                                <select name="erp_status" class="form-control">
+                                       <option value=""> 请选择..  </option>
+                                        <option value="FAIL" {% if filter.erp_status =='FAIL' %} selected {% endif %}> 回调失败 </option>
+                                        <option value="CREATE_FAIL" {% if filter.erp_status =='CREATE_FAIL' %} selected {% endif %}> 创建失败 </option>
+                                        <option value="SUCCESS" {% if filter.erp_status =='SUCCESS' %} selected {% endif %}> 成功 </option>
+                                </select>
+                             </div>
+                         </div>
+                     </div>
+                
+                     <div class="col-sm-2">
+                         <div class="form-group">
+                             <label class="col-sm-4 col-sm-4 text-right"> 支付状态 </label>
+                             <div class="col-sm-8">
+                                 <select name="order_status" class="form-control">
+                                     <option value=""> 请选择..  </option>
+                                     <option value="NOT_PAID" {% if filter.order_status =='NOT_PAID' %} selected {% endif %}> 下单未支付 </option>
+                                     <option value="SUCCESS" {% if filter.order_status =='SUCCESS' %} selected {% endif %}> 支付成功 </option>
+                                     <option value="FAIL" {% if filter.order_status =='FAIL' %} selected {% endif %}> 支付失败 </option>
+                                 </select>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-2">
+                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i> 搜素 </button>
+                     </div>
+            
+                 </div>
+             </form>
+         </section>
+         <section id="unseen">
+             <table class="table table-bordered ">
+                 <thead>
+                 <tr>
+                     <th>order_id</th>
+                     <th>订单号</th>
+                     <th>erp订单号</th>
+                     <th>产品</th>
+                     <th>下单人</th>
+                     <th>下单时间</th>
+                     <th>email</th>
+                     <th>手机</th>
+                     <th>地址</th>
+                     <th>支付方式</th>
+                     <th>支付金额</th>
+                     <th>erp状态</th>
+                     <th>是否支付</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                        {% for g in goodsList %}
+                             <tr>
+                                 <td>  {{ g.order_id }} <i class="fa  fa-plus-square-o plus"></i></td>
+                                 <td> {{ g.order_no }}</td>
+                                 <td> {{ g.erp_no }}</td>
+                                 <td> <img src="{{ g.thumb |replace({"img.stosz.com":"imgcn.stosz.com",'-shop':'-shop80'})}}" width="60px" height="60px">{{ g.title }}</td>
+                                 <td> {{ g.name }} {{ g.last_name }}</td>
+                                 <td> {{ g.add_time }}</td>
+                                 <td> {{ g.email }}</td>
+                                 <td> {{ g.mobile }}</td>
+                                 <td> {{ g.address }}</td>
+                                 <td> {{ g.pay_type }}</td>
+                                 <td> {{ g.currency_code }}{{ g.payment_amount}}</td>
+                                 <td>
+                                     {% if g.erp_status =="SUCCESS" %}
+                                         <span class="text-info bg-success">回调通信成功 </span>
+                                     {% elseif g.erp_status =="FAIL" %}
+                                        <span class="bg-danger text-danger">回调通信失败</span>
+                                     {% elseif g.erp_status =="FAIL_CREATE" %}
+                                         <span class="bg-danger text-danger">创建订单失败</span>
+                                     {% endif %}
+                                 </td>
+                                 <td>
+                                    {% if g.order_status =="SUCCESS" %}
+                                          <i class="text-success fa   fa-check" ></i>
+                                        {% else %}
+                                           <i class="text-danger fa  fa-times" ></i>
+                                     {% endif %}
+                                     
+                                  </td>
+                                 <td>
+                                       {% if g.erp_status =="FAIL" or g.erp_status =="CREATE_FAIL" %}
+                                          <button class="btn btn-primary sign" order_id = {{ g.order_id }}> 重新通信 </button>
+                                       {% endif %}
+                                 </td>
+                             </tr>
+                            <tr>
+                                <td colspan="20">
+                                    <i class=" fa fa-exclamation text-success"> 支付状态:</i>  <span {% if g.order_status !="SUCCESS" %} class="text-danger"{% endif %}>{{ g.order_msg }}</span>
+                                    {% if g.erp_status =="FAIL" %} <br/>
+                                        <i class="fa fa-exclamation text-success"> ERP通信失败:</i>  <span  class="text-danger">{{ g.post_erp_msg }}</span> {% endif %}
+                                </td>
+                            </tr>
+                            {% if g.orderGoods %}
+                            <tr class="orderGoods hide">
+                              <td colspan="20" >
+                                  <table  class="table table-bordered ">
+                                      <thead>
+                                        <th>产品名</th>
+                                        <th>属性</th>
+                                        <th>单价</th>
+                                        <th>数量</th>
+                                        <th>总价</th>
+                                      </thead>
+                                      <tbody>
+                                            {% for o in g.orderGoods %}
+                                                <tr>
+                                                    <TD>{{ o.title }}</TD>
+                                                    <TD class="bg-warning">
+                                                        {% for a in o.attr %}
+                                                         {{ a.name }} --
+                                                        {% endfor %}
+                                                    </TD>
+                                                    <TD> {{ g.currency_code }}{{ o.price }}</TD>
+                                                    <TD>{{ o.num }}</TD>
+                                                    <TD> {{ g.currency_code }}{{ o.total }}</TD>
+                                                </tr>
+                                            {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                 </tbody>
+             </table>
+             <div class="text-center">
+                 {{ pageHtml|raw }}
+             </div>
+     </section>
+    </section>
+          <script type="text/javascript">
+              highlight_subnav('order.php?');
+                 $(".plus").click(function () {
+                  
+                          var td = $(this).parents('tr').nextUntil('.orderGoods').next();
+                      
+                          if(td.css('display') =="" || td.css('display')  =="none")
+                          {
+                              $(this).removeClass('fa-plus-square-o') ;
+                              $(this).addClass('fa-minus-square-o') ;
+                              td.removeClass('hide');
+                          }
+                          else{
+                              $(this).addClass('fa-plus-square-o') ;
+                              $(this).removeClass('fa-minus-square-o') ;
+                              td.addClass('hide');
+                          }
+                        
+                 });
+              
+              $(".sign").click(function () {
+                    var url ='order.php?';
+                    var $this = $(this);
+                    var order_id =  $(this).attr('order_id');
+                     $(this).attr('disabled','disabled') ;
+                    $.post(url,{act:'erpTransport',order_id:order_id}).success(function (data) {
+                        var ret = JSON.parse(data);
+                        if(ret.ret)
+                        {
+                            location.reload()
+                        }
+                        else{
+                            new PNotify({
+                                title: '错误！！',
+                                text: ret.msg,
+                                type: 'error',
+                                addclass: 'stack-bar-top'
+                            });
+                            $this.attr('disabled',false) ;
+                        }
+                    })
+                
+              })
+              
+          </script>
+{% endblock %}

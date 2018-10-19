@@ -1,0 +1,264 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+@font-face{
+	font-family: 'Bank Gothic';
+	src: url('{{ resouce-origin }}/plugins/font/Bank Gothic Medium BT.ttf');
+}
+
+body{
+	background: black;
+}
+
+.app{
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-size: cover;
+	background-position: top center;
+	
+}
+
+.appbackground{
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	animation: universe 40s infinite linear;
+	background-size: 100vw 100vh;
+}
+
+@keyframes universe{
+	0%{
+		background-image: url('{{ resouce-origin }}/images/bg1.jpg');
+		opacity: 0;
+	}
+	12.5%{
+		background-image: url('{{ resouce-origin }}/images/bg1.jpg');
+		opacity: 0.5;
+	}
+	24.99%{
+		background-image: url('{{ resouce-origin }}/images/bg1.jpg');
+		opacity: 0;
+	}
+	25.01%{
+		background-image: url('{{ resouce-origin }}/images/bg2.jpg');
+		opacity: 0;
+	}
+	37.5%{
+		background-image: url('{{ resouce-origin }}/images/bg2.jpg');
+		opacity: 0.5;
+	}
+	49.99%{
+		background-image: url('{{ resouce-origin }}/images/bg2.jpg');
+		opacity: 0;
+	}
+	50.01%{
+		background-image: url('{{ resouce-origin }}/images/bg3.jpg');
+		opacity: 0;
+	}
+	62.5%{
+		background-image: url('{{ resouce-origin }}/images/bg3.jpg');
+		opacity: 0.5;
+	}
+	74.99%{
+		background-image: url('{{ resouce-origin }}/images/bg3.jpg');
+		opacity: 0;
+	}
+	75.01%{
+	    background-image: url('{{ resouce-origin }}/images/bg4.jpg');
+		opacity: 0;
+	}
+	87.5%{
+		background-image: url('{{ resouce-origin }}/images/bg4.jpg');
+		opacity: 0.5;
+	}
+	99.99%{
+		background-image: url('{{ resouce-origin }}/images/bg4.jpg');
+		opacity: 0;
+	}
+	100%{
+		background-image: url('{{ resouce-origin }}/images/bg1.jpg');
+		opacity: 0;
+	}
+}
+
+
+
+.form-login-heading {
+			color: #fff;
+			font-family: "Bank Gothic";
+			font-size: 64px;
+			position: absolute;
+			left: 100px;
+			top: 200px;
+}
+
+.form-input{
+	width: 322px;
+	height: 70px;
+	border-radius: 4px;
+	&.focus{
+		background: linear-gradient(to right, #0080FF, #1EC0FF);
+		box-shadow: 0 0 16px #1EC0FF;
+		.inner.hover{
+			box-shadow: none;
+		}
+	}
+	position:absolute;
+	&.username{
+		left: 100px;
+		top: 300px;
+	}
+	&.password{
+		left: 100px;
+		top: 388px;
+	}
+	cursor: text;
+	.inner.hover{
+		box-shadow: inset 0 4px 8px 0 rgba(0,0,0,0.16);
+	}
+	.inner{
+		
+		position: absolute;
+		width: 320px;
+		height: 70px;
+		background: white;
+		top: 1px;
+		left: 1px;
+		border-radius: 4px;
+		height: 68px;
+
+		.caption{
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			font-size: 12px;
+			color: #AAAAAA;
+			line-height: 18px;
+			pointer-events: none;
+		}
+		input{
+			outline: none;
+			font-size: 14px;
+			color: #222222;
+			top: 38px;
+			left: 10px;
+			font-size: 14px;
+			color: #222222;
+			height: 20px;
+			position: absolute;
+			border:none;
+			width: 180px;
+			padding: 0px;
+		}
+		input:-webkit-autofill{
+			//background-color: white !important;
+			-webkit-box-shadow: 0 0 0px 1000px white inset
+		}
+	}
+
+	
+}
+
+		
+		
+
+	.btn-login {
+		i{
+			margin-left: 5px;
+			font-size: 14px;
+			transform: scale(0.8);
+			margin-top: -1px;
+			display: inline-block;
+
+		}
+		cursor: pointer;
+		line-height: 36px;
+		background: #0080FF;
+		border-radius: 22px;
+		font-size: 16px;
+		color: #FFFFFF;
+		font-weight: bold;
+		position: absolute;
+		left: 100px;
+		top: 476px;
+		width: 80px;
+		height: 36px;
+		border: none;
+		&.loging {
+			background: #0080FF;
+			.outer .inner{
+				border-left-color: #0080FF;
+			}
+		}
+		&:hover{
+			background: #1EC0FF;
+			.outer .inner{
+				border-left-color: #1EC0FF;
+			}
+		}
+		&:hover.loging{
+			background: #0080FF;
+			.outer .inner{
+				border-left-color: #0080FF;
+			}
+			
+		}
+
+		.outer{
+			width: 0px;
+			height: 0px;
+			display: inline-block;
+			position: absolute;
+			margin: auto 5px;
+			border-top:8px transparent solid;
+            border-right:12px transparent solid;
+            border-bottom:8px transparent solid;
+			border-left:12px white solid;
+			top: 10px;
+			.inner{
+				width: 0px;
+				height: 0px;
+				display: inline-block;
+				position: absolute;
+				top: -6px;
+				left: -12px;
+				border-top:7px transparent solid;
+				border-right:10px transparent solid;
+				border-bottom:8px transparent solid;
+				border-left:10px #0080FF solid;
+			}
+		}
+	}
+	
+
+	.text-l{
+		font-size: 14px;
+		color: #FFFFFF;
+		font-weight: bold;
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+	}
+
+	.text-r{
+		font-size: 14px;
+		color: #FFFFFF;
+		font-weight: bold;
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+	}
+	

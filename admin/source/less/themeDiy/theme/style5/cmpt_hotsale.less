@@ -1,0 +1,30 @@
+@import './config';
+
+.hostsales {
+    font-size:14px;
+    border-top:1px dashed #dcdcdc;
+    border-bottom:1px dashed #dcdcdc;
+    padding:8px 0 8px 2px;
+    .percentBar {
+        display: inline-block;
+        width: 40%;
+        height: 5px;
+        border: 1px solid @mainColor;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    #progress {
+        display:block;
+        height: 100%;
+        background: @mainColor;
+    }
+    .progress {
+        display: inline-block;
+        height: 100%;
+        background: #F53B3B;
+    }
+    #percentNum {
+        font-size:14px;
+        margin-left:4px;
+    }
+}
