@@ -1,0 +1,22 @@
+<?php
+//#!/usr/bin/env php
+require __DIR__.'/vendor/autoload.php';
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+#define('app_path',(dirname(__FILE__)).'/' );
+#define('environment','office');
+#define('environment','idc');
+include_once 'admin/base.php';
+$application->add(new \cmd\SyncZoneCmd());
+$application->add(new \cmd\SyncCurrencyCmd());
+$application->add(new \cmd\SyncCountryCmd());
+$application->add(new \cmd\SyncErpStatusCmd());
+$application->add(new \cmd\SyncAllErpStatusCmd());
+$application->add(new \cmd\FormatUsersCmd());
+$application->add(new \cmd\monitorIsp());
+$application->add(new \cmd\SendTestOrderToBLN());
+$application->add(new \cmd\SendAllOrderToBLN());
+$application->add(new \cmd\SendOrderToBLN());
+$application->add(new \cmd\ErpDebug());
+$application->run();
